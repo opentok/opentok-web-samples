@@ -43,7 +43,7 @@ Heroku](https://github.com/opentok/learning-opentok-php#automatic-deployment-to-
 1. Clone this repository.
 
 2. Open the folder that contains the sample you want to run (such as `1. Basics`). Navigate to 
-   the `web/js` directory and make a copy of the sampleconfig.js file named config.js.
+   the `js` directory and make a copy of the sampleconfig.js file named config.js.
 
 3. Edit the config.js file and set the value for `SAMPLE_SERVER_BASE_URL`.
 
@@ -72,7 +72,7 @@ Heroku](https://github.com/opentok/learning-opentok-php#automatic-deployment-to-
     a localhost URL in Chrome). For example, you can test a page from http://localhost if you have
     a web server set up on your local machine.
 
-5. Once you have the server running open the index.html in a supported browser.
+2. Once you have the server running open the index.html in a supported browser.
    For example, if our local web server is running on port 8000, load the following URL:
 
    http://localhost:8000
@@ -81,9 +81,9 @@ Heroku](https://github.com/opentok/learning-opentok-php#automatic-deployment-to-
    (Internet Explorer requires installation of the OpenTok plugin, which the library asks you
    to install, if you haven't already.)
 
-6. When prompted, grant the page access to your camera and microphone.
+3. When prompted, grant the page access to your camera and microphone.
 
-7. Mute the speaker on your computer, and then load the page again in another browser tab.
+4. Mute the speaker on your computer, and then load the page again in another browser tab.
 
    You will see a person-to-person video chat session using OpenTok.
 
