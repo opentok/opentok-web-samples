@@ -4,12 +4,12 @@ Sample applications for using the [OpenTok.js](https://tokbox.com/developer/sdks
 
 The code for this sample is found the following subdirectories:
 
-* 1. Basics -- This sample shows you how to connect to an OpenTok session, publish a stream,
+* Basic Video Chat -- This sample shows you how to connect to an OpenTok session, publish a stream,
   subscribe to a stream, and mute audio.
 
-* 2. Archiving -- This sample shows you how to record an OpenTok session.
+* Archiving -- This sample shows you how to record an OpenTok session.
 
-* 3. Signaling -- This sample shows you how to use the OpenTok signaling API to implement text chat.
+* Signaling -- This sample shows you how to use the OpenTok signaling API to implement text chat.
 
 See the README file in each of these subdirectories for application-specific notes.
 
@@ -42,8 +42,8 @@ Heroku](https://github.com/opentok/learning-opentok-php#automatic-deployment-to-
 
 1. Clone this repository.
 
-2. Open the folder that contains the sample you want to run (such as `1. Basics`). Navigate to 
-   the `js` directory and make a copy of the sampleconfig.js file named config.js.
+2. Open the folder that contains the sample you want to run (such as `Basic Video Chat`). Navigate
+   to the `js` directory and make a copy of the sampleconfig.js file named config.js.
 
 3. Edit the config.js file and set the value for `SAMPLE_SERVER_BASE_URL`.
 
