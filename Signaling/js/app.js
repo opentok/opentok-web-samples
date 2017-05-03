@@ -5,14 +5,22 @@ var apiKey,
     response;
 
 $(document).ready(function() {
-  // Make an Ajax request to get the OpenTok API key, session ID, and token from the server
-  $.get(SAMPLE_SERVER_BASE_URL + '/session', function(res) {
-    apiKey = res.apiKey;
-    sessionId = res.sessionId;
-    token = res.token;
-
+  // See the confing.js file.
+  if (API_KEY && TOKEN && SESSION_ID) {
+    apiKey = API_KEY;
+    sessionId = SESSION_ID;
+    token = TOKEN;
     initializeSession();
-  });
+  } else if (SAMPLE_SERVER_BASE_URL) {
+    // Make an Ajax request to get the OpenTok API key, session ID, and token from the server
+    $.get(SAMPLE_SERVER_BASE_URL + '/session', function(res) {
+      apiKey = res.apiKey;
+      sessionId = res.sessionId;
+      token = res.token;
+
+      initializeSession();
+    });
+  }
 });
 
 function initializeSession() {

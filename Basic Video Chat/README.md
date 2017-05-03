@@ -48,25 +48,36 @@ overview](https://tokbox.com/opentok/tutorials/create-token/).
 Upon starting up, the application executes the following code in the app.js file:
 
     $(document).ready(function() {
-      // Make an Ajax request to get the OpenTok API key, session ID, and token from the server
-      $.get(SAMPLE_SERVER_BASE_URL + '/session', function(res) {
-        apiKey = res.apiKey;
-        sessionId = res.sessionId;
-        token = res.token;
-
+      // See the confing.js file.
+      if (API_KEY && TOKEN && SESSION_ID) {
+        apiKey = API_KEY;
+        sessionId = SESSION_ID;
+        token = TOKEN;
         initializeSession();
-      });
+      } else if (SAMPLE_SERVER_BASE_URL) {
+        // Make an Ajax request to get the OpenTok API key, session ID, and token from the server
+        $.get(SAMPLE_SERVER_BASE_URL + '/session', function(res) {
+          apiKey = res.apiKey;
+          sessionId = res.sessionId;
+          token = res.token;
+          
+          initializeSession();
+        });
+      }
     });
 
-This method makes an XHR (or Ajax request) to the "/session" endpoint of the web service. The web
-service returns an HTTP response that includes the session ID, the token, and API key formatted as
-JSON data:
+This method checks to see if you've set hardcoded values for the OpenTok API key, session ID, and
+token. If not, it makes an XHR (or Ajax request) to the "/session" endpoint of the web service.
+The web service returns an HTTP response that includes the session ID, the token, and API key
+formatted as JSON data:
 
     {
          "sessionId": "2_MX40NDQ0MzEyMn5-fn4",
          "apiKey": "12345",
          "token": "T1==cGFydG5lcl9pZD00jg="
     }
+
+For more information, see the main README file of this repository.
 
 ## Connecting to the session
 

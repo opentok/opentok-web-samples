@@ -16,28 +16,6 @@ See the README file in each of these subdirectories for application-specific not
 Each of these sample applications are described in the [Web tutorials
 section](https://tokbox.com/developer/tutorials/web/) of the OpenTok developer center.
 
-*Important:* In order to run the samples, you will need to do the following:
-
-* Clone the Learning OpenTok PHP and run its code on a PHP-enabled web server. See the next
-  section.
-
-* Configure the app to point to the PHP web service. See the
-  [Configuring the application](configuring-the-application) section.
-
-## Setting up the test web service
-
-The [Learning OpenTok PHP](https://github.com/opentok/learning-opentok-php) repo includes code for
-setting up a web service that handles the following API calls:
-
-* "/session" -- The web client calls this endpoint to get an OpenTok session ID, token, and API key.
-* "/start" -- The web client calls this endpoint to start recording the OpenTok session to an archive.
-* "/stop" -- The web client calls this endpoint to stop recording the archive.
-* "/view" -- The web client loads this endpoint in a web browser to display the archive recording.
-
-Download the repo and run its code on a PHP-enabled web server. If you do not have a PHP
-server set up, you can use Heroku to run a remote test server -- see [Automatic deployment to
-Heroku](https://github.com/opentok/learning-opentok-php#automatic-deployment-to-heroku).
-
 ## Configuring the application
 
 1. Clone this repository.
@@ -45,17 +23,20 @@ Heroku](https://github.com/opentok/learning-opentok-php#automatic-deployment-to-
 2. Open the folder that contains the sample you want to run (such as `Basic Video Chat`). Navigate
    to the `js` directory and make a copy of the sampleconfig.js file named config.js.
 
-3. Edit the config.js file and set the value for `SAMPLE_SERVER_BASE_URL`.
+3. Edit the config.js file and set the values for `API_KEY`, `SESSION_ID`, and `TOKEN`:
 
-   If you deployed a the test web service to a local PHP server, set this to the following:
+   To do this, log into your [TokBox Account](https://tokbox.com/account), and either create
+   a new project or use an existing project. Then go to your project page and scroll down to the
+   **Project Tools** section. From there, you can generate a session ID and token manually. Use the
+   project’s API key along with the session ID and token you generated.
 
-        var SAMPLE_SERVER_BASE_URL = 'http://localhost:8080';
+**Important notes:**
 
-   If you deployed this to Heroku, set this to the following:
+* You can continue to get the session ID and token values from your Account during testing and
+  development, but before you go into production you must set up a server. We will discuss this
+  in the [Setting up the test web service](#setting-up-the-test-web-service) section.
 
-        var SAMPLE_SERVER_BASE_URL = 'https://YOUR-HEROKU-APP-URL';
-
-   ***Do not add the trailing slash of the URL.***
+* The Archiving sample app requires you to set up the test web service.
 
 ## Testing the application
 
@@ -88,6 +69,40 @@ Heroku](https://github.com/opentok/learning-opentok-php#automatic-deployment-to-
    You will see a person-to-person video chat session using OpenTok.
 
 See the README file in each of these subdirectories for application-specific notes.
+
+
+## Setting up the test web service
+
+The [Learning OpenTok PHP](https://github.com/opentok/learning-opentok-php) repo includes code for
+setting up a web service that handles the following API calls:
+
+* "/session" -- The web client calls this endpoint to get an OpenTok session ID, token, and API key.
+* "/start" -- The web client calls this endpoint to start recording the OpenTok session to an
+  archive. (This is used in the Archiving sample.)
+* "/stop" -- The web client calls this endpoint to stop recording the archive. (This is used in
+  the Archiving sample.)
+* "/view" -- The web client loads this endpoint in a web browser to display the archive recording.
+  (This is used in the Archiving sample.)
+
+1. Clone or download the repo and run its code on a PHP-enabled web server. If you do not have a
+   PHP server set up, you can use Heroku to run a remote test server -- see [Automatic deployment
+   to Heroku](https://github.com/opentok/learning-opentok-php#automatic-deployment-to-heroku).
+
+2. After getting this web service running, edit the config.js file and set the value for
+   `SAMPLE_SERVER_BASE_URL` to the URL for the web service:
+
+   * If you deployed a the test web service to a local PHP server, set this to the following:
+
+        var SAMPLE_SERVER_BASE_URL = 'http://localhost:8080';
+
+   * If you deployed this to Heroku, set this to the following:
+
+        var SAMPLE_SERVER_BASE_URL = 'https://YOUR-HEROKU-APP-URL';
+
+   ***Do not add the trailing slash of the URL.***
+
+The sample will load the OpenTok session ID, token, and API key from the web service. Also,
+the archiving sample will use the web service to start, stop, and view archives.
 
 ## Other resources
 
