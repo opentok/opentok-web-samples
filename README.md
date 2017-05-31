@@ -74,15 +74,7 @@ See the README file in each of these subdirectories for application-specific not
 ## Setting up the test web service
 
 The [Learning OpenTok PHP](https://github.com/opentok/learning-opentok-php) repo includes code for
-setting up a web service that handles the following API calls:
-
-* "/session" -- The web client calls this endpoint to get an OpenTok session ID, token, and API key.
-* "/start" -- The web client calls this endpoint to start recording the OpenTok session to an
-  archive. (This is used in the Archiving sample.)
-* "/stop" -- The web client calls this endpoint to stop recording the archive. (This is used in
-  the Archiving sample.)
-* "/view" -- The web client loads this endpoint in a web browser to display the archive recording.
-  (This is used in the Archiving sample.)
+setting up a web service.
 
 1. Clone or download the repo and run its code on a PHP-enabled web server. If you do not have a
    PHP server set up, you can use Heroku to run a remote test server -- see [Automatic deployment

@@ -33,7 +33,7 @@ As soon as the `startArchive()` method is called, the Start Recording button is 
 Recording button is displayed.
 
     function startArchive() {
-      $.post(SAMPLE_SERVER_BASE_URL + '/start/' + sessionId);
+      $.post(SAMPLE_SERVER_BASE_URL + '/archive/start', JSON.stringify({'sessionId': sessionId}));
       $('#start').hide();
       $('#stop').show();
     }
@@ -45,10 +45,10 @@ the archive that needs to be stopped as a URL parameter instead of the sessionId
 Recording button is hidden and the View Archive button is enabled.
 
     function stopArchive() {
-      $.post(SAMPLE_SERVER_BASE_URL + '/stop/' + archiveID);
+      $.post(SAMPLE_SERVER_BASE_URL + '/archive/' + archiveID + '/stop');
       $('#stop').hide();
-      $('#start').show();
       $('#view').prop('disabled', false);
+      $('#stop').show();
     }
 
 To download the archive that has just been recorded, the user clicks View Archive button which
