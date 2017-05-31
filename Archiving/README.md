@@ -17,14 +17,9 @@ session. Then click the View Archive to view the archive.
 ## Recording the session to an archive
 
 The OpenTok archiving API lets you record a session's audio-video streams to MP4 files. You use
-server-side code to start and stop archive recordings. In the config.js file, you set the
+server-side code to start and stop archive recordings. In the `config.js` file, you set the
 `SAMPLE_SERVER_BASE_URL` variable to the base URL of the web service the app calls to start archive
 recording, stop recording, and play back the recorded video.
-
-The archiving application uses the same code available in the basics sample to initialize an
-OpenTok session, connect to the session, publish a stream, and subscribe to stream in the session.
-If you have not already gotten familiar with the code in the basics sample, consider doing so before
-continuing (see the previous sections).
 
 To start recording the video stream, the user clicks the Start Archive button which invokes the
 `startArchive()` method in app.js. This method in turn sends an XHR (or Ajax) request to server.

@@ -20,10 +20,7 @@ section](https://tokbox.com/developer/tutorials/web/) of the OpenTok developer c
 
 1. Clone this repository.
 
-2. Open the folder that contains the sample you want to run (such as `Basic Video Chat`). Navigate
-   to the `js` directory and make a copy of the sampleconfig.js file named config.js.
-
-3. Edit the config.js file and set the values for `API_KEY`, `SESSION_ID`, and `TOKEN`:
+2. Edit the config.js file and set the values for `API_KEY`, and `TOKEN`:
 
    To do this, log into your [TokBox Account](https://tokbox.com/account), and either create
    a new project or use an existing project. Then go to your project page and scroll down to the
