@@ -82,7 +82,7 @@ function initializeSession() {
 
 // Start recording
 function startArchive() {
-  $.post(SAMPLE_SERVER_BASE_URL + '/archive/start', JSON.stringify({'sessionId': sessionId}));
+  $.post(SAMPLE_SERVER_BASE_URL + '/archive/start', {'sessionId': sessionId}, null, 'json');
   $('#start').hide();
   $('#stop').show();
 }
