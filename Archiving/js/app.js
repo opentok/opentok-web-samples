@@ -82,14 +82,14 @@ function initializeSession() {
 
 // Start recording
 function startArchive() {
-  $.post(SAMPLE_SERVER_BASE_URL + '/start/' + sessionId);
+  $.post(SAMPLE_SERVER_BASE_URL + '/archive/start', {'sessionId': sessionId}, null, 'json');
   $('#start').hide();
   $('#stop').show();
 }
 
 // Stop recording
 function stopArchive() {
-  $.post(SAMPLE_SERVER_BASE_URL + '/stop/' + archiveID);
+  $.post(SAMPLE_SERVER_BASE_URL + '/archive/' + archiveID + '/stop');
   $('#stop').hide();
   $('#view').prop('disabled', false);
   $('#stop').show();
@@ -99,7 +99,7 @@ function stopArchive() {
 // every 5 secs until it is "available"
 function viewArchive() {
   $('#view').prop('disabled', true);
-  window.location = SAMPLE_SERVER_BASE_URL + '/view/' + archiveID;
+  window.location = SAMPLE_SERVER_BASE_URL + /archive/ + archiveID + '/view';
 }
 
 $('#start').show();
