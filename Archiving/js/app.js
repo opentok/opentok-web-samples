@@ -90,17 +90,17 @@ function startArchive() {
 
     complete: function() {
       //called when complete
-      console.log('complete');
+      console.log('startArchive() complete');
     },
 
     success: function() {
       //called when successful
-      console.log('success');
+      console.log('successfully called startArchive()');
     },
 
     error: function() {
       //called when there is an error
-      console.log('error');
+      console.log('error calling startArchive()');
     },
   });
 
