@@ -82,7 +82,28 @@ function initializeSession() {
 
 // Start recording
 function startArchive() {
-  $.post(SAMPLE_SERVER_BASE_URL + '/archive/start', {"sessionId": sessionId}, null, "json");
+  $.ajax({
+    url: SAMPLE_SERVER_BASE_URL + '/archive/start',
+    type: "POST",
+    contentType: "application/json", // send as JSON
+    data: JSON.stringify({"sessionId": sessionId}),
+
+    complete: function() {
+      //called when complete
+      console.log('complete');
+    },
+
+    success: function() {
+      //called when successful
+      console.log('success');
+    },
+
+    error: function() {
+      //called when there is an error
+      console.log('error');
+    },
+  });
+
   $('#start').hide();
   $('#stop').show();
 }
