@@ -7,4 +7,4 @@
 // Do not include the trailing slash. 
 // See the README for more information
 
-var SAMPLE_SERVER_BASE_URL = 'http://yourdomain.com';
+var SAMPLE_SERVER_BASE_URL = '';
