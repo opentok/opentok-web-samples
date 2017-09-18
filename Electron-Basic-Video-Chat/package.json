@@ -1,0 +1,14 @@
+{
+  "name": "electron-basic-video-chat",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "start": "electron ."
+  },
+  "author": "Manik Sachdeva",
+  "license": "ISC",
+  "dependencies": {
+    "electron": "^1.7.6"
+  }
+}
