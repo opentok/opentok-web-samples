@@ -4,11 +4,19 @@ OpenTok.js Electron Basic Sample
 This sample application shows how to connect to an OpenTok session, publish a stream, and
 subscribe to a stream.
 
+## Quick started
+1. Get values for your OpenTok API key, session ID, and token. You can obtain these values from your TokBox account. Make sure that the token isn't expired.
+For testing, you can use a session ID and token generated at your TokBox account page. However, the final application should obtain these values using the [OpenTok server SDKs](https://tokbox.com/developer/sdks/server/). For more information, see the OpenTok developer guides on [session creation](https://tokbox.com/developer/guides/create-session/) and [token creation](https://tokbox.com/developer/guides/create-token/).
+
+2. `$ npm install`
+
+3. `$ npm start`
+
 *Important:* Read the following sections of the of the README file to get started
 
-## Installing Dependencies
+## Installing Dependencies with `npm`
 
-`npm install`
+`$ npm install`
 
 ## Getting an OpenTok session ID, token, and API key
 
@@ -136,7 +144,7 @@ representing stream that was created. The application adds an event listener for
 
 The `Session.subscribe()` method takes four parameters:
 
-* The Stream object to which we are subscribing
+* The Stream object to which we are subscribing to
 * The target DOM element or DOM element ID (optional) for placement of the subscriber video
 * A set of properties (optional) that customize the appearance of the subscriber view
 * The completion handler function (optional) that is called when the method completes
@@ -144,4 +152,10 @@ The `Session.subscribe()` method takes four parameters:
 
 ## Running the application
 
-`npm start`
+`$ npm start`
+
+## Known Issues
+
+* When starting the application, you'll notice a silent error: 
+`ERROR:audio_send_stream.cc(93)] Failed to set up send codec state.`
+This is a known [Electron issue](https://github.com/electron/electron/issues/8991).
