@@ -1,8 +1,7 @@
 OpenTok.js Electron Basic Sample
 =======================
 
-This sample application shows how to connect to an OpenTok session, publish a stream, and
-subscribe to a stream.
+This sample application shows how to connect to an OpenTok session, publish a stream, and subscribe to a stream in a basic Electron application.
 
 ## Quick started
 1. Get values for your OpenTok API key, session ID, and token. You can obtain these values from your TokBox account. Make sure that the token isn't expired.
