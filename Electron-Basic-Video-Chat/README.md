@@ -77,12 +77,12 @@ and a completion handler function:
     });
 
 
-An error object is passed into the completion handler of the `Session.connect()` method if the
+An error object is passed into the completion handler of the `session.connect()` method if the
 client fails to connect to the OpenTok session. Otherwise, no error object is passed in, indicating
 that the client connected successfully to the session.
 
 The Session object dispatches a `streamDestroyed` event when the stream is Destroyed. The application defines an event handler for this event:
-
+```
   session.on({
     streamCreated: (event) => {
       session.subscribe(event.stream, 'subscriber', (error) => {
@@ -92,6 +92,7 @@ The Session object dispatches a `streamDestroyed` event when the stream is Destr
       });
     }
   });
+```
 
 ## Publishing an audio video stream to the session
 
@@ -119,11 +120,13 @@ optional parameters:
 Once the Publisher object is initialized, we publish to the session using the `publish()`
 method of the Session object:
 
+```
   session.publish(publisher, (error) => {
     if (error) {
       return console.log(`There was an error when trying to publish: ${error}`);
     }
   });
+```
 ## Subscribing to another client's audio-video stream
 
 The Session object dispatches a `streamCreated` event when a new stream (other than your own) is
@@ -132,18 +135,19 @@ created in a session. A stream is created when a client publishes to the session
 connect. This event is defined by the StreamEvent object, which has a `stream` property,
 representing stream that was created. The application adds an event listener for the
 `streamCreated` event and subscribes to all streams created in the session using the
-`Session.subscribe()` method:
+`session.subscribe()` method:
 
+```
     // Subscribe to a newly created stream
     session.on({
       streamCreated: (event) => {
         session.subscribe(event.stream, 'subscriber', (error) => {
-          if (error) console.log(`There was an issue subscribing to the stream ${event}`);
+          if (error) console.log(`There was an issue subscribing to the stream ${error}`);
         });
       }
     });
-
-The `Session.subscribe()` method takes four parameters:
+```
+The `session.subscribe()` method takes four parameters:
 
 * The Stream object to which we are subscribing to
 * The target DOM element or DOM element ID (optional) for placement of the subscriber video
@@ -160,5 +164,5 @@ The `Session.subscribe()` method takes four parameters:
 * When starting the application, you'll notice a silent error: 
   `ERROR:audio_send_stream.cc(93)] Failed to set up send codec state.`
   This is a known [Electron issue](https://github.com/electron/electron/issues/8991).
-  We recommend staying up to date with the issue to see if the Electron team or other contributors have a solution
+  We recommend staying up to date with the issue to see if the Electron team or other contributors have a solution.
   

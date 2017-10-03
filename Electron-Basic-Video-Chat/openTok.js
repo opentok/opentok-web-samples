@@ -11,7 +11,7 @@ session.on({
   streamCreated: (event) => {
     session.subscribe(event.stream, 'subscriber', (error) => {
       if (error) {
-        console.log(`There was an issue subscribing to the stream ${event}`);
+        console.log(`There was an issue subscribing to the stream: ${error}`);
       }
     });
   },
