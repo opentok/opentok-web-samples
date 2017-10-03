@@ -69,7 +69,7 @@ and a completion handler function:
       
       // If the connection is successful, initialize a publisher and publish to the session
       if (error) {
-        return console.log('error connecting to session', error);
+        return console.log(`There was an error connecting to session: ${error}`);
       } else {
         // Create a publisher
         // Publish
@@ -83,13 +83,15 @@ that the client connected successfully to the session.
 
 The Session object dispatches a `streamDestroyed` event when the stream is Destroyed. The application defines an event handler for this event:
 
-session.on({
-  streamCreated: (event) => {
-    session.subscribe(event.stream, 'subscriber', (error) => {
-      if (error) console.log(`There was an issue subscribing to the stream ${event}`);
-    });
-  }
-});
+  session.on({
+    streamCreated: (event) => {
+      session.subscribe(event.stream, 'subscriber', (error) => {
+        if (error) {
+          console.log(`There was an issue subscribing to the stream ${event}`);
+        }
+      });
+    }
+  });
 
 ## Publishing an audio video stream to the session
 
@@ -106,22 +108,22 @@ optional parameters:
 * The completion handler
 
 ```
-const publisher = OT.initPublisher('publisher', (error) => {
-  if (error) {
-    return console.log('There was an error initializing the publisher', error);
-  }
-});
+  const publisher = OT.initPublisher('publisher', (error) => {
+    if (error) {
+      return console.log(`There was an error initializing the publisher: ${error}`);
+    }
+  });
 
 ```
 
 Once the Publisher object is initialized, we publish to the session using the `publish()`
 method of the Session object:
 
-session.publish(publisher, (error) => {
-  if (error) {
-    return console.log('There was an error publishing', error);
-  }
-});
+  session.publish(publisher, (error) => {
+    if (error) {
+      return console.log(`There was an error when trying to publish: ${error}`);
+    }
+  });
 ## Subscribing to another client's audio-video stream
 
 The Session object dispatches a `streamCreated` event when a new stream (other than your own) is
@@ -156,5 +158,7 @@ The `Session.subscribe()` method takes four parameters:
 ## Known Issues
 
 * When starting the application, you'll notice a silent error: 
-`ERROR:audio_send_stream.cc(93)] Failed to set up send codec state.`
-This is a known [Electron issue](https://github.com/electron/electron/issues/8991).
+  `ERROR:audio_send_stream.cc(93)] Failed to set up send codec state.`
+  This is a known [Electron issue](https://github.com/electron/electron/issues/8991).
+  We recommend staying up to date with the issue to see if the Electron team or other contributors have a solution
+  
