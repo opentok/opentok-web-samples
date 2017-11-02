@@ -37,31 +37,15 @@ section](https://tokbox.com/developer/tutorials/web/) of the OpenTok developer c
 
 ## Testing the application
 
-1. The web app is in the index.html (in each sample directory). You will need to run this
-   on a web server.
-   
-   If you have Python on your system, you can start the web server by running
-   `python -m SimpleHTTPServer 8000` in the root subdirectory containing the sample
-   (the directory containing the index.html file).
-
-   You cannot publish video on a page loaded from a `file://` URL, due to browser security
-   limitations. You need to load the page from an `http://` or `https://` URL. Note also,
-   that Chrome requires you to load a page from an https:// URL (although you can use http to test
-    a localhost URL in Chrome). For example, you can test a page from http://localhost if you have
-    a web server set up on your local machine.
-
-2. Once you have the server running open the index.html in a supported browser.
-   For example, if our local web server is running on port 8000, load the following URL:
-
-   http://localhost:8000
+1. The web app is in the index.html (in each sample directory). Open the index.html in a supported browser.
 
    The OpenTok.js library is supported in Chrome, Firefox, and Internet Explorer 10 - 11.
    (Internet Explorer requires installation of the OpenTok plugin, which the library asks you
    to install, if you haven't already.)
 
-3. When prompted, grant the page access to your camera and microphone.
+2. When prompted, grant the page access to your camera and microphone.
 
-4. Mute the speaker on your computer, and then load the page again in another browser tab.
+3. Mute the speaker on your computer, and then load the page again in another browser tab.
 
    You will see a person-to-person video chat session using OpenTok.
 
