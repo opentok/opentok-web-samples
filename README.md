@@ -39,9 +39,7 @@ section](https://tokbox.com/developer/tutorials/web/) of the OpenTok developer c
 
 1. The web app is in the index.html (in each sample directory). Open the index.html in a supported browser.
 
-   The OpenTok.js library is supported in Chrome, Firefox, and Internet Explorer 10 - 11.
-   (Internet Explorer requires installation of the OpenTok plugin, which the library asks you
-   to install, if you haven't already.)
+   For information about which browsers are supported by the OpenTok.js library see the [browser support section of the documentation](https://tokbox.com/developer/sdks/js/).
 
 2. When prompted, grant the page access to your camera and microphone.
 
