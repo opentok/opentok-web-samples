@@ -1,3 +1,5 @@
+const OT = require('@opentok/client');
+
 // Set Credentials
 const apiKey = "";
 const sessionId = "";
