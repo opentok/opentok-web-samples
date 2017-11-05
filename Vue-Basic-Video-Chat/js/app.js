@@ -11,7 +11,7 @@ Vue.component('publisher', {
     }
   },
   mounted: function() {
-    publisher = OT.initPublisher(this.$el, this.opts, (err) => {
+    const publisher = OT.initPublisher(this.$el, this.opts, (err) => {
       if (err) {
         this.$emit('error', err);
       } else {
@@ -19,12 +19,19 @@ Vue.component('publisher', {
       }
     });
     this.$emit('publisherCreated', publisher);
-    if (this.session && this.session.isConnected()) {
-      this.session.publish(publisher);
-    } else {
-      this.session.on('sessionConnected', () => {
-        this.session.publish(publisher);
+    const publish = () => {
+      this.session.publish(publisher, function(err) {
+        if (err) {
+          this.$emit('error', err);
+        } else {
+          this.$emit('publisherConnected', publisher);
+        }
       });
+    };
+    if (this.session && this.session.isConnected()) {
+      publish();
+    } else if (this.session) {
+      this.session.on('sessionConnected', publish);
     }
   }
 });
