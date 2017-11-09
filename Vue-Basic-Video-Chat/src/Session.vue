@@ -13,7 +13,6 @@ import Publisher from './Publisher.vue';
 import Subscriber from './Subscriber.vue';
 
 const data = {
-  msg: 'Welcome to Your Vue.js + OpenTok App',
   streams: [],
   session: null
 };
