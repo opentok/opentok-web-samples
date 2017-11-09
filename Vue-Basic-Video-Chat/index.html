@@ -1,20 +1,11 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
   <head>
     <meta charset="utf-8">
-    <title>Vue Basic Video Chat</title>
-    <link rel="stylesheet" href="css/app.css">
+    <title>vue-basic-video-chat</title>
   </head>
   <body>
-    <script src="https://static.opentok.com/v2/js/opentok.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.5.2/vue.min.js"></script>
-    <div id="session" v-on:error="errorHandler">
-      <div id="subscribers" v-for="stream in streams" :key="stream.streamId">
-        <subscriber v-on:error="errorHandler" :stream="stream" :session="session"></subscriber>
-      </div>
-      <publisher :session="session" v-on:error="errorHandler"></publisher>
-    </div>
-    <script src="js/config.js" charset="utf-8"></script>
-    <script src="js/app.js" charset="utf-8"></script>
+    <div id="app"></div>
+    <script src="/dist/build.js"></script>
   </body>
 </html>
