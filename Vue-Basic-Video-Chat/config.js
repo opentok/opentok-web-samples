@@ -9,9 +9,9 @@ var SAMPLE_SERVER_BASE_URL = 'http://YOUR-SERVER-URL';
 // set these values to OpenTok API key, a valid session ID, and a token for the session.
 // For test purposes, you can obtain these from https://tokbox.com/account.
 
-var API_KEY = '1127';
-var SESSION_ID = '2_MX4xMTI3fn4xNTEwMTQxNzM0NTE2fkg4OUxqMHBxTnNIcVY0OEdNVmI1UC9iQ35-';
-var TOKEN = 'T1==cGFydG5lcl9pZD0xMTI3JnNpZz00NWMyMDRkYjY2NTczMDg0Yjg3ZDIxYjNiOTYzZTMzOGVjMTFlNDhlOnNlc3Npb25faWQ9Ml9NWDR4TVRJM2ZuNHhOVEV3TVRReE56TTBOVEUyZmtnNE9VeHFNSEJ4VG5OSWNWWTBPRWROVm1JMVVDOWlRMzUtJmNyZWF0ZV90aW1lPTE1MTAxNDE3MzUmbm9uY2U9MC4zODM0NzU2MDg1MjEzNTMxJnJvbGU9bW9kZXJhdG9yJmV4cGlyZV90aW1lPTE1MTI3MzM3MzU=';
+var API_KEY = '';
+var SESSION_ID = '';
+var TOKEN = '';
 
 module.exports = {
   API_KEY: JSON.stringify(API_KEY),
