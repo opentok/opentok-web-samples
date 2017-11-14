@@ -27,7 +27,7 @@ if (API_KEY && TOKEN && SESSION_ID) {
   });
 } else {
   fetch(SAMPLE_SERVER_BASE_URL + '/session')
-    .then((data) => data.json())
+    .then(data => data.json())
     .then(renderApp)
     .catch(err => console.error('Failed to get session credentials', err));
 }
