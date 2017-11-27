@@ -5,7 +5,7 @@ import { NgModule } from '@angular/core';
 import { AppComponent } from './app.component';
 import { PublisherComponent } from './publisher/publisher.component';
 import { SubscriberComponent } from './subscriber/subscriber.component';
-
+import { OpentokService } from './opentok.service';
 
 @NgModule({
   declarations: [
@@ -16,7 +16,7 @@ import { SubscriberComponent } from './subscriber/subscriber.component';
   imports: [
     BrowserModule
   ],
-  providers: [],
+  providers: [OpentokService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
