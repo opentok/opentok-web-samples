@@ -37,7 +37,8 @@ export default {
     };
     if (this.session && this.session.isConnected()) {
       publish();
-    } else if (this.session) {
+    }
+    if (this.session) {
       this.session.on('sessionConnected', publish);
     }
   }
