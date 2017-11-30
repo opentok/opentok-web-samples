@@ -2,7 +2,12 @@
 
 A basic video chat application using Angular.js 5 and OpenTok. This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 1.5.0.
 
-For an example of how to use OpenTok with Angular.js 1 have a look at [opentok-angular](http://github.com/aullman/opentok-angular).
+>For an example of how to use OpenTok with Angular.js 1 have a look at [opentok-angular](http://github.com/aullman/opentok-angular).
+
+## Setting your OpenTok apiKey, sessionId and token
+
+Before you can run this application you need to modify [config.ts](src/config.ts) and include your OpenTok API Key, Session ID and a valid token. For more details on how to get these values see [Token creation
+overview](https://tokbox.com/opentok/tutorials/create-token/).
 
 ## Development server
 
