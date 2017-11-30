@@ -18,7 +18,7 @@ export class AppComponent implements OnInit {
     this.opentokService.connectSession().then((session: OT.Session) => {
       this.session = session;
     }).catch((err) => {
-      alert(err.name);
+      alert('Unable to connect. Make sure you have updated the config.ts file with your OpenTok details.');
     });
 
     this.session = this.opentokService.session;
