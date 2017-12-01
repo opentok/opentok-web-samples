@@ -4,12 +4,20 @@ Sample applications for using the [OpenTok.js](https://tokbox.com/developer/sdks
 
 The code for this sample is found the following subdirectories:
 
-* Basic Video Chat -- This sample shows you how to connect to an OpenTok session, publish a stream,
-  subscribe to a stream, and mute audio.
+* [Angular-Basic-Video-Chat](https://github.com/opentok/opentok-web-samples/tree/master/Angular-Basic-Video-Chat) -- This sample shows you how to connect to an OpenTok session, publish a stream, and
+  subscribe to a stream using Angular 5.
 
-* Archiving -- This sample shows you how to record an OpenTok session.
+* [Basic Video Chat](https://github.com/opentok/opentok-web-samples/tree/master/Basic%20Video%20Chat) -- This sample shows you how to connect to an OpenTok session, publish a stream, and
+  subscribe to a stream.
 
-* Signaling -- This sample shows you how to use the OpenTok signaling API to implement text chat.
+* [Archiving](https://github.com/opentok/opentok-web-samples/tree/master/Archiving) -- This sample shows you how to record an OpenTok session.
+
+* [Electron-Basic-Video-Chat](https://github.com/opentok/opentok-web-samples/tree/master/Electron-Basic-Video-Chat) -- This sample shows you how to connect to an OpenTok session, publish a stream, and subscribe to a stream in an Electron application.
+
+* [React-Basic-Video-Chat](https://github.com/opentok/opentok-web-samples/tree/master/React-Basic-Video-Chat) -- This sample shows you how to connect to an OpenTok session, publish a stream, and
+  subscribe to a stream using React. You can also toggle the video by clicking on the Video button.
+
+* [Signaling](https://github.com/opentok/opentok-web-samples/tree/master/Signaling) -- This sample shows you how to use the OpenTok signaling API to implement text chat.
 
 See the README file in each of these subdirectories for application-specific notes.
 
