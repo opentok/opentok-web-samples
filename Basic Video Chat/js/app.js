@@ -17,6 +17,8 @@ $(document).ready(function() {
       token = res.token;
 
       initializeSession();
+    }).fail(function(err) {
+      alert('Failed to get opentok sessionId and token. Make sure you have updated the config.js file.');
     });
   }
 });
