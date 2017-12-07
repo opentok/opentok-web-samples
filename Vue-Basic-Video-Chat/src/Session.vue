@@ -2,7 +2,7 @@
   <div id="session" @error="errorHandler">
     <publisher :session="session" @error="errorHandler"></publisher>
     <div id="subscribers" v-for="stream in streams" :key="stream.streamId">
-      <subscriber v-on:error="errorHandler" :stream="stream" :session="session"></subscriber>
+      <subscriber @error="errorHandler" :stream="stream" :session="session"></subscriber>
     </div>
   </div>
 </template>
