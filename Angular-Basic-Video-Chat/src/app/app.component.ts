@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { OpentokService } from './opentok.service';
+import * as OT from '@opentok/client';
 
 @Component({
   selector: 'app-root',
