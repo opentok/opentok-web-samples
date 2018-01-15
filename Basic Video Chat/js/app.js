@@ -2,6 +2,12 @@ var apiKey,
     sessionId,
     token;
 
+function handleError(error) {
+  if (error) {
+    console.error(error);
+  }
+}
+
 function initializeSession() {
   var session = OT.initSession(apiKey, sessionId);
 
@@ -12,39 +18,27 @@ function initializeSession() {
       width: '100%',
       height: '100%'
     };
-    session.subscribe(event.stream, 'subscriber', subscriberOptions, function(error) {
-      if (error) {
-        console.log('There was an error publishing: ', error.name, error.message);
-      }
-    });
+    session.subscribe(event.stream, 'subscriber', subscriberOptions, handleError);
   });
 
   session.on('sessionDisconnected', function(event) {
     console.log('You were disconnected from the session.', event.reason);
   });
-
+  
+  var publisherOptions = {
+    insertMode: 'append',
+    width: '100%',
+    height: '100%'
+  };
+  var publisher = OT.initPublisher('publisher', publisherOptions, handleError);
+  
   // Connect to the session
   session.connect(token, function(error) {
-    // If the connection is successful, initialize a publisher and publish to the session
-    if (!error) {
-      var publisherOptions = {
-        insertMode: 'append',
-        width: '100%',
-        height: '100%'
-      };
-      var publisher = OT.initPublisher('publisher', publisherOptions, function(error) {
-        if (error) {
-          console.log('There was an error initializing the publisher: ', error.name, error.message);
-          return;
-        }
-        session.publish(publisher, function(error) {
-          if (error) {
-            console.log('There was an error publishing: ', error.name, error.message);
-          }
-        });
-      });
+    if (error) {
+      handleError(error);
     } else {
-      console.log('There was an error connecting to the session: ', error.name, error.message);
+      // If the connection is successful, initialize a publisher and publish to the session
+      session.publish(publisher, handleError);
     }
   });
 }
@@ -65,7 +59,8 @@ if (API_KEY && TOKEN && SESSION_ID) {
     token = json.token;
 
     initializeSession();
-  }).catch(function(err) {
+  }).catch(function(error) {
+    handleError(error);
     alert('Failed to get opentok sessionId and token. Make sure you have updated the config.js file.');
   });
 }
