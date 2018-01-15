@@ -47,24 +47,24 @@ overview](https://tokbox.com/opentok/tutorials/create-token/).
 
 Upon starting up, the application executes the following code in the app.js file:
 
-    $(document).ready(function() {
-      // See the confing.js file.
-      if (API_KEY && TOKEN && SESSION_ID) {
-        apiKey = API_KEY;
-        sessionId = SESSION_ID;
-        token = TOKEN;
-        initializeSession();
-      } else if (SAMPLE_SERVER_BASE_URL) {
-        // Make an Ajax request to get the OpenTok API key, session ID, and token from the server
-        $.get(SAMPLE_SERVER_BASE_URL + '/session', function(res) {
-          apiKey = res.apiKey;
-          sessionId = res.sessionId;
-          token = res.token;
-          
-          initializeSession();
-        });
-      }
-    });
+```javascript
+// See the config.js file.
+if (API_KEY && TOKEN && SESSION_ID) {
+  apiKey = API_KEY;
+  sessionId = SESSION_ID;
+  token = TOKEN;
+  initializeSession();
+} else if (SAMPLE_SERVER_BASE_URL) {
+  // Make an Ajax request to get the OpenTok API key, session ID, and token from the server
+  $.get(SAMPLE_SERVER_BASE_URL + '/session', function(res) {
+    apiKey = res.apiKey;
+    sessionId = res.sessionId;
+    token = res.token;
+    
+    initializeSession();
+  });
+}
+```
 
 This method checks to see if you've set hardcoded values for the OpenTok API key, session ID, and
 token. If not, it makes an XHR (or Ajax request) to the "/session" endpoint of the web service.
@@ -84,8 +84,10 @@ For more information, see the main README file of this repository.
 Upon obtaining the session ID, token, and API, the app calls the `initializeSession()` method.
 First, this method initializes a Session object:
 
+```javascript
     // Initialize Session Object
     var session = OT.initSession(apiKey, sessionId);
+```
 
 The `OT.initSession()` method takes two parameters -- the OpenTok API key and the session ID. It
 initializes and returns an OpenTok Session object.
@@ -95,6 +97,7 @@ session. You must connect before sending or receiving audio-video streams in the
 interacting with the session in any way). The `connect()` method takes two parameters -- a token
 and a completion handler function:
 
+```javascript
     // Connect to the Session
     session.connect(token, function(error) {
 
@@ -120,6 +123,7 @@ and a completion handler function:
         console.log('There was an error connecting to the session:', error.name, error.message);
       }
     });
+```
 
 An error object is passed into the completion handler of the `Session.connect()` method if the
 client fails to connect to the OpenTok session. Otherwise, no error object is passed in, indicating
@@ -128,9 +132,11 @@ that the client connected successfully to the session.
 The Session object dispatches a `sessionDisconnected` event when your client disconnects from the
 session. The application defines an event handler for this event:
 
+```javascript
     session.on('sessionDisconnected', function(event) {
       console.log('You were disconnected from the session.', event.reason);
     });
+```
 
 ## Publishing an audio video stream to the session
 
@@ -146,7 +152,7 @@ optional parameters:
 * The properties of the publisher
 * The completion handler
 
-```
+```javascript
 var publisherOptions = {
   insertMode: 'append',
   width: '100%',
@@ -168,7 +174,9 @@ var publisher = OT.initPublisher('publisher', publisherOptions, function(error) 
 Once the Publisher object is initialized, we publish to the session using the `publish()`
 method of the Session object:
 
+```javascript
     session.publish(publisher);
+```
 
 ## Subscribing to another client's audio-video stream
 
@@ -180,6 +188,7 @@ representing stream that was created. The application adds an event listener for
 `streamCreated` event and subscribes to all streams created in the session using the
 `Session.subscribe()` method:
 
+```javascript
     // Subscribe to a newly created stream
     session.on('streamCreated', function(event) {
       var subscriberOptions = {
@@ -193,6 +202,7 @@ representing stream that was created. The application adds an event listener for
         }
       });
     });
+```
 
 The `Session.subscribe()` method takes four parameters:
 

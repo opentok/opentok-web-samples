@@ -2,27 +2,6 @@ var apiKey,
     sessionId,
     token;
 
-$(document).ready(function() {
-  // See the confing.js file.
-  if (API_KEY && TOKEN && SESSION_ID) {
-    apiKey = API_KEY;
-    sessionId = SESSION_ID;
-    token = TOKEN;
-    initializeSession();
-  } else if (SAMPLE_SERVER_BASE_URL) {
-    // Make an Ajax request to get the OpenTok API key, session ID, and token from the server
-    $.get(SAMPLE_SERVER_BASE_URL + '/session', function(res) {
-      apiKey = res.apiKey;
-      sessionId = res.sessionId;
-      token = res.token;
-
-      initializeSession();
-    }).fail(function(err) {
-      alert('Failed to get opentok sessionId and token. Make sure you have updated the config.js file.');
-    });
-  }
-});
-
 function initializeSession() {
   var session = OT.initSession(apiKey, sessionId);
 
@@ -67,5 +46,26 @@ function initializeSession() {
     } else {
       console.log('There was an error connecting to the session: ', error.name, error.message);
     }
+  });
+}
+
+// See the config.js file.
+if (API_KEY && TOKEN && SESSION_ID) {
+  apiKey = API_KEY;
+  sessionId = SESSION_ID;
+  token = TOKEN;
+  initializeSession();
+} else if (SAMPLE_SERVER_BASE_URL) {
+  // Make an Ajax request to get the OpenTok API key, session ID, and token from the server
+  fetch(SAMPLE_SERVER_BASE_URL + '/session').then(function(res) {
+    return res.json();
+  }).then(function(json) {
+    apiKey = json.apiKey;
+    sessionId = json.sessionId;
+    token = json.token;
+
+    initializeSession();
+  }).catch(function(err) {
+    alert('Failed to get opentok sessionId and token. Make sure you have updated the config.js file.');
   });
 }
