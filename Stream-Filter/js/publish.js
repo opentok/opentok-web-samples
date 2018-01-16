@@ -66,6 +66,7 @@
 
   // Returns a Promise to a Publisher
   var publish = function() {
+    // Request access to the microphone and camera
     return OT.getUserMedia().then(function(mediaStream) {
       var filteredCanvas = getFilteredCanvas(mediaStream);
 
@@ -73,7 +74,9 @@
         insertMode: 'append',
         width: '100%',
         height: '100%',
+        // Pass in the canvas stream video track as our custom videoSource
         videoSource: filteredCanvas.canvas.captureStream(30).getVideoTracks()[0],
+        // Pass in the audio track from our underlying mediaStream as the audioSource
         audioSource: mediaStream.getAudioTracks()[0]
       };
       var publisher =  OT.initPublisher('publisher', publisherOptions, exports.handleError);
