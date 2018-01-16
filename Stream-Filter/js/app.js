@@ -8,7 +8,7 @@
       console.error(error);
     }
   }
-  exports.hanleError = handleError;
+  exports.handleError = handleError;
 
   function initializeSession() {
     var session = OT.initSession(apiKey, sessionId);
