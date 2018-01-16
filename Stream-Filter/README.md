@@ -6,3 +6,7 @@ As of v2.13 of opentok.js you can pass a custom videoSource and custom audioSour
 ## Running the App
 
 Follow the instructions at [Basic Video Chat](../Basic%20Video%20Chat/)
+
+## Browser Support
+
+The custom streaming API works on Chrome 51+, Firefox 49+ and Safari 11+.
