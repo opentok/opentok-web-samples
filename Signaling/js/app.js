@@ -1,51 +1,34 @@
-var apiKey,
-    session,
-    sessionId,
-    token,
-    response;
+/* global API_KEY TOKEN SESSION_ID SAMPLE_SERVER_BASE_URL OT */
+/* eslint-disable no-alert */
 
-$(document).ready(function() {
-  // See the confing.js file.
-  if (API_KEY && TOKEN && SESSION_ID) {
-    apiKey = API_KEY;
-    sessionId = SESSION_ID;
-    token = TOKEN;
-    initializeSession();
-  } else if (SAMPLE_SERVER_BASE_URL) {
-    // Make an Ajax request to get the OpenTok API key, session ID, and token from the server
-    $.get(SAMPLE_SERVER_BASE_URL + '/session', function(res) {
-      apiKey = res.apiKey;
-      sessionId = res.sessionId;
-      token = res.token;
-
-      initializeSession();
-    });
-  }
-});
+var apiKey;
+var session;
+var sessionId;
+var token;
 
 function initializeSession() {
   session = OT.initSession(apiKey, sessionId);
 
   // Subscribe to a newly created stream
-  session.on('streamCreated', function(event) {
+  session.on('streamCreated', function streamCreated(event) {
     var subscriberOptions = {
       insertMode: 'append',
       width: '100%',
       height: '100%'
     };
-    session.subscribe(event.stream, 'subscriber', subscriberOptions, function(error) {
+    session.subscribe(event.stream, 'subscriber', subscriberOptions, function callback(error) {
       if (error) {
-        console.log('There was an error publishing: ', error.name, error.message);
+        console.error('There was an error publishing: ', error.name, error.message);
       }
     });
   });
 
-  session.on('sessionDisconnected', function(event) {
-    console.log('You were disconnected from the session.', event.reason);
+  session.on('sessionDisconnected', function sessionDisconnected(event) {
+    console.error('You were disconnected from the session.', event.reason);
   });
 
   // Connect to the session
-  session.connect(token, function(error) {
+  session.connect(token, function callback(error) {
     // If the connection is successful, initialize a publisher and publish to the session
     if (!error) {
       var publisherOptions = {
@@ -53,25 +36,25 @@ function initializeSession() {
         width: '100%',
         height: '100%'
       };
-      var publisher = OT.initPublisher('publisher', publisherOptions, function(error) {
-        if (error) {
-          console.log('There was an error initializing the publisher: ', error.name, error.message);
+      var publisher = OT.initPublisher('publisher', publisherOptions, function initCallback(initErr) {
+        if (initErr) {
+          console.error('There was an error initializing the publisher: ', initErr.name, initErr.message);
           return;
         }
-        session.publish(publisher, function(error) {
-          if (error) {
-            console.log('There was an error publishing: ', error.name, error.message);
+        session.publish(publisher, function publishCallback(publishErr) {
+          if (publishErr) {
+            console.error('There was an error publishing: ', publishErr.name, publishErr.message);
           }
         });
       });
     } else {
-      console.log('There was an error connecting to the session: ', error.name, error.message);
+      console.error('There was an error connecting to the session: ', error.name, error.message);
     }
   });
 
   // Receive a message and append it to the history
   var msgHistory = document.querySelector('#history');
-  session.on('signal:msg', function(event) {
+  session.on('signal:msg', function signalCallback(event) {
     var msg = document.createElement('p');
     msg.textContent = event.data;
     msg.className = event.from.connectionId === session.connection.connectionId ? 'mine' : 'theirs';
@@ -85,17 +68,39 @@ var form = document.querySelector('form');
 var msgTxt = document.querySelector('#msgTxt');
 
 // Send a signal once the user enters data in the form
-form.addEventListener('submit', function(event) {
+form.addEventListener('submit', function submit(event) {
   event.preventDefault();
 
   session.signal({
-      type: 'msg',
-      data: msgTxt.value
-    }, function(error) {
-      if (error) {
-        console.log('Error sending signal:', error.name, error.message);
-      } else {
-        msgTxt.value = '';
-      }
-    });
+    type: 'msg',
+    data: msgTxt.value
+  }, function signalCallback(error) {
+    if (error) {
+      console.error('Error sending signal:', error.name, error.message);
+    } else {
+      msgTxt.value = '';
+    }
+  });
 });
+
+// See the config.js file.
+if (API_KEY && TOKEN && SESSION_ID) {
+  apiKey = API_KEY;
+  sessionId = SESSION_ID;
+  token = TOKEN;
+  initializeSession();
+} else if (SAMPLE_SERVER_BASE_URL) {
+  // Make an Ajax request to get the OpenTok API key, session ID, and token from the server
+  fetch(SAMPLE_SERVER_BASE_URL + '/session').then(function fetch(res) {
+    return res.json();
+  }).then(function fetchJson(json) {
+    apiKey = json.apiKey;
+    sessionId = json.sessionId;
+    token = json.token;
+
+    initializeSession();
+  }).catch(function catchErr(error) {
+    console.error('There was an error fetching the session information', error.name, error.message);
+    alert('Failed to get opentok sessionId and token. Make sure you have updated the config.js file.');
+  });
+}

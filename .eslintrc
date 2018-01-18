@@ -1,0 +1,11 @@
+{
+  "extends": "airbnb-es5",
+  "rules": {
+    "no-console": 0,
+  },
+  "globals": {
+    "window": true,
+    "document": true,
+    "navigator": true
+  }
+}
