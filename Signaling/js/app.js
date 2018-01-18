@@ -1,28 +1,10 @@
-/* global $ API_KEY TOKEN SESSION_ID SAMPLE_SERVER_BASE_URL OT */
+/* global API_KEY TOKEN SESSION_ID SAMPLE_SERVER_BASE_URL OT */
+/* eslint-disable no-alert */
 
 var apiKey;
 var session;
 var sessionId;
 var token;
-
-$(document).ready(function ready() {
-  // See the confing.js file.
-  if (API_KEY && TOKEN && SESSION_ID) {
-    apiKey = API_KEY;
-    sessionId = SESSION_ID;
-    token = TOKEN;
-    initializeSession();
-  } else if (SAMPLE_SERVER_BASE_URL) {
-    // Make an Ajax request to get the OpenTok API key, session ID, and token from the server
-    $.get(SAMPLE_SERVER_BASE_URL + '/session', function get(res) {
-      apiKey = res.apiKey;
-      sessionId = res.sessionId;
-      token = res.token;
-
-      initializeSession();
-    });
-  }
-});
 
 function initializeSession() {
   session = OT.initSession(apiKey, sessionId);
@@ -36,13 +18,13 @@ function initializeSession() {
     };
     session.subscribe(event.stream, 'subscriber', subscriberOptions, function callback(error) {
       if (error) {
-        console.log('There was an error publishing: ', error.name, error.message);
+        console.error('There was an error publishing: ', error.name, error.message);
       }
     });
   });
 
   session.on('sessionDisconnected', function sessionDisconnected(event) {
-    console.log('You were disconnected from the session.', event.reason);
+    console.error('You were disconnected from the session.', event.reason);
   });
 
   // Connect to the session
@@ -56,17 +38,17 @@ function initializeSession() {
       };
       var publisher = OT.initPublisher('publisher', publisherOptions, function initCallback(initErr) {
         if (initErr) {
-          console.log('There was an error initializing the publisher: ', initErr.name, initErr.message);
+          console.error('There was an error initializing the publisher: ', initErr.name, initErr.message);
           return;
         }
         session.publish(publisher, function publishCallback(publishErr) {
           if (publishErr) {
-            console.log('There was an error publishing: ', publishErr.name, publishErr.message);
+            console.error('There was an error publishing: ', publishErr.name, publishErr.message);
           }
         });
       });
     } else {
-      console.log('There was an error connecting to the session: ', error.name, error.message);
+      console.error('There was an error connecting to the session: ', error.name, error.message);
     }
   });
 
@@ -94,9 +76,31 @@ form.addEventListener('submit', function submit(event) {
     data: msgTxt.value
   }, function signalCallback(error) {
     if (error) {
-      console.log('Error sending signal:', error.name, error.message);
+      console.error('Error sending signal:', error.name, error.message);
     } else {
       msgTxt.value = '';
     }
   });
 });
+
+// See the config.js file.
+if (API_KEY && TOKEN && SESSION_ID) {
+  apiKey = API_KEY;
+  sessionId = SESSION_ID;
+  token = TOKEN;
+  initializeSession();
+} else if (SAMPLE_SERVER_BASE_URL) {
+  // Make an Ajax request to get the OpenTok API key, session ID, and token from the server
+  fetch(SAMPLE_SERVER_BASE_URL + '/session').then(function fetch(res) {
+    return res.json();
+  }).then(function fetchJson(json) {
+    apiKey = json.apiKey;
+    sessionId = json.sessionId;
+    token = json.token;
+
+    initializeSession();
+  }).catch(function catchErr(error) {
+    console.error('There was an error fetching the session information', error.name, error.message);
+    alert('Failed to get opentok sessionId and token. Make sure you have updated the config.js file.');
+  });
+}
