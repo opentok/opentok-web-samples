@@ -21,5 +21,5 @@ if (config.API_KEY && config.TOKEN && config.SESSION_ID) {
     .then((data) => data.json())
     .then((json) => {
       createSession(json.apiKey, json.sessionId, json.token);
-  });
+    });
 }
