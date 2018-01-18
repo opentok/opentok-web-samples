@@ -23,9 +23,10 @@ export class PublisherComponent implements AfterViewInit {
     this.publisher = OT.initPublisher(this.publisherDiv.nativeElement);
 
     if (this.session) {
-      this.session.on('sessionConnected', () => {
+      if (this.session['isConnected']()) {
         this.publish();
-      });
+      }
+      this.session.on('sessionConnected', this.publish);
     }
   }
 
