@@ -1,8 +1,9 @@
+/* global Uint8ClampedArray */
 // This file exposes a Filters object which has methods for different filters
 // none, grayscale, sepia and invert. It also has a selectedFilter property which is the currently
 // selected filter.
 
-(function(exports) {
+(function closure(exports) {
   var Filters = {
     none: function none(imgData) {
       return imgData;
@@ -30,9 +31,9 @@
         var inputRed = imgData.data[i];
         var inputGreen = imgData.data[i + 1];
         var inputBlue = imgData.data[i + 2];
-        res[i] = Math.round((inputRed * .393) + (inputGreen *.769) + (inputBlue * .189));
-        res[i+1] = Math.round((inputRed * .349) + (inputGreen *.686) + (inputBlue * .168));
-        res[i+2] = Math.round((inputRed * .272) + (inputGreen *.534) + (inputBlue * .131));
+        res[i] = Math.round((inputRed * 0.393) + (inputGreen * 0.769) + (inputBlue * 0.189));
+        res[i + 1] = Math.round((inputRed * 0.349) + (inputGreen * 0.686) + (inputBlue * 0.168));
+        res[i + 2] = Math.round((inputRed * 0.272) + (inputGreen * 0.534) + (inputBlue * 0.131));
         res[i + 3] = imgData.data[i + 3];
       }
       return new ImageData(res, imgData.width, imgData.height);
@@ -55,7 +56,7 @@
 
   // When the filter selector changes we update the selectedFilter
   var filterSelector = document.querySelector('#filter');
-  filterSelector.addEventListener('change', function() {
+  filterSelector.addEventListener('change', function change() {
     Filters.selectedFilter = Filters[filterSelector.value];
   });
 

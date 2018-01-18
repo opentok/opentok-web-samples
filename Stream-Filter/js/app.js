@@ -1,7 +1,9 @@
-(function(exports) {
-  var apiKey,
-      sessionId,
-      token;
+/* global OT */
+
+(function closure(exports) {
+  var apiKey;
+  var sessionId;
+  var token;
 
   function handleError(error) {
     if (error) {
@@ -14,7 +16,7 @@
     var session = OT.initSession(apiKey, sessionId);
 
     // Subscribe to a newly created stream
-    session.on('streamCreated', function(event) {
+    session.on('streamCreated', function streamCreated(event) {
       var subscriberOptions = {
         insertMode: 'append',
         width: '100%',
@@ -23,19 +25,19 @@
       session.subscribe(event.stream, 'subscriber', subscriberOptions, handleError);
     });
 
-    session.on('sessionDisconnected', function(event) {
+    session.on('sessionDisconnected', function sessionDisconnected(event) {
       console.log('You were disconnected from the session.', event.reason);
     });
 
     var publishPromise = exports.publish();
 
     // Connect to the session
-    session.connect(token, function(error) {
+    session.connect(token, function callback(error) {
       if (error) {
         handleError(error);
       } else {
         // If the connection is successful, initialize a publisher and publish to the session
-        publishPromise.then(function(publisher) {
+        publishPromise.then(function publishThen(publisher) {
           session.publish(publisher, handleError);
         });
       }
@@ -50,15 +52,15 @@
     initializeSession();
   } else if (exports.SAMPLE_SERVER_BASE_URL) {
     // Make an Ajax request to get the OpenTok API key, session ID, and token from the server
-    fetch(exports.SAMPLE_SERVER_BASE_URL + '/session').then(function(res) {
+    fetch(exports.SAMPLE_SERVER_BASE_URL + '/session').then(function fetchThen(res) {
       return res.json();
-    }).then(function(json) {
+    }).then(function jsonThen(json) {
       apiKey = json.apiKey;
       sessionId = json.sessionId;
       token = json.token;
 
       initializeSession();
-    }).catch(function(error) {
+    }).catch(function catchErr(error) {
       handleError(error);
       alert('Failed to get opentok sessionId and token. Make sure you have updated the config.js file.');
     });
