@@ -12,6 +12,8 @@ The code for this sample is found the following subdirectories:
 
 * [Archiving](https://github.com/opentok/opentok-web-samples/tree/master/Archiving) -- This sample shows you how to record an OpenTok session.
 
+* [Stream-Filter](https://github.com/opentok/opentok-web-samples/tree/master/Stream-Filter) -- This sample shows you how to apply custom grayscale, sepia and invert filters.
+
 * [Electron-Basic-Video-Chat](https://github.com/opentok/opentok-web-samples/tree/master/Electron-Basic-Video-Chat) -- This sample shows you how to connect to an OpenTok session, publish a stream, and subscribe to a stream in an [Electron](https://electronjs.org/) application.
 
 * [React-Basic-Video-Chat](https://github.com/opentok/opentok-web-samples/tree/master/React-Basic-Video-Chat) -- This sample shows you how to connect to an OpenTok session, publish a stream, and
