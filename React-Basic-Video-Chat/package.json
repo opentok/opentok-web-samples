@@ -9,6 +9,7 @@
     "react-dom": "^16.0.0",
     "react-scripts": "1.0.16"
   },
+  "homepage": "https://opentok.github.io/opentok-web-samples/React-Basic-Video-Chat",
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",

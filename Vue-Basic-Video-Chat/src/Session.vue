@@ -35,7 +35,7 @@ export default {
   },
   created () {
     this.session = OT.initSession(this.apiKey, this.sessionId);
-    this.session.connect(config.TOKEN, (err) => {
+    this.session.connect(this.token, (err) => {
       if (err) {
         errorHandler(err);
       }
