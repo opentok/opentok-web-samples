@@ -27,7 +27,7 @@ describe('AppComponent', () => {
     opentokService = fixture.debugElement.injector.get(OpentokService);
     spyOn(opentokService, 'getOT').and.returnValue(OT);
     opentokService.session = session;
-    spyOn(opentokService, 'connectSession').and.returnValue(Promise.resolve(session));
+    spyOn(opentokService, 'initSession').and.returnValue(Promise.resolve(session));
     app = fixture.debugElement.componentInstance;
     fixture.detectChanges();
   }));
@@ -41,9 +41,9 @@ describe('AppComponent', () => {
     const compiled = fixture.debugElement.nativeElement;
     expect(compiled.querySelector('h1').textContent).toContain('Angular Basic Video Chat');
   });
-  it('should have called connectSession on the opentokService', () => {
+  it('should have called initSession on the opentokService', () => {
     expect(app.session).toBe(session);
-    expect(opentokService.connectSession).toHaveBeenCalled();
+    expect(opentokService.initSession).toHaveBeenCalled();
   });
   it('should populate the streams when we get a streamCreated', () => {
     expect(app.streams).toEqual([]);
