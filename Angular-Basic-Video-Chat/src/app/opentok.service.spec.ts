@@ -2,6 +2,7 @@ import { TestBed, inject } from '@angular/core/testing';
 import * as OT from '@opentok/client';
 
 import { OpentokService } from './opentok.service';
+import config from '../config';
 
 
 describe('OpentokService', () => {
@@ -12,6 +13,9 @@ describe('OpentokService', () => {
   });
 
   describe('service', () => {
+    config.API_KEY = 'apiKey';
+    config.SESSION_ID = 'sessionId';
+    config.TOKEN = 'token';
     let service;
     beforeEach(inject([OpentokService], (s: OpentokService) => {
       service = s;
@@ -25,7 +29,7 @@ describe('OpentokService', () => {
       expect(service.getOT()).toEqual(OT);
     });
 
-    describe('connectSession()', () => {
+    describe('initSession()', () => {
       const OT = {
         initSession() {}
       };
@@ -37,10 +41,16 @@ describe('OpentokService', () => {
         spyOn(OT, 'initSession').and.returnValue(session);
       });
 
-      it('should call OT.initSession and connect', () => {
-        service.connectSession();
-        expect(OT.initSession).toHaveBeenCalledWith(jasmine.any(String), jasmine.any(String));
+      it('should call OT.initSession', () => {
+        service.initSession();
+        expect(OT.initSession).toHaveBeenCalledWith(config.API_KEY, config.SESSION_ID);
         expect(service.session).toEqual(session);
+      });
+
+      it('connect should call connect', () => {
+        service.initSession();
+        service.connect();
+        expect(service.session.connect).toHaveBeenCalledWith(config.TOKEN, jasmine.any(Function));
       });
     });
   });
