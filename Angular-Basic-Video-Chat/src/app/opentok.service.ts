@@ -7,6 +7,7 @@ import config from '../config';
 export class OpentokService {
 
   session: OT.Session;
+  token: string;
 
   constructor() { }
 
@@ -14,20 +15,25 @@ export class OpentokService {
     return OT;
   }
 
-  connectSession() {
+  initSession() {
     if (config.API_KEY && config.TOKEN && config.SESSION_ID) {
-      return this.connect(config.API_KEY, config.SESSION_ID, config.TOKEN);
+      this.session = this.getOT().initSession(config.API_KEY, config.SESSION_ID);
+      this.token = config.TOKEN;
+      return Promise.resolve(this.session);
     } else {
       return fetch(config.SAMPLE_SERVER_BASE_URL + '/session')
         .then((data) => data.json())
-        .then((json) => this.connect(json.apiKey, json.sessionId, json.token));
+        .then((json) => {
+          this.session = this.getOT().initSession(json.apiKey, json.sessionId);
+          this.token = json.token;
+          return this.session;
+        });
     }
   }
 
-  connect(apiKey, sessionId, token) {
+  connect() {
     return new Promise((resolve, reject) => {
-      this.session = this.getOT().initSession(apiKey, sessionId);
-      this.session.connect(token, (err) => {
+      this.session.connect(this.token, (err) => {
         if (err) {
           reject(err);
         } else {
