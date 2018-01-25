@@ -1,5 +1,4 @@
 /* global OT API_KEY TOKEN SESSION_ID SAMPLE_SERVER_BASE_URL */
-/* eslint-disable no-alert */
 
 var apiKey;
 var sessionId;
