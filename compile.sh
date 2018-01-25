@@ -17,6 +17,9 @@ sed -i -- 's/http:\/\/YOUR-SERVER-URL/https:\/\/opentok-web-samples-backend.hero
 cp -r Archiving out/
 sed -i -- 's/http:\/\/YOUR-SERVER-URL/https:\/\/opentok-web-samples-backend.herokuapp.com/g' out/Archiving/js/config.js
 
+# Copy Publish-Canvas
+cp -r Publish-Canvas out/
+
 # Build Angular Sample
 cd Angular-Basic-Video-Chat
 npm install
