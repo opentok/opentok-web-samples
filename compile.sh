@@ -20,6 +20,10 @@ sed -i -- 's/http:\/\/YOUR-SERVER-URL/https:\/\/opentok-web-samples-backend.hero
 # Copy Publish-Canvas
 cp -r Publish-Canvas out/
 
+# Copy Stream Filter
+cp -r Stream-Filter out/
+sed -i -- 's/http:\/\/YOUR-SERVER-URL/https:\/\/opentok-web-samples-backend.herokuapp.com/g' out/Stream-Filter/js/config.js
+
 # Build Angular Sample
 cd Angular-Basic-Video-Chat
 npm install

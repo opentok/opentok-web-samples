@@ -4,22 +4,24 @@ Sample applications for using the [OpenTok.js](https://tokbox.com/developer/sdks
 
 The code for this sample is found the following subdirectories:
 
-* [Angular-Basic-Video-Chat](https://github.com/opentok/opentok-web-samples/tree/master/Angular-Basic-Video-Chat) -- This sample shows you how to connect to an OpenTok session, publish a stream, and
+* Angular-Basic-Video-Chat [demo](https://opentok.github.io/opentok-web-samples/Angular-Basic-Video-Chat/) [source](https://github.com/opentok/opentok-web-samples/tree/master/Angular-Basic-Video-Chat) -- This sample shows you how to connect to an OpenTok session, publish a stream, and
   subscribe to a stream using [Angular 5](https://angular.io/).
 
-* [Basic Video Chat](https://github.com/opentok/opentok-web-samples/tree/master/Basic%20Video%20Chat) -- This sample shows you how to connect to an OpenTok session, publish a stream, and
+* Basic Video Chat [demo](https://opentok.github.io/opentok-web-samples/Basic%20Video%20Chat/) [source](https://github.com/opentok/opentok-web-samples/tree/master/Basic%20Video%20Chat) -- This sample shows you how to connect to an OpenTok session, publish a stream, and
   subscribe to a stream.
 
-* [Archiving](https://github.com/opentok/opentok-web-samples/tree/master/Archiving) -- This sample shows you how to record an OpenTok session.
+* Archiving [demo](https://opentok.github.io/opentok-web-samples/Archiving/) [source](https://github.com/opentok/opentok-web-samples/tree/master/Archiving) -- This sample shows you how to record an OpenTok session.
 
-* [Electron-Basic-Video-Chat](https://github.com/opentok/opentok-web-samples/tree/master/Electron-Basic-Video-Chat) -- This sample shows you how to connect to an OpenTok session, publish a stream, and subscribe to a stream in an [Electron](https://electronjs.org/) application.
+* Stream-Filter [demo](https://opentok.github.io/opentok-web-samples/Stream-Filter) [source](https://github.com/opentok/opentok-web-samples/tree/master/Stream-Filter) -- This sample shows you how to apply custom grayscale, sepia and invert filters.
 
-* [React-Basic-Video-Chat](https://github.com/opentok/opentok-web-samples/tree/master/React-Basic-Video-Chat) -- This sample shows you how to connect to an OpenTok session, publish a stream, and
+* Electron-Basic-Video-Chat [source](https://github.com/opentok/opentok-web-samples/tree/master/Electron-Basic-Video-Chat) -- This sample shows you how to connect to an OpenTok session, publish a stream, and subscribe to a stream in an [Electron](https://electronjs.org/) application.
+
+* React-Basic-Video-Chat [demo](https://opentok.github.io/opentok-web-samples/React-Basic-Video-Chat/) [source](https://github.com/opentok/opentok-web-samples/tree/master/React-Basic-Video-Chat) -- This sample shows you how to connect to an OpenTok session, publish a stream, and
   subscribe to a stream using [React](https://reactjs.org/). You can also toggle the video by clicking on the Video button.
 
-* [Signaling](https://github.com/opentok/opentok-web-samples/tree/master/Signaling) -- This sample shows you how to use the OpenTok signaling API to implement text chat.
+* Signaling [demo](https://opentok.github.io/opentok-web-samples/Signaling/) [source](https://github.com/opentok/opentok-web-samples/tree/master/Signaling) -- This sample shows you how to use the OpenTok signaling API to implement text chat.
 
-* [Vue-Basic-Video-Chat](https://github.com/opentok/opentok-web-samples/tree/master/Vue-Basic-Video-Chat) -- This sample shows you how to connect to an OpenTok session, publish a stream, and
+* Vue-Basic-Video-Chat [demo](https://opentok.github.io/opentok-web-samples/Vue-Basic-Video-Chat/) [source](https://github.com/opentok/opentok-web-samples/tree/master/Vue-Basic-Video-Chat) -- This sample shows you how to connect to an OpenTok session, publish a stream, and
   subscribe to a stream using [Vue.js](https://vuejs.org/).
 
 See the README file in each of these subdirectories for application-specific notes.

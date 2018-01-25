@@ -2,6 +2,7 @@
   "extends": "airbnb-es5",
   "rules": {
     "no-console": 0,
+    "no-alert": 0,
   },
   "globals": {
     "window": true,
