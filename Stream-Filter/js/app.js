@@ -7,7 +7,7 @@
 
   function handleError(error) {
     if (error) {
-      console.error(error);
+      console.error('Received an error', error);
     }
   }
   exports.handleError = handleError;
@@ -39,7 +39,7 @@
         // If the connection is successful, initialize a publisher and publish to the session
         publishPromise.then(function publishThen(publisher) {
           session.publish(publisher, handleError);
-        });
+        }).catch(handleError);
       }
     });
   }

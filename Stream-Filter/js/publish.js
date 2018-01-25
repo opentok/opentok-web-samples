@@ -1,4 +1,4 @@
-/* global OT */
+/* global OT Promise */
 // This file exposes a publish function on window which when called returns a Promise to
 // an OpenTok Publisher. The Publisher returned uses a custom videoSource while applies the
 // currently selected filter.
@@ -58,7 +58,7 @@
         }
         if (MediaStreamTrack && MediaStreamTrack.prototype.stop) {
           // Newer spec
-          mediaStream.getTracks().forEach((track) => { track.stop(); });
+          mediaStream.getTracks().forEach(function each(track) { track.stop(); });
         }
         cancelAnimationFrame(reqId);
       }
@@ -80,26 +80,29 @@
         // Pass in the audio track from our underlying mediaStream as the audioSource
         audioSource: mediaStream.getAudioTracks()[0]
       };
-      var publisher =  OT.initPublisher('publisher', publisherOptions, exports.handleError);
-      publisher.on('destroyed', function destroyed() {
-        // When the publisher is destroyed we cleanup
-        filteredCanvas.stop();
-      });
-
-      // We insert the canvas into the publisher element on iOS because the video element
-      // just stays black otherwise because of a bug https://bugs.webkit.org/show_bug.cgi?id=181663
-      if (navigator.userAgent.indexOf('iPhone OS') > -1) {
-        publisher.on('videoElementCreated', function videoElementCreated(event) {
-          event.element.parentNode.insertBefore(filteredCanvas.canvas, event.element);
-          filteredCanvas.canvas.style.width = '100%';
-          filteredCanvas.canvas.style.height = '100%';
-          filteredCanvas.canvas.style.position = 'absolute';
-          filteredCanvas.canvas.style.zIndex = 1;
-          filteredCanvas.canvas.style.objectFit = window.getComputedStyle(event.element).objectFit;
+      return new Promise(function promise(resolve, reject) {
+        var publisher = OT.initPublisher('publisher', publisherOptions, function initComplete(err) {
+          if (err) reject(err);
+          else resolve(publisher);
         });
-      }
+        publisher.on('destroyed', function destroyed() {
+          // When the publisher is destroyed we cleanup
+          filteredCanvas.stop();
+        });
 
-      return publisher;
+        // We insert the canvas into the publisher element on iOS because the video element
+        // just stays black otherwise because of a bug https://bugs.webkit.org/show_bug.cgi?id=181663
+        if (navigator.userAgent.indexOf('iPhone OS') > -1) {
+          publisher.on('videoElementCreated', function videoElementCreated(event) {
+            event.element.parentNode.insertBefore(filteredCanvas.canvas, event.element);
+            filteredCanvas.canvas.style.width = '100%';
+            filteredCanvas.canvas.style.height = '100%';
+            filteredCanvas.canvas.style.position = 'absolute';
+            filteredCanvas.canvas.style.zIndex = 1;
+            filteredCanvas.canvas.style.objectFit = window.getComputedStyle(event.element).objectFit;
+          });
+        }
+      });
     });
   };
 
