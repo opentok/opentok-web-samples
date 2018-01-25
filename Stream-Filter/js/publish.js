@@ -82,8 +82,12 @@
       };
       return new Promise(function promise(resolve, reject) {
         var publisher = OT.initPublisher('publisher', publisherOptions, function initComplete(err) {
-          if (err) reject(err);
-          else resolve(publisher);
+          if (err) {
+            filteredCanvas.stop();
+            reject(err);
+          } else {
+            resolve(publisher);
+          }
         });
         publisher.on('destroyed', function destroyed() {
           // When the publisher is destroyed we cleanup
