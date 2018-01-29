@@ -10,6 +10,19 @@ and test the application:
 * [Configuring the application](../README.md#configuring-the-application)
 * [Testing the application](../README.md#testing-the-application)
 
+**Important notes:**
+
+* Be sure to [set up the test web service](../README.md#setting-up-the-test-web-service).
+  The API calls to start and stop OpenTok archives take place on the server (not in the
+  web client).
+
+* This application uses archives that are stored in the OpenTok cloud. In your
+  [OpenTok Account page](https://tokbox.com/account/), ensure that OpenTok project you use
+  is *not* set up to use cloud storage on Microsoft Azure or Amazon S3. In a production
+  application, you will want to use a project that has archive file cloud storage on Microsoft
+  Azure or Amazon S3 enabled, since archives stored on the OpenTok cloud are only available
+  for 72 hours.
+
 For this application, click the Start Archive button (in the bottom-lefthand corner of the page)
 to start recording the OpenTok session. Then click the Stop Archive button to stop recording the
 session. Then click the View Archive to view the archive.
@@ -46,12 +59,12 @@ Recording button is hidden and the View Archive button is enabled.
       $('#stop').show();
     }
 
-To download the archive that has just been recorded, the user clicks View Archive button which
+To view the archive that has just been recorded, the user clicks View Archive button which
 invokes the `viewArchive()` method. This method is similar to the `startArchive()` and
 `stopArchive()` methods in that it sends an Ajax request to the server. The server code has the
-logic to check if the archive is available for download or not. If it is available, the application
+logic to check if the archive is available or not. If it is available, the application
 is redirected to the archive page. If not, a new page is loaded which continuously checks whether
-the archive is available for download or not and loads it when it is available.
+the archive is available or not, and it displays the archive when it is available.
 
 *Notes:*
 
@@ -61,8 +74,11 @@ end-user.
 * You can have automatically archived sessions, which are recorded whenever a client
 starts publishing a stream.
 
-* You will want to set up an Amazon S3 or Microsoft Azure target
-for storage of your archive recordings.
+* This sample application uses archives that are stored in the OpenTok cloud. For a production
+application, you will want to set up a project to have archive file cloud storage on Microsoft Azure
+or Amazon S3 enabled, since archives stored on the OpenTok cloud are only available for 72 hours.
+To set up Microsoft Azure or Amazon S3 storage for a project's archives, go to your
+[OpenTok Account page](https://tokbox.com/account/).
 
 For more information, see the [OpenTok archiving developer
 guide](https://tokbox.com/developer/guides/archiving/).
