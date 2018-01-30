@@ -16,6 +16,8 @@ The code for this sample is found the following subdirectories:
 
 * Publish-Canvas ([demo](https://opentok.github.io/opentok-web-samples/Publish-Canvas/)) ([source](https://github.com/opentok/opentok-web-samples/tree/master/Publish-Canvas)) -- In this sample application we show you how to publish a custom stream from a Canvas tag.
 
+* Publish-Video ([demo](https://opentok.github.io/opentok-web-samples/Publish-Video/)) ([source](https://github.com/opentok/opentok-web-samples/tree/master/Publish-Video)) -- In this sample application we show you how to publish a video file to an OpenTok Session.
+
 * React-Basic-Video-Chat ([demo](https://opentok.github.io/opentok-web-samples/React-Basic-Video-Chat/)) ([source](https://github.com/opentok/opentok-web-samples/tree/master/React-Basic-Video-Chat)) -- This sample shows you how to connect to an OpenTok session, publish a stream, and
   subscribe to a stream using [React](https://reactjs.org/). You can also toggle the video by clicking on the Video button.
 
