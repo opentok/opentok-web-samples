@@ -25,6 +25,7 @@ cp -r Publish-Video out/
 
 # Copy Stereo-Audio
 cp -r Stereo-Audio out/
+sed -i -- 's/http:\/\/YOUR-SERVER-URL/https:\/\/opentok-web-samples-backend.herokuapp.com/g' out/Stereo-Audio/js/config.js
 
 # Copy Stream Filter
 cp -r Stream-Filter out/
