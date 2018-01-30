@@ -15,4 +15,4 @@ You can see a demo of this app running at [opentok.github.io/opentok-web-samples
 
 ## Known Limitations
 
-* The custom streaming API works on Chrome 53+. It currently does not work in Safari, Firefox, IE or Edge browsers.
+* This sample app works on Chrome 53+. [HTMLMediaElement.captureStream](https://developer.mozilla.org/en-US/docs/Web/API/HTMLMediaElement/captureStream) currently does not work in Safari, Firefox, IE or Edge browsers.
