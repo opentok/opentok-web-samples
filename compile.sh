@@ -23,6 +23,9 @@ cp -r Publish-Canvas out/
 # Copy Publish-Canvas
 cp -r Publish-Video out/
 
+# Copy Stereo-Audio
+cp -r Stereo-Audio out/
+
 # Copy Stream Filter
 cp -r Stream-Filter out/
 sed -i -- 's/http:\/\/YOUR-SERVER-URL/https:\/\/opentok-web-samples-backend.herokuapp.com/g' out/Stream-Filter/js/config.js
