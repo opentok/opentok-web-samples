@@ -5,7 +5,7 @@
   "main": "app.js",
   "scripts": {
     "start": "electron .",
-    "build": "electron-packager . Electron-Basic-Video-Chat --all"
+    "build": "electron-packager . Electron-Basic-Video-Chat --all && for folder in `ls . | grep Electron-Basic-Video-Chat-`; do zip -r $folder.zip $folder; done;"
   },
   "author": "Manik Sachdeva",
   "license": "ISC",
