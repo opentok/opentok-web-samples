@@ -4,12 +4,16 @@
   "description": "",
   "main": "app.js",
   "scripts": {
-    "start": "electron ."
+    "start": "electron .",
+    "build": "electron-packager . Electron-Basic-Video-Chat --all"
   },
   "author": "Manik Sachdeva",
   "license": "ISC",
   "dependencies": {
     "@opentok/client": "^2.12.0",
     "electron": "^1.7.11"
+  },
+  "devDependencies": {
+    "electron-packager": "^10.1.2"
   }
 }

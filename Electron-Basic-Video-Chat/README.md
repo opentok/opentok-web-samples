@@ -3,6 +3,12 @@ OpenTok.js Electron Basic Sample
 
 This sample application shows how to connect to an OpenTok session, publish a stream, and subscribe to a stream in a basic Electron application.
 
+## Demo
+
+You can download a demo app of this running [here](https://github.com/opentok/opentok-web-samples/tree/gh-pages/Electron-Basic-Video-Chat)
+
+> **Note** The demo is setup so that a new room is generated based on your public IP address. So will only work if you are connecting from the same network.
+
 ## Quick started
 1. Get values for your OpenTok API key, session ID, and token. You can obtain these values from your TokBox account. Make sure that the token isn't expired.
 For testing, you can use a session ID and token generated at your TokBox account page. However, the final application should obtain these values using the [OpenTok server SDKs](https://tokbox.com/developer/sdks/server/). For more information, see the OpenTok developer guides on [session creation](https://tokbox.com/developer/guides/create-session/) and [token creation](https://tokbox.com/developer/guides/create-token/).
@@ -66,7 +72,7 @@ and a completion handler function:
 
     // Connect to the Session
     session.connect(token, (error) => {
-      
+
       // If the connection is successful, initialize a publisher and publish to the session
       if (error) {
         return console.log(`There was an error connecting to session: ${error}`);
@@ -161,8 +167,7 @@ The `session.subscribe()` method takes four parameters:
 
 ## Known Issues
 
-* When starting the application, you'll notice a silent error: 
+* When starting the application, you'll notice a silent error:
   `ERROR:audio_send_stream.cc(93)] Failed to set up send codec state.`
   This is a known [Electron issue](https://github.com/electron/electron/issues/8991).
   We recommend staying up to date with the issue to see if the Electron team or other contributors have a solution.
-  
