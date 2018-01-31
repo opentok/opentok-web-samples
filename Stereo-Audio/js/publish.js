@@ -42,7 +42,7 @@
         panner.disconnect();
         player.disconnect();
         player.stop();
-      },
+      }
     };
   };
 
@@ -59,7 +59,7 @@
       const {
         audioStream,
         setPanValue,
-        stop,
+        stop
       } = createAudioStream(audioBuffer, audioContext);
 
       const publisherOptions = {
@@ -73,7 +73,7 @@
         // Enable stereo audio
         enableStereo: true,
         // Increasing audio bitrate is recommended for stereo music
-        audioBitrate: 128000,
+        audioBitrate: 128000
       };
       return new Promise((resolve, reject) => {
         const publisher = OT.initPublisher('publisher', publisherOptions, (err) => {

@@ -11,7 +11,7 @@
   const callbacks = {
     publish: null,
     unpublish: null,
-    setPanValue: null,
+    setPanValue: null
   };
 
   const onPublishClick = () => {
@@ -66,6 +66,6 @@
       hide($publishButton);
       show($unpublishButton);
       show($panControls);
-    },
+    }
   });
 })(exports);

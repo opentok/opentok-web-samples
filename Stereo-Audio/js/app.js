@@ -1,4 +1,4 @@
-/* global OT */
+/* global OT Promise */
 
 ((exports) => {
   const credentials = {};
@@ -77,7 +77,7 @@
     const {
       API_KEY: apiKey,
       SESSION_ID: sessionId,
-      TOKEN: token,
+      TOKEN: token
     } = exports;
     Object.assign(credentials, { apiKey, sessionId, token });
     initializeSession();
