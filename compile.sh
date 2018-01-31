@@ -56,3 +56,7 @@ cd ..
 mkdir -p out/Vue-Basic-Video-Chat
 cp -r Vue-Basic-Video-Chat/dist out/Vue-Basic-Video-Chat/
 cp -r Vue-Basic-Video-Chat/index.html out/Vue-Basic-Video-Chat/
+
+# Run tests
+npm start &
+npm test
