@@ -50,12 +50,11 @@ if (API_KEY && SESSION_ID && TOKEN) {
   initializeSession(API_KEY, SESSION_ID, TOKEN);
 } else if (SAMPLE_SERVER_BASE_URL) {
   // Make an Ajax request to get the OpenTok API key, session ID, and token from the server
-  fetch(SAMPLE_SERVER_BASE_URL + '/session').then(function fetch(res) {
-    return res.json();
-  }).then(function fetchJson(json) {
-    initializeSession(json.apiKey, json.sessionId, json.token);
-  }).catch(function catchErr(error) {
-    console.error(error);
-    alert('Failed to get opentok sessionId and token. Make sure you have updated the values in openTok.js');
-  });
+  fetch(SAMPLE_SERVER_BASE_URL + '/session')
+    .then((res) => res.json())
+    .then((json) => initializeSession(json.apiKey, json.sessionId, json.token))
+    .catch((error) => {
+      console.error(error);
+      alert('Failed to get opentok sessionId and token. Make sure you have updated the values in openTok.js');
+    });
 }
