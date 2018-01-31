@@ -37,8 +37,6 @@ npm install
 sed -i -- 's/http:\/\/YOUR-SERVER-URL/https:\/\/opentok-web-samples-backend.herokuapp.com/g' openTok.js
 npm run build
 cd ..
-mkdir -p out/Electron-Basic-Video-Chat
-cp -r Electron-Basic-Video-Chat/Electron-Basic-Video-Chat-*.zip out/Electron-Basic-Video-Chat/
 
 # Build Angular Sample
 cd Angular-Basic-Video-Chat
