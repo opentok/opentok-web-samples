@@ -21,8 +21,6 @@
     player.buffer = audioBuffer;
     player.start(startTime);
     player.loop = true;
-    player.loopStart = 0;
-    player.loopEnd = 39;
 
     const destination = audioContext.createMediaStreamDestination();
 
@@ -54,7 +52,7 @@
 
     // Request access to the microphone and camera
     return Promise.all([
-      getAudioBuffer('./media/imperial-march.wav', audioContext),
+      getAudioBuffer('./media/funkloop.mp3', audioContext),
       OT.getUserMedia({ audioSource: null })
     ]).then((results) => {
       const [audioBuffer, videoStream] = results;
