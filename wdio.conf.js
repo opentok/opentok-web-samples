@@ -1,4 +1,4 @@
-exports.config = {
+let config = {
 
   //
   // ==================
@@ -17,8 +17,6 @@ exports.config = {
     // 'path/to/excluded/files'
   ],
 
-  port: '9515',
-  path: '/',
   //
   // ============
   // Capabilities
@@ -41,20 +39,7 @@ exports.config = {
   // Sauce Labs platform configurator - a great tool to configure your capabilities:
   // https://docs.saucelabs.com/reference/platforms-configurator
   //
-  capabilities: [{
-    // maxInstances can get overwritten per capability. So if you have an in-house Selenium
-    // grid with only 5 firefox instances available you can make sure that not more than
-    // 5 instances get started at a time.
-    maxInstances: 5,
-    //
-    browserName: 'chrome',
-
-    chromeOptions: {
-      args: ['use-fake-device-for-media-stream',
-        'use-fake-ui-for-media-stream'],
-      binary: process.env.BROWSERBIN
-    }
-  }],
+  capabilities: [],
   //
   // ===================
   // Test Configurations
@@ -120,7 +105,7 @@ exports.config = {
   // Services take over a specific job you don't want to take care of. They enhance
   // your test setup with almost no effort. Unlike plugins, they don't add new
   // commands. Instead, they hook themselves up into the test process.
-  services: ['chromedriver'],
+  services: [],
   //
   // Framework you want to run your specs with.
   // The following are supported: Mocha, Jasmine, and Cucumber
@@ -261,3 +246,41 @@ exports.config = {
   // onComplete: function(exitCode, config, capabilities) {
   // }
 };
+
+if (process.env.BROWSER === 'firefox') {
+  config.services.push('firefox-profile');
+  config.capabilities.push({
+    // maxInstances can get overwritten per capability. So if you have an in-house Selenium
+    // grid with only 5 firefox instances available you can make sure that not more than
+    // 5 instances get started at a time.
+    maxInstances: 5,
+    //
+    browserName: 'firefox',
+    binary: process.env.BROWSERBIN
+  });
+  config.firefoxProfile = {
+    'media.navigator.permission.disabled': true,
+    'media.navigator.streams.fake': true
+  };
+} else {
+  // Default to chrome
+  config.port = '9515';
+  config.path = '/';
+  config.services.push('chromedriver');
+  config.capabilities.push({
+    // maxInstances can get overwritten per capability. So if you have an in-house Selenium
+    // grid with only 5 firefox instances available you can make sure that not more than
+    // 5 instances get started at a time.
+    maxInstances: 5,
+    //
+    browserName: 'chrome',
+
+    chromeOptions: {
+      args: ['use-fake-device-for-media-stream',
+        'use-fake-ui-for-media-stream'],
+      binary: process.env.BROWSERBIN
+    }
+  });
+}
+
+exports.config = config;

@@ -33,6 +33,7 @@
     "http-server": "^0.11.1",
     "opentok-test-scripts": "^3.6.1",
     "wdio-chromedriver-service": "^0.1.2",
+    "wdio-firefox-profile-service": "^0.1.1",
     "wdio-jasmine-framework": "^0.3.2",
     "webdriverio": "^4.10.1"
   },
