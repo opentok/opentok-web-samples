@@ -3,6 +3,14 @@ OpenTok.js Archiving Sample
 
 This sample application shows how to record an OpenTok session.
 
+## Demo
+
+You can see a demo of this sample running at [opentok.github.io/opentok-web-samples/Archiving/](https://opentok.github.io/opentok-web-samples/Archiving/)
+
+> **Note** The demo is setup so that a new room is generated based on your public IP address. So will only work if you are connecting from 2 browsers on the same network.
+
+## Running the App
+
 *Important:* Read the following sections of the main README file for the repository to set up
 and test the application:
 
