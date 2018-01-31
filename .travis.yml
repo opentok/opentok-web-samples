@@ -6,9 +6,15 @@ node_js: 8
 before_install:
 - export DISPLAY=:99.0
 - if [ -f /etc/init.d/xvfb ]; then sh -e /etc/init.d/xvfb start; fi
+- if [ $BROWSER == 'firefox' ]; then pulseaudio --start; fi
 - ./startSelenium.sh
 
 script: run-tests
+
+addons:
+  apt:
+    packages:
+      - pulseaudio
 
 matrix:
   include:
