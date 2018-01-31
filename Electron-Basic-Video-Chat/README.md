@@ -66,7 +66,7 @@ and a completion handler function:
 
     // Connect to the Session
     session.connect(token, (error) => {
-      
+
       // If the connection is successful, initialize a publisher and publish to the session
       if (error) {
         return console.log(`There was an error connecting to session: ${error}`);
@@ -161,8 +161,7 @@ The `session.subscribe()` method takes four parameters:
 
 ## Known Issues
 
-* When starting the application, you'll notice a silent error: 
+* When starting the application, you'll notice a silent error:
   `ERROR:audio_send_stream.cc(93)] Failed to set up send codec state.`
   This is a known [Electron issue](https://github.com/electron/electron/issues/8991).
   We recommend staying up to date with the issue to see if the Electron team or other contributors have a solution.
-  

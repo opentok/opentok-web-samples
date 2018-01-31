@@ -1,5 +1,12 @@
 language: node_js
 node_js: 8
+dist: trusty
+sudo: required
+
+before_install:
+  - sudo dpkg --add-architecture i386
+  - sudo apt-get -qq update
+  - sudo apt-get install wine1.6
 
 script: ./deploy.sh
 

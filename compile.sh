@@ -31,12 +31,20 @@ sed -i -- 's/http:\/\/YOUR-SERVER-URL/https:\/\/opentok-web-samples-backend.hero
 cp -r Stream-Filter out/
 sed -i -- 's/http:\/\/YOUR-SERVER-URL/https:\/\/opentok-web-samples-backend.herokuapp.com/g' out/Stream-Filter/js/config.js
 
+# Build Electron-Basic-Video-Chat
+cd Electron-Basic-Video-Chat
+npm install
+sed -i -- 's/http:\/\/YOUR-SERVER-URL/https:\/\/opentok-web-samples-backend.herokuapp.com/g' openTok.js
+npm run build
+cd ..
+
 # Build Angular Sample
 cd Angular-Basic-Video-Chat
 npm install
 sed -i -- 's/http:\/\/YOUR-SERVER-URL/https:\/\/opentok-web-samples-backend.herokuapp.com/g' src/config.ts
 npx ng build -prod --base-href ''
 cd ..
+mkdir -p out/Angular-Basic-Video-Chat
 cp -r Angular-Basic-Video-Chat/dist/ out/Angular-Basic-Video-Chat/
 
 # Build React Sample
@@ -45,6 +53,7 @@ npm install
 sed -i -- 's/http:\/\/YOUR-SERVER-URL/https:\/\/opentok-web-samples-backend.herokuapp.com/g' src/config.js
 npm run build
 cd ..
+mkdir -p out/React-Basic-Video-Chat
 cp -r React-Basic-Video-Chat/build/ out/React-Basic-Video-Chat/
 
 # Build Vue Sample
