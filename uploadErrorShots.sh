@@ -10,6 +10,9 @@ if [[ "$TRAVIS_PULL_REQUEST" != "false" && -d ./errorShots ]] ; then
     output=`./imgur.sh errorShots/$file`
     echo $output
     imgURL=`echo $output | grep .png`
+
+    echo "GITHUB_TOKEN=${GITHUB_TOKEN}"
+
     curl -H "Authorization: token ${GITHUB_TOKEN}" -X POST \
       -d "{\"body\": \"${BROWSER} ${BVER} failed ![errorShot](${imgURL})\"}" \
       "https://api.github.com/repos/${TRAVIS_REPO_SLUG}/issues/${TRAVIS_PULL_REQUEST}/comments"
