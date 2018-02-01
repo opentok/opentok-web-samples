@@ -19,6 +19,8 @@ addons:
 matrix:
   include:
     - os: linux
+      env: INTEGRATION_CMD='npm run lint'
+    - os: linux
       env: BROWSER=chrome  BVER=stable
     - os: linux
       env: BROWSER=firefox  BVER=stable
@@ -28,7 +30,7 @@ matrix:
 
 env:
   global:
-    - UNIT_CMD='npm run lint'
+    - UNIT_CMD=''
     - INTEGRATION_CMD='./deploy.sh'
     - ENCRYPTION_LABEL: "2224911b822a"
     - COMMIT_AUTHOR_EMAIL: "adam@tokbox.com"
