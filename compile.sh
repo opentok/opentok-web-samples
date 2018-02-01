@@ -59,7 +59,7 @@ cp -r Vue-Basic-Video-Chat/index.html out/Vue-Basic-Video-Chat/
 
 # Run tests
 if [[ $BROWSER == 'safari' ]]; then
-  sudo npx http-server out -p 80
+  sudo npx http-server out -p 80 &
 else
   npm start &
 fi
