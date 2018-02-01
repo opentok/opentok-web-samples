@@ -9,7 +9,7 @@ before_install:
 - if [ $BROWSER == 'firefox' ]; then pulseaudio --start; fi
 - ./startSelenium.sh
 - if [ $BROWSER == 'safari' ]; then sudo safaridriver --enable; fi
-- if [ $BROWSER == 'safari' ]; then com.apple.Safari com.apple.Safari.ContentPageGroupIdentifier.WebKit2JavaScriptCanOpenWindowsAutomatically -bool true; fi
+- if [ $BROWSER == 'safari' ]; then defaults write com.apple.Safari.ContentPageGroupIdentifier.WebKit2JavaScriptCanOpenWindowsAutomatically -bool true; fi
 
 script: run-tests
 
