@@ -35,3 +35,6 @@ env:
     - INTEGRATION_CMD='./deploy.sh'
     - ENCRYPTION_LABEL: "2224911b822a"
     - COMMIT_AUTHOR_EMAIL: "adam@tokbox.com"
+
+after_failure:
+  - ./uploadErrorShots.sh
