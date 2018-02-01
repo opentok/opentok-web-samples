@@ -5,7 +5,7 @@
   "scripts": {
     "lint": "eslint .",
     "test": "wdio wdio.conf.js",
-    "start": "sudo ./node_modules/.bin/http-server out -p 80"
+    "start": "http-server out"
   },
   "repository": {
     "type": "git",

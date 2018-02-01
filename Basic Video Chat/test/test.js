@@ -3,9 +3,8 @@
 var assert = require('assert');
 
 describe('webdriver.io page', () => {
-  const URL = 'http://127.0.0.1/Basic Video Chat';
   beforeAll(() => {
-    browser.url(URL);
+    browser.url('Basic Video Chat');
   });
 
   it('should have the right title', () => {
@@ -19,7 +18,7 @@ describe('webdriver.io page', () => {
   });
 
   it('The subscriber should load if you open a new window', () => {
-    browser.execute(`window.open("${URL}")`);
+    browser.execute('window.open(window.location.href)');
     var subscriber = $('div.OT_subscriber:not(.OT_loading) .OT_video-element');
     subscriber.waitForExist(10000);
   });
