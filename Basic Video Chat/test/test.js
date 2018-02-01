@@ -3,7 +3,7 @@
 var assert = require('assert');
 
 describe('webdriver.io page', () => {
-  const URL = 'http://localhost/Basic Video Chat';
+  const URL = 'http://127.0.0.1/Basic Video Chat';
   beforeAll(() => {
     browser.url(URL);
   });
