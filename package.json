@@ -36,6 +36,7 @@
     "wdio-chromedriver-service": "^0.1.2",
     "wdio-firefox-profile-service": "^0.1.1",
     "wdio-jasmine-framework": "^0.3.2",
+    "wdio-sauce-service": "^0.4.7",
     "webdriverio": "^4.10.1"
   },
   "dependencies": {}

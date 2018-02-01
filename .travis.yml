@@ -27,6 +27,8 @@ matrix:
     - os: osx
       osx_image: xcode9.2
       env: BROWSER=safari BVER=stable
+    - os: linux
+      env: BROWSER=ie BVER=11 SAUCELABS=true
 
 env:
   global:

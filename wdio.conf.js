@@ -265,6 +265,23 @@ case 'safari':
   });
   config.baseUrl = 'http://127.0.0.1';
   break;
+case 'ie':
+  config.services.push('sauce');
+  config.user = process.env.SAUCE_USERNAME;
+  config.key = process.env.SAUCE_ACCESS_KEY;
+  config.sauceConnect = false;
+  config.sauceConnectOpts = {
+    tunnelIdentifier: process.env.TRAVIS_JOB_NUMBER
+  };
+  config.capabilities.push({
+    browserName: 'internet explorer',
+    version: 11,
+    platform: 'Windows 8.1',
+    'tunnel-identifier': process.env.TRAVIS_JOB_NUMBER,
+    prerun: 'http://localhost:8080/plugin-installer/SauceLabsInstaller.exe',
+    background: false
+  });
+  break;
 case 'chrome':
 default:
   // Default to chrome
