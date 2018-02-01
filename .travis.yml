@@ -8,8 +8,6 @@ before_install:
 - if [ -f /etc/init.d/xvfb ]; then sh -e /etc/init.d/xvfb start; fi
 - if [ $BROWSER == 'firefox' ]; then pulseaudio --start; fi
 - ./startSelenium.sh
-- if [ $BROWSER == 'safari' ]; then sudo safaridriver --enable; fi
-- if [ $BROWSER == 'safari' ]; then defaults write com.apple.Safari.ContentPageGroupIdentifier.WebKit2JavaScriptCanOpenWindowsAutomatically -bool true; fi
 
 script: run-tests
 

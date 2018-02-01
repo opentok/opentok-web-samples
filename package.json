@@ -32,6 +32,7 @@
     "eslint-plugin-react": "^7.5.1",
     "http-server": "^0.11.1",
     "opentok-test-scripts": "^3.6.1",
+    "travis-multirunner": "github:aullman/travis-multirunner#turn-off-popup-blocker",
     "wdio-chromedriver-service": "^0.1.2",
     "wdio-firefox-profile-service": "^0.1.1",
     "wdio-jasmine-framework": "^0.3.2",
