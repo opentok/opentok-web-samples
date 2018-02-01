@@ -247,14 +247,10 @@ let config = {
   // }
 };
 
-if (process.env.BROWSER === 'firefox') {
+switch (process.env.BROWSER) {
+case 'firefox':
   config.services.push('firefox-profile');
   config.capabilities.push({
-    // maxInstances can get overwritten per capability. So if you have an in-house Selenium
-    // grid with only 5 firefox instances available you can make sure that not more than
-    // 5 instances get started at a time.
-    maxInstances: 5,
-    //
     browserName: 'firefox',
     binary: process.env.BROWSERBIN
   });
@@ -262,25 +258,27 @@ if (process.env.BROWSER === 'firefox') {
     'media.navigator.permission.disabled': true,
     'media.navigator.streams.fake': true
   };
-} else {
+  break;
+case 'safari':
+  config.capabilities.push({
+    browserName: 'safari'
+  });
+  break;
+case 'chrome':
+default:
   // Default to chrome
   config.port = '9515';
   config.path = '/';
   config.services.push('chromedriver');
   config.capabilities.push({
-    // maxInstances can get overwritten per capability. So if you have an in-house Selenium
-    // grid with only 5 firefox instances available you can make sure that not more than
-    // 5 instances get started at a time.
-    maxInstances: 5,
-    //
     browserName: 'chrome',
-
     chromeOptions: {
       args: ['use-fake-device-for-media-stream',
         'use-fake-ui-for-media-stream'],
       binary: process.env.BROWSERBIN
     }
   });
+  break;
 }
 
 exports.config = config;
