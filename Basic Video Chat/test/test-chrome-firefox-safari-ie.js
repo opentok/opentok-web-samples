@@ -2,7 +2,7 @@
 
 var assert = require('assert');
 
-describe('webdriver.io page', () => {
+describe('Basic Video Chat Test', () => {
   beforeAll(() => {
     browser.url('Basic Video Chat');
   });

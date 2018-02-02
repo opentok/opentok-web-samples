@@ -1,3 +1,4 @@
+const BROWSER = process.env.BROWSER || 'chrome';
 const config = {
 
   //
@@ -9,8 +10,12 @@ const config = {
   // NPM script (see https://docs.npmjs.com/cli/run-script) then the current working
   // directory is where your package.json resides, so `wdio` will be called from there.
   //
+
+  // Some tests only run in certain browsers. So we put the name of browsers in the test file name
+  // eg. test-chrome-firefox.js will only run in chrome and firefox vs test-chrome-firefox-safari.js
+  // will run in chrome, firefox and safari.
   specs: [
-    '*/test/*.js'
+    `*/test/*test*${BROWSER}*.js`
   ],
   // Patterns to exclude.
   exclude: [
@@ -247,7 +252,7 @@ const config = {
   // }
 };
 
-switch (process.env.BROWSER) {
+switch (BROWSER) {
 case 'firefox':
   config.services.push('firefox-profile');
   config.capabilities.push({
