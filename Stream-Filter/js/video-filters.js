@@ -1,10 +1,10 @@
 /* global Uint8ClampedArray */
-// This file exposes a Filters object which has methods for different filters
+// This file exposes a VideoFilters object which has methods for different video filters:
 // none, grayscale, sepia and invert. It also has a selectedFilter property which is the currently
 // selected filter.
 
 (function closure(exports) {
-  var Filters = {
+  var VideoFilters = {
     none: function none(imgData) {
       return imgData;
     },
@@ -52,13 +52,13 @@
     }
   };
   // Set the initial filter to none
-  Filters.selectedFilter = Filters.none;
+  VideoFilters.selectedFilter = VideoFilters.none;
 
   // When the filter selector changes we update the selectedFilter
-  var filterSelector = document.querySelector('#filter');
-  filterSelector.addEventListener('change', function change() {
-    Filters.selectedFilter = Filters[filterSelector.value];
+  var videoFilterSelector = document.querySelector('#video-filter');
+  videoFilterSelector.addEventListener('change', function change() {
+    VideoFilters.selectedFilter = VideoFilters[videoFilterSelector.value];
   });
 
-  exports.Filters = Filters;
+  exports.VideoFilters = VideoFilters;
 })(exports);

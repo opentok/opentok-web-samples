@@ -13,8 +13,13 @@
     <div id="videos">
         <div id="subscriber"></div>
         <div id="publisher">
-          <select id="filter">
-            <option value="none">None</option>
+          <select id="audio-filter">
+            <option value="none">No audio effect</option>
+            <option value="echo">Echo</option>
+            <option value="distortion">Distortion</option>
+          </select>
+          <select id="video-filter">
+            <option value="none">No video filter</option>
             <option value="grayscale">Grayscale</option>
             <option value="sepia">Sepia</option>
             <option value="invert">Invert</option>
@@ -30,7 +35,8 @@
       var exports = {};
     </script>
     <script type="text/javascript" src="js/config.js"></script>
-    <script type="text/javascript" src="js/filters.js"></script>
+    <script type="text/javascript" src="js/audio-filters.js"></script>
+    <script type="text/javascript" src="js/video-filters.js"></script>
     <script type="text/javascript" src="js/publish.js"></script>
     <script type="text/javascript" src="js/app.js"></script>
 </body>

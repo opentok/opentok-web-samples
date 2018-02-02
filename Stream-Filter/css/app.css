@@ -27,9 +27,16 @@ body, html {
     border: 3px solid white;
     border-radius: 3px;
 }
-#filter {
+#video-filter, #audio-filter {
   position: absolute;
   bottom: 0;
-  right: 0;
   z-index: 101;
+}
+
+#video-filter {
+  right: 0;
+}
+
+#audio-filter {
+  left: 0;
 }
