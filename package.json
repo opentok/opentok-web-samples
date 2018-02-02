@@ -3,10 +3,9 @@
   "version": "1.0.0",
   "description": "Sample applications for using the OpenTok.js library.",
   "scripts": {
-    "test": "eslint . && npm run build-angular && npm run build-react && npm run build-vue",
-    "build-angular": "cd Angular-Basic-Video-Chat && npm i && npx ng build",
-    "build-react": "cd React-Basic-Video-Chat && npm i && npx npm run build",
-    "build-vue": "cd Vue-Basic-Video-Chat && npm i && npx npm run build"
+    "lint": "eslint .",
+    "test": "wdio wdio.conf.js",
+    "start": "http-server out"
   },
   "repository": {
     "type": "git",
@@ -26,10 +25,19 @@
   "homepage": "https://github.com/opentok/opentok-web-samples#readme",
   "devDependencies": {
     "babel-eslint": "^8.2.1",
+    "chromedriver": "^2.35.0",
     "eslint": "^4.15.0",
     "eslint-config-airbnb-es5": "^1.2.0",
     "eslint-plugin-import": "^2.8.0",
-    "eslint-plugin-react": "^7.5.1"
+    "eslint-plugin-react": "^7.5.1",
+    "http-server": "^0.11.1",
+    "opentok-test-scripts": "^3.6.1",
+    "travis-multirunner": "github:aullman/travis-multirunner#turn-off-popup-blocker",
+    "wdio-chromedriver-service": "^0.1.2",
+    "wdio-firefox-profile-service": "^0.1.1",
+    "wdio-jasmine-framework": "^0.3.2",
+    "wdio-sauce-service": "^0.4.7",
+    "webdriverio": "^4.10.1"
   },
   "dependencies": {}
 }

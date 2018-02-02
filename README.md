@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/opentok/opentok-web-samples.svg?branch=master)](https://travis-ci.org/opentok/opentok-web-samples)
+
 # OpenTok Web Samples
 
 Sample applications for using the [OpenTok.js](https://tokbox.com/developer/sdks/js/) library.

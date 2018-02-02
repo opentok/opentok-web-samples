@@ -1,9 +1,41 @@
 language: node_js
+dist: trusty
+sudo: required
 node_js: 8
 
-script: ./deploy.sh
+before_install:
+- export DISPLAY=:99.0
+- if [ -f /etc/init.d/xvfb ]; then sh -e /etc/init.d/xvfb start; fi
+- if [ $BROWSER == 'firefox' ]; then pulseaudio --start; fi
+- ./startSelenium.sh
+
+script: run-tests
+
+addons:
+  apt:
+    packages:
+      - pulseaudio
+
+matrix:
+  include:
+    - os: linux
+      env: INTEGRATION_CMD='npm run lint'
+    - os: linux
+      env: BROWSER=chrome  BVER=stable
+    - os: linux
+      env: BROWSER=firefox  BVER=stable
+    - os: osx
+      osx_image: xcode9.2
+      env: BROWSER=safari BVER=stable
+    - os: linux
+      env: BROWSER=ie BVER=11 SAUCELABS=true
 
 env:
   global:
+    - UNIT_CMD=''
+    - INTEGRATION_CMD='./deploy.sh'
     - ENCRYPTION_LABEL: "2224911b822a"
     - COMMIT_AUTHOR_EMAIL: "adam@tokbox.com"
+
+after_failure:
+  - ./uploadErrorShots.sh
