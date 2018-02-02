@@ -10,7 +10,7 @@
     "build": "cross-env NODE_ENV=production webpack --progress --hide-modules"
   },
   "dependencies": {
-    "@opentok/client": "^2.12.1",
+    "@opentok/client": "^2.13.0",
     "vue": "^2.4.4"
   },
   "browserslist": [
