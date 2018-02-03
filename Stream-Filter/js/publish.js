@@ -1,9 +1,9 @@
 /* global OT Promise */
 // This file exposes a publish function on window which when called returns a Promise to
 // an OpenTok Publisher. The Publisher returned uses a custom videoSource while applies the
-// currently selected filter.
+// currently selected video filter.
 
-// Draws a video to a canvas and applies the selected filter
+// Draws a video to a canvas and applies the selected video filter
 
 (function closure(exports) {
   var getFilteredCanvas = function getFilteredCanvas(mediaStream) {
@@ -38,8 +38,8 @@
       // Draw the video element onto the temporary canvas and pull out the image data
       tmpCtx.drawImage(videoEl, 0, 0, tmpCanvas.width, tmpCanvas.height);
       var imgData = tmpCtx.getImageData(0, 0, tmpCanvas.width, tmpCanvas.height);
-      // Apply the currently selected filter and get the new image data
-      imgData = exports.Filters.selectedFilter(imgData);
+      // Apply the currently selected video filter and get the new image data
+      imgData = exports.VideoFilters.selectedFilter(imgData);
       // Draw the filtered image data onto the main canvas
       ctx.putImageData(imgData, 0, 0);
 
@@ -71,13 +71,15 @@
     return OT.getUserMedia().then(function gotMedia(mediaStream) {
       var filteredCanvas = getFilteredCanvas(mediaStream);
 
+      exports.AudioFilters.init(mediaStream);
+
       var publisherOptions = {
         insertMode: 'append',
         width: '100%',
         height: '100%',
         // Pass in the canvas stream video track as our custom videoSource
         videoSource: filteredCanvas.canvas.captureStream(30).getVideoTracks()[0],
-        // Pass in the audio track from our underlying mediaStream as the audioSource
+        // Pass in the audio track from our the mediaStream with a delay effect added
         audioSource: mediaStream.getAudioTracks()[0]
       };
       return new Promise(function promise(resolve, reject) {
