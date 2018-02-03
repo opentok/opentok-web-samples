@@ -33,15 +33,15 @@
       audioSource.connect(delayNode);
       delayNode.connect(feedbackNode);
       feedbackNode.connect(delayNode);
-
       delayNode.connect(bypassNode);
       bypassNode.connect(masterNode);
       audioSource.connect(masterNode);
-
       masterNode.connect(audioCtx.destination);
     },
     
     distortion: function distortion() {
+      // Thanks to https://developer.mozilla.org/en-US/docs/Web/API/WaveShaperNode
+      // and https://stackoverflow.com/questions/22312841/
       audioSource.disconnect();
       var distortion = audioCtx.createWaveShaper();
 
@@ -59,10 +59,10 @@
         return curve;
       };
 
-      distortion.curve = makeDistortionCurve(400);
-      distortion.oversample = '32x';
-
+      distortion.curve = makeDistortionCurve(200);
+      distortion.oversample = '4x';
       audioSource.connect(distortion);
+      distortion.connect(audioCtx.destination);
     }
   };
 
