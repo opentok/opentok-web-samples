@@ -2,7 +2,7 @@
 
 var assert = require('assert');
 
-describe('Publish Canvas Test', () => {
+describe('Publish Video Test', () => {
   beforeAll(() => {
     browser.url('Publish-Video');
   });
