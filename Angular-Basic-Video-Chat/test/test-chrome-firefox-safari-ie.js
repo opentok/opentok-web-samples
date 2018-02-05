@@ -21,8 +21,11 @@ describe('Angular Basic Video Chat Test', () => {
   });
 
   it('The subscriber should load if you open a new window', () => {
-    browser.execute('window.open(window.location.href)');
+    browser.newWindow('.');
     const subscriber = $('div.OT_subscriber:not(.OT_loading) .OT_video-element');
     subscriber.waitForExist(10000);
+    browser.switchTab();
+    const subscriber2 = $('div.OT_subscriber:not(.OT_loading) .OT_video-element');
+    subscriber2.waitForExist(5000);
   });
 });
