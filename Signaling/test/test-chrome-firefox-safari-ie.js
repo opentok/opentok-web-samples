@@ -2,7 +2,7 @@
 
 const assert = require('assert');
 
-describe('Basic Video Chat Test', () => {
+describe('Signaling Test', () => {
   beforeAll(() => {
     browser.url('Signaling');
   });
