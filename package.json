@@ -39,7 +39,5 @@
     "wdio-sauce-service": "^0.4.8",
     "webdriverio": "^4.10.2"
   },
-  "dependencies": {
-    "@opentok/client": "^2.13.0"
-  }
+  "dependencies": {}
 }
