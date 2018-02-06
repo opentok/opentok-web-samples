@@ -20,6 +20,11 @@ describe('Angular Basic Video Chat Test', () => {
     publisher.waitForExist(10000);
   });
 
+  it('The publisher should start publishing', () => {
+    const publisher = $('div.publishing .OT_publisher');
+    publisher.waitForExist(10000);
+  })
+
   it('The subscriber should load if you open a new window', () => {
     browser.newWindow('.');
     const subscriber = $('div.OT_subscriber:not(.OT_loading) .OT_video-element');
