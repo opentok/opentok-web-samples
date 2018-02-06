@@ -35,8 +35,8 @@ describe('Signaling Test', () => {
     });
 
     it('You should be able to send text from one tab to another', () => {
-      browser.setValue('#msgTxt', 'hello world');
-      browser.submitForm('form');
+      browser.setValue('#msgTxt', 'hello world\n');
+
       // Make sure my own text showed up in the text chat
       const myHistoryItem = $('#history p.mine');
       myHistoryItem.waitForExist(1000);
