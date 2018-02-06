@@ -36,6 +36,10 @@ describe('Signaling Test', () => {
 
     it('You should be able to send text from one tab to another', () => {
       browser.setValue('#msgTxt', 'hello world\n');
+      if (browser.desiredCapabilities.browserName === 'firefox') {
+        // Sending the newline character doesn't work for firefox, we have to submit the form
+        browser.submitForm('#msgTxt');
+      }
 
       // Make sure my own text showed up in the text chat
       const myHistoryItem = $('#history p.mine');
