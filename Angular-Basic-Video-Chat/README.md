@@ -4,6 +4,10 @@ A basic video chat application using Angular.js 5 and OpenTok. This project was 
 
 >For an example of how to use OpenTok with Angular.js 1 have a look at [opentok-angular](http://github.com/aullman/opentok-angular).
 
+## Known Limitations
+
+* This sample app does not work in IE 11. To get it to work in IE 11 you will need to turn on the extra polyfills for IE in [polyfills.ts](src/polyfills.ts).
+
 ## Setting your OpenTok apiKey, sessionId and token
 
 Before you can run this application you need to modify [config.ts](src/config.ts) and include your OpenTok API Key, Session ID and a valid token. For more details on how to get these values see [Token creation
