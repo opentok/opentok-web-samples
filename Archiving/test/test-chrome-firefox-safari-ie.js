@@ -36,14 +36,16 @@ describe('Archiving Sample Test', () => {
     $('.OT_publisher .OT_archiving-off.OT_mode-on').waitForExist(10000);
   });
 
-  if (browser.desiredCapabilities.browserName !== 'internet explorer') {
-    it('The View Archive button should take you to view the archive', () => {
-      $('#buttons #view').click();
-      // Wait for us go to the archive view URL
+  it('The View Archive button should take you to view the archive', () => {
+    const viewButton = $('#buttons #view');
+    viewButton.waitForVisible(2000);
+    // Wait for us go to the archive view URL
+    if (browser.desiredCapabilities.browserName !== 'internet explorer') {
+      viewButton.click();
       browser.waitUntil(() => {
         let pageUrl = browser.getUrl();
         return pageUrl.match('^https:\/\/.+\/archive\/.+\/view$', 'ga');
-      }, 2000);
-    });
-  }
+      }, 5000);
+    }
+  });
 });
