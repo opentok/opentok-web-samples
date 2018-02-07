@@ -18,10 +18,9 @@ describe('React Basic Video Chat Test', () => {
     publisher.waitForExist(10000);
   });
 
-  it('The session status should change from Connecting to Connected', () => {
+  it('The session status should update to Connected', () => {
     const status = $('#sessionStatus');
-    browser.waitUntil(() => status.getText() === 'Session Status: Connecting', 2000);
-    browser.waitUntil(() => status.getText() === 'Session Status: Connected', 2000);
+    browser.waitUntil(() => status.getText() === 'Session Status: Connected', 5000);
   });
 
   describe('2 windows', () => {
