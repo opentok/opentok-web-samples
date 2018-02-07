@@ -68,7 +68,7 @@
   const handleError = (error) => {
     if (error) {
       console.error('Received an error', error);
-      alert(error.message);
+      document.querySelector('#error').innerHTML = 'Error: ' + error.message;
     }
   };
   exports.handleError = handleError;
