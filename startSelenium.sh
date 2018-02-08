@@ -5,7 +5,7 @@ if [[ "$BROWSER" != "chrome" && "$BROWSER" != "ie" ]]; then
   if [ ! -f selenium-server-standalone-3.5.3.jar ]; then
     curl -O http://selenium-release.storage.googleapis.com/3.5/selenium-server-standalone-3.5.3.jar
   fi
-  if [ ! -f geckodriver ]; then
+  if [[ ! -f geckodriver && "$BROWSER" == "firefox" ]]; then
     if [[ $OSTYPE = darwin* ]]; then
       curl -L https://github.com/mozilla/geckodriver/releases/download/v0.16.0/geckodriver-v0.16.0-macos.tar.gz | tar xz
     else
