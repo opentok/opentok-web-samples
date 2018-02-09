@@ -35,7 +35,9 @@ The code for this sample is found the following subdirectories:
 See the README file in each of these subdirectories for application-specific notes.
 
 Each of these sample applications are described in the [Web tutorials
-section](https://tokbox.com/developer/tutorials/web/) of the OpenTok developer center.
+section](https://tokbox.com/developer/tutorials/web/) of the OpenTok developer center. 
+
+**Not seeing a sample application for what you are trying to do? [File a new issue](https://github.com/opentok/opentok-web-samples/issues/new?labels=new%20sample%20request) or upvote [an existing one](https://github.com/opentok/opentok-web-samples/labels/new%20sample%20request).**
 
 ## Configuring the application
 
