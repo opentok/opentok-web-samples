@@ -3,6 +3,14 @@ OpenTok.js Signaling Sample
 
 This sample application shows the use the OpenTok signaling API to implement text chat.
 
+## Demo
+
+You can see a demo of this sample running at [opentok.github.io/opentok-web-samples/Signaling/](https://opentok.github.io/opentok-web-samples/Signaling/)
+
+> **Note** The demo is setup so that a new room is generated based on your public IP address. So will only work if you are connecting from 2 browsers on the same network.
+
+## Running the App
+
 *Important:* Read the following sections of the main README file for the repository to set up
 and test the application:
 
