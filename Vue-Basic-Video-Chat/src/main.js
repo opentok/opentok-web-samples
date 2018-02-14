@@ -1,3 +1,7 @@
+// Import promise and fetch polyfills for IE11
+import 'promise-polyfill/src/polyfill';
+import 'whatwg-fetch';
+
 import Vue from 'vue';
 import Session from './Session.vue';
 
