@@ -16,6 +16,7 @@ describe('React Basic Video Chat Test', () => {
   it('The publisher should load', () => {
     const publisher = $('div.OT_publisher:not(.OT_loading) .OT_video-element');
     publisher.waitForExist(10000);
+    browser.pause(2000);
   });
 
   it('The session status should update to Connected', () => {
@@ -31,11 +32,12 @@ describe('React Basic Video Chat Test', () => {
       [ firstTabId ] = browser.getTabIds();
       browser.newWindow('.');
       secondTabId = browser.getTabIds().find(tabId => tabId !== firstTabId);
+      browser.switchTab(secondTabId);
     });
 
     it('The subscriber should load if you open a new window', () => {
       browser.switchTab(secondTabId);
-      $('div.OT_publisher:not(.OT_loading) .OT_video-element').waitForExist(2000);
+      $('div.OT_publisher:not(.OT_loading) .OT_video-element').waitForExist(15000);
       const subscriber = $('div.OT_subscriber:not(.OT_loading) .OT_video-element');
       subscriber.waitForExist(10000);
       browser.switchTab(firstTabId);

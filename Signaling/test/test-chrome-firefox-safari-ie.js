@@ -15,6 +15,7 @@ describe('Signaling Test', () => {
   it('The publisher should load', () => {
     const publisher = $('div.OT_publisher:not(.OT_loading) .OT_video-element');
     publisher.waitForExist(15000);
+    browser.pause(2000);
   });
 
   describe('2 windows', () => {
@@ -22,8 +23,10 @@ describe('Signaling Test', () => {
     let secondTabId;
 
     beforeAll(() => {
+      [ firstTabId ] = browser.getTabIds();
       browser.newWindow('.');
-      [ firstTabId, secondTabId ] = browser.getTabIds();
+      secondTabId = browser.getTabIds().find(tabId => tabId !== firstTabId);
+      browser.switchTab(secondTabId);
     });
 
     it('The subscriber should load if you open a new window', () => {
