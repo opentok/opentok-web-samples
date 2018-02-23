@@ -2,14 +2,14 @@
 
 const assert = require('assert');
 
-describe('Basic Video Chat Test', () => {
+describe('Vue Basic Video Chat Test', () => {
   beforeAll(() => {
-    browser.url('Basic Video Chat');
+    browser.url('Vue-Basic-Video-Chat');
   });
 
   it('should have the right title', () => {
     const title = browser.getTitle();
-    assert.equal(title, 'OpenTok Getting Started');
+    assert.equal(title, 'vue-basic-video-chat');
   });
 
   it('The publisher should load', () => {
