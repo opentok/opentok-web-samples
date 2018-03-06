@@ -27,6 +27,7 @@ function initializeSession() {
     console.log('You were disconnected from the session.', event.reason);
   });
 
+  // initialize the publisher
   var publisherOptions = {
     insertMode: 'append',
     width: '100%',
@@ -39,7 +40,7 @@ function initializeSession() {
     if (error) {
       handleError(error);
     } else {
-      // If the connection is successful, initialize a publisher and publish to the session
+      // If the connection is successful, publish the publisher to the session
       session.publish(publisher, handleError);
     }
   });

@@ -4,6 +4,7 @@ import '@opentok/client';
 
 import App from './App';
 import './index.css';
+import './polyfills';
 
 import {
   SAMPLE_SERVER_BASE_URL,

@@ -77,7 +77,7 @@ export default class App extends React.Component {
     const { error, connection, publishVideo } = this.state;
     return (
       <div>
-        <div>Session Status: {connection}</div>
+        <div id="sessionStatus">Session Status: {connection}</div>
         {error ? (
           <div className="error">
             <strong>Error:</strong> {error}
@@ -90,7 +90,7 @@ export default class App extends React.Component {
           onError={this.onSessionError}
           eventHandlers={this.sessionEventHandlers}
         >
-          <button onClick={this.toggleVideo}>
+          <button id="videoButton" onClick={this.toggleVideo}>
             {publishVideo ? 'Disable' : 'Enable'} Video
           </button>
           <OTPublisher

@@ -27,25 +27,28 @@ function initializeSession() {
     console.error('You were disconnected from the session.', event.reason);
   });
 
+  // Initialize the publisher
+  var publisherOptions = {
+    insertMode: 'append',
+    width: '100%',
+    height: '100%'
+  };
+  var publisher = OT.initPublisher('publisher', publisherOptions, function initCallback(initErr) {
+    if (initErr) {
+      console.error('There was an error initializing the publisher: ', initErr.name, initErr.message);
+      return;
+    }
+  });
+
   // Connect to the session
   session.connect(token, function callback(error) {
     // If the connection is successful, initialize a publisher and publish to the session
     if (!error) {
-      var publisherOptions = {
-        insertMode: 'append',
-        width: '100%',
-        height: '100%'
-      };
-      var publisher = OT.initPublisher('publisher', publisherOptions, function initCallback(initErr) {
-        if (initErr) {
-          console.error('There was an error initializing the publisher: ', initErr.name, initErr.message);
-          return;
+      // If the connection is successful, publish the publisher to the session
+      session.publish(publisher, function publishCallback(publishErr) {
+        if (publishErr) {
+          console.error('There was an error publishing: ', publishErr.name, publishErr.message);
         }
-        session.publish(publisher, function publishCallback(publishErr) {
-          if (publishErr) {
-            console.error('There was an error publishing: ', publishErr.name, publishErr.message);
-          }
-        });
       });
     } else {
       console.error('There was an error connecting to the session: ', error.name, error.message);

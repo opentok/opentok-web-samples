@@ -14,7 +14,8 @@ describe('Signaling Test', () => {
 
   it('The publisher should load', () => {
     const publisher = $('div.OT_publisher:not(.OT_loading) .OT_video-element');
-    publisher.waitForExist(10000);
+    publisher.waitForExist(15000);
+    browser.pause(2000);
   });
 
   describe('2 windows', () => {
@@ -22,16 +23,18 @@ describe('Signaling Test', () => {
     let secondTabId;
 
     beforeAll(() => {
+      [ firstTabId ] = browser.getTabIds();
       browser.newWindow('.');
-      [ firstTabId, secondTabId ] = browser.getTabIds();
+      secondTabId = browser.getTabIds().find(tabId => tabId !== firstTabId);
+      browser.switchTab(secondTabId);
     });
 
     it('The subscriber should load if you open a new window', () => {
       const subscriber = $('div.OT_subscriber:not(.OT_loading) .OT_video-element');
-      subscriber.waitForExist(10000);
+      subscriber.waitForExist(15000);
       browser.switchTab(firstTabId);
       const subscriber2 = $('div.OT_subscriber:not(.OT_loading) .OT_video-element');
-      subscriber2.waitForExist(10000);
+      subscriber2.waitForExist(15000);
     });
 
     it('You should be able to send text from one tab to another', () => {
