@@ -6,7 +6,7 @@ A basic video chat application using Angular.js 5 and OpenTok. This project was 
 
 ## Important!
 
-When building an Angular app with OpenTok you need to make sure to include the zone.js polyfills for rtcpeerconnection and getusermedia otherwise your application will not work in Safari, you will get timeouts subscribing. See [polyfills.ts](src/polyfills.ts) and #17 for details.
+When building an Angular app with OpenTok you need to make sure to include the zone.js polyfills for rtcpeerconnection and getusermedia otherwise your application will not work in Safari, you will get timeouts subscribing. See [polyfills.ts](src/polyfills.ts) and [#17](/opentok/opentok-web-samples/issues/17) for details.
 
 ## Known Limitations
 
