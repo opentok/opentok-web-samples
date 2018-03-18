@@ -29,7 +29,8 @@ describe('SubscriberComponent', () => {
     expect(component.session.subscribe).toHaveBeenCalledWith(
       component.stream,
       jasmine.any(Element),
+      jasmine.any(Object),
       jasmine.any(Function)
     );
-  })
+  });
 });

@@ -38,7 +38,7 @@ describe('PublisherComponent', () => {
   });
 
   it('should call OT.initPublisher', () => {
-    expect(OT.initPublisher).toHaveBeenCalledWith(jasmine.any(Element));
+    expect(OT.initPublisher).toHaveBeenCalledWith(jasmine.any(Element), { insertMode: 'append' });
   });
 
   it('should call publish on the session when receiving sessionConnected', () => {

@@ -39,7 +39,7 @@ export class OpentokService {
         } else {
           resolve(this.session);
         }
-      })
+      });
     });
   }
 }

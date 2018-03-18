@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "Sample applications for using the OpenTok.js library.",
   "scripts": {
-    "lint": "eslint .",
+    "lint": "eslint . && cd Angular-Basic-Video-Chat && ng lint && cd ..",
     "test": "wdio wdio.conf.js",
     "start": "http-server out"
   },
