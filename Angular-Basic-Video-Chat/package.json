@@ -22,7 +22,7 @@
     "@angular/platform-browser": "^5.2.8",
     "@angular/platform-browser-dynamic": "^5.2.8",
     "@angular/router": "^5.2.8",
-    "@opentok/client": "^2.13.2",
+    "@opentok/client": "^2.14.2",
     "core-js": "^2.5.3",
     "rxjs": "^5.5.6",
     "zone.js": "^0.8.20"

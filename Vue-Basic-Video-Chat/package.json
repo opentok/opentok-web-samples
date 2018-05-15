@@ -10,7 +10,7 @@
     "build": "cross-env NODE_ENV=production webpack --progress --hide-modules"
   },
   "dependencies": {
-    "@opentok/client": "^2.13.0",
+    "@opentok/client": "^2.14.2",
     "promise-polyfill": "^7.0.2",
     "vue": "^2.4.4",
     "whatwg-fetch": "^2.0.3"
