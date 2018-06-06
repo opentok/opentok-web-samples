@@ -29,6 +29,9 @@ matrix:
       env: BROWSER=safari BVER=stable
     - os: linux
       env: BROWSER=ie BVER=11 SAUCELABS=true
+  allow_failures:
+    - os: linux
+      env: BROWSER=ie BVER=11 SAUCELABS=true
 
 env:
   global:
