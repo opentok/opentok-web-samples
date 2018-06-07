@@ -49,8 +49,8 @@ describe('AppComponent', () => {
     expect(app.streams).toEqual([]);
     expect(session.on).toHaveBeenCalledWith('streamCreated', jasmine.any(Function));
     expect(session.on).toHaveBeenCalledWith('streamDestroyed', jasmine.any(Function));
-    let stream = {};
-    let event = {
+    const stream = {};
+    const event = {
       stream
     };
     session.on.calls.argsFor(0)[1](event); // Call streamCreated handler

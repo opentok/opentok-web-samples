@@ -32,5 +32,5 @@ describe('SubscriberComponent', () => {
       jasmine.any(Object),
       jasmine.any(Function)
     );
-  })
+  });
 });
