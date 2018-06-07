@@ -15,7 +15,7 @@ describe('AppComponent', () => {
   };
 
   beforeEach(async(() => {
-    session = jasmine.createSpyObj('session', ['connect', 'on']);
+    session = jasmine.createSpyObj('session', ['connect', 'on', 'subscribe', 'isConnected']);
     TestBed.configureTestingModule({
       declarations: [
         AppComponent,
