@@ -95,7 +95,7 @@
         });
         publisher.on('streamCreated', function created() {
           // We use this for testing so we know when we are publishing successfully
-          publisher.element.classList.add('publishing');
+          publisher.element.dataset.streamCreated = true;
         });
 
         // We insert the canvas into the publisher element on iOS because the video element

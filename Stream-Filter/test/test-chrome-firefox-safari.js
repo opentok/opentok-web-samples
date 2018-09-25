@@ -13,7 +13,7 @@ describe('Stream Filter Test', () => {
   });
 
   it('The publisher should load', () => {
-    const publisher = $('div.OT_publisher.publishing');
+    const publisher = $('div.OT_publisher[data-stream-created=\'true\']');
     publisher.waitForExist(10000);
   });
 
