@@ -13,9 +13,8 @@ describe('Stream Filter Test', () => {
   });
 
   it('The publisher should load', () => {
-    const publisher = $('div.OT_publisher:not(.OT_loading) .OT_video-element');
+    const publisher = $('div.OT_publisher[data-stream-created=\'true\']');
     publisher.waitForExist(10000);
-    browser.pause(2000);
   });
 
   it('You should be able to set the filter', () => {

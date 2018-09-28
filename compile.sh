@@ -36,7 +36,7 @@ cd Angular-Basic-Video-Chat
 npm install
 sed -i -- 's/http:\/\/YOUR-SERVER-URL/https:\/\/opentok-web-samples-backend.herokuapp.com/g' src/config.ts
 npx ng lint
-npx ng build -prod --base-href ''
+npx ng build --prod --base-href ''
 cd ..
 cp -r Angular-Basic-Video-Chat/dist/ out/Angular-Basic-Video-Chat/
 

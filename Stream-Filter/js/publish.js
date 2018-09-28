@@ -93,6 +93,10 @@
           // When the publisher is destroyed we cleanup
           filteredCanvas.stop();
         });
+        publisher.on('streamCreated', function created() {
+          // We use this for testing so we know when we are publishing successfully
+          publisher.element.dataset.streamCreated = true;
+        });
 
         // We insert the canvas into the publisher element on iOS because the video element
         // just stays black otherwise because of a bug https://bugs.webkit.org/show_bug.cgi?id=181663

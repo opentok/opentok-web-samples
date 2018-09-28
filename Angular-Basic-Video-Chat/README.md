@@ -1,6 +1,6 @@
 # AngularBasicVideoChat
 
-A basic video chat application using Angular.js 5 and OpenTok. This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 1.5.0.
+A basic video chat application using Angular.js 6 and OpenTok. This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 1.5.0.
 
 >For an example of how to use OpenTok with Angular.js 1 have a look at [opentok-angular](http://github.com/aullman/opentok-angular).
 
