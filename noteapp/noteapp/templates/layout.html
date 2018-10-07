@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<head>
+<meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Le quetard.</title>
+<link rel="stylesheet" type="text/css" href="{{ url_for("static", filename = "style.css")}}">
+    </head>
+<body>
+<nav class="navbar">
+    <ul class="left">
+        <li><a href="#" class= "name">NoteApp </a></li>
+    </ul>
+    <ul class="right">
+                <li><a href="#">+ New note</a></li>
+    </ul>
+</nav>
+{% block content %}
+{% endblock %}
+</body>

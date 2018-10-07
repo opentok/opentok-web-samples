@@ -1,0 +1,31 @@
+*{
+   margin: 0;
+   padding: 0;
+
+   }
+   .left {
+   float: left;
+   }
+   .right {
+   float: right;
+   }
+.navbar {
+ width: 100%;
+ height: 100%;
+ background-color: black;}
+
+
+ .navbar ul, li{
+ display: inline-block;
+ height:100%;
+ }
+
+  .navbar ul li a{
+  line-height: 48px;
+  display: inline-block;
+  height:100%;
+  color: white;
+  margin-left: 0.5rem;
+  margin-right: 0.5rem;
+  text-decoration: none;
+  }
