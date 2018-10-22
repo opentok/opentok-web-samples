@@ -35,7 +35,7 @@ describe('Publish Canvas Test', () => {
     it('click cycleVideo works', () => {
       const cycleVideoBtn = $('#cycle-video-btn');
       cycleVideoBtn.click();
-      browser.waitUntil(() => cycleVideoBtn.isEnabled());
+      browser.waitUntil(() => cycleVideoBtn.isEnabled(), 5000);
     });
 
     const testAudio = () => {
@@ -54,7 +54,7 @@ describe('Publish Canvas Test', () => {
       if (numAudioSources > 1) {
         audioSelector.selectByIndex(1);
       }
-      browser.waitUntil(() => audioSelector.isEnabled());
+      browser.waitUntil(() => audioSelector.isEnabled(), 5000);
       testAudio();
     });
   });
