@@ -81,7 +81,7 @@
         cycleVideoBtn.disabled = false;
       });
     });
-    cycleVideoBtn.style.display = 'block';
+    cycleVideoBtn.style.display = 'inline-block';
   }
 
   function setupAudioLevelMeter() {

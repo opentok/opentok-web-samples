@@ -5,14 +5,7 @@
     <meta charset="utf-8">
     <title>Publish Different Devices</title>
     
-    <style>
-      #cycle-video-btn {
-        display: none;
-      }
-      #audio-meter {
-        display: none;
-      }
-    </style>
+    <link rel="stylesheet" href="css/app.css">
     <script src="https://static.opentok.com/v2.15.0-beta/js/opentok.min.js"></script>
   </head>
   <body>
@@ -21,13 +14,14 @@
 
     
     <form>
+      <h2>Publish Devices Sample</h2>
+      <div id="publisher"></div>
       <label for="audio-source-select">Audio Source:</label><select id="audio-source-select"></select><br/>
       <div id="audio-meter"><label for="audio-meter">Audio Level:</label><meter min="0" max="1"></meter></div>
       <label for="video-source-select">Video Source:</label><select id="video-source-select"></select>
       <button id="cycle-video-btn" type="button">Cycle Video</button><br/>
       <button id="publish-btn" type="button">Publish</button>
     </form>
-    <div id="publisher"></div>
     <script src="js/app.js" charset="utf-8"></script>
   </body>
 </html>
