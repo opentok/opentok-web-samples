@@ -60,24 +60,22 @@
     // When the audio selector changes we update the audio source
     audioSelector.addEventListener('change', () => {
       audioSelector.disabled = true;
-      publisher.setAudioSource(event.target.value)
-        .catch((err) => {
-          alert(`setAudioSource failed: ${err.message}`);
-        }).finally(() => {
-          audioSelector.disabled = false;
-        });
+      publisher.setAudioSource(event.target.value).then(() => {
+        audioSelector.disabled = false;
+      }).catch((err) => {
+        alert(`setAudioSource failed: ${err.message}`);
+        audioSelector.disabled = false;
+      });
     });
 
     // When the cycleVideo button is clicked we call cycleVideo
     cycleVideoBtn.addEventListener('click', () => {
       cycleVideoBtn.disabled = true;
-      publisher.cycleVideo().then(({
-        deviceId
-      }) => {
+      publisher.cycleVideo().then(({ deviceId }) => {
         videoSelector.value = deviceId;
+        cycleVideoBtn.disabled = false;
       }).catch((err) => {
         alert('cycleVideo error ' + err.message);
-      }).finally(() => {
         cycleVideoBtn.disabled = false;
       });
     });
