@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "@opentok/client": "^2.14.8",
+    "@opentok/client": "^2.15.1",
     "array.prototype.findindex": "^2.0.2",
     "opentok-react": "^0.7.0",
     "react": "^16.2.0",

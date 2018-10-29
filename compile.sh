@@ -20,8 +20,11 @@ sed -i -- 's/http:\/\/YOUR-SERVER-URL/https:\/\/opentok-web-samples-backend.hero
 # Copy Publish-Canvas
 cp -r Publish-Canvas out/
 
-# Copy Publish-Canvas
+# Copy Publish-Video
 cp -r Publish-Video out/
+
+# Copy Publish-Devices
+cp -r Publish-Devices out/
 
 # Copy Stereo-Audio
 cp -r Stereo-Audio out/
