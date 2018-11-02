@@ -14,5 +14,6 @@ You can see a demo of this app running at [opentok.github.io/opentok-web-samples
 ## Known Limitations
 
 * `setAudioSource()` and `cycleVideo()` are currently not supported by Internet Explorer or Microsoft Edge browsers so you need to create a new Publisher if you want to switch devices.
+* `setAudioSource()` only works with browsers that support the [`replaceTrack()`](https://developer.mozilla.org/en-US/docs/Web/API/RTCRtpSender/replaceTrack) method. This means it will not work in Internet Explorer, Microsoft Edge, Chrome before version 65 and Safari before version 12.
 * `setAudioSource()` is supported in v2.15+ of opentok.js
 * `cycleVideo()` is supported in v2.14+ of opentok.js
