@@ -22,13 +22,17 @@
         }
         return innerHTML;
       }, '');
+      publishBtn.disabled = false;
     });
   }
-
+  publishBtn.disabled = true;
   // We request access to Microphones and Cameras so we can get the labels
-  OT.getUserMedia().then(() => {
+  OT.getUserMedia().then((stream) => {
     populateDeviceSources(audioSelector, 'audioInput');
     populateDeviceSources(videoSelector, 'videoInput');
+    // Stop the tracks so that we stop using this camera and microphone
+    // If you don't do this then cycleVideo does not work on some Android devices
+    stream.getTracks().forEach(track => track.stop());
   });
 
   // Start publishing when you click the publish button
