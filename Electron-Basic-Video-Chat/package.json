@@ -9,7 +9,7 @@
   "author": "Manik Sachdeva",
   "license": "ISC",
   "dependencies": {
-    "@opentok/client": "^2.15.9",
+    "@opentok/client": "^2.16.0",
     "electron": "^2.0.0"
   }
 }
