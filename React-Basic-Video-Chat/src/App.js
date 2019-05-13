@@ -69,7 +69,9 @@ export default class App extends React.Component {
   };
 
   toggleVideo = () => {
-    this.setState({ publishVideo: !this.state.publishVideo });
+    this.setState(state => ({
+      publishVideo: !state.publishVideo,
+    }));
   };
 
   render() {
