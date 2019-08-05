@@ -1,0 +1,62 @@
+body, html {
+    background-color: gray;
+    height: 100%;
+}
+
+#videos {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+#subscriber {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 10;
+}
+
+#publisher {
+    position: absolute;
+    width: 360px;
+    height: 240px;
+    bottom: 20px;
+    left: 10px;
+    z-index: 100;
+    border: 3px solid white;
+    border-radius: 3px;
+}
+
+.toggle-button-on {
+    background-color: green;
+}
+
+.toggle-button-off {
+    background-color: red;
+}
+.toggle-button {
+    position: absolute;
+    z-index: 1000;
+    height: 40px;
+    width: 40px;
+    border-radius: 50%;
+    text-align: center;
+    overflow-wrap: break-word;
+}
+#camera-toggle {
+    bottom: 20px;
+    left: 400px;
+}
+
+#microphone-toggle {
+    bottom: 20px;
+    left: 460px;
+}
+#call {
+    bottom: 20px;
+    left: 520px;
+}
