@@ -22,7 +22,7 @@ function toggleScreen() {
     session.publish(publisher, handleError);
     document.getElementById('publishScreen').classList.remove('toggle-button-on');
     document.getElementById('publishScreen').classList.add('toggle-button-off');
-  //Else, if the camera publisher is connected to the session, unpublish camera footage and re-publish screen
+  // Else, if the camera publisher is connected to the session, unpublish camera footage and re-publish screen
   } else if (publisher.session) {
     session.unpublish(publisher);
     session.publish(screenPublisher, handleError);
@@ -38,7 +38,7 @@ function preventDefaults() {
       event.preventDefault();
     }
   });
-  
+
   screenPublisher.on('streamDestroyed', function (event) {
     if (event.stream.connection.connectionId === session.connection.connectionId) {
       event.preventDefault();
@@ -48,7 +48,7 @@ function preventDefaults() {
 
 function initializeSession() {
   session = OT.initSession(apiKey, sessionId);
-  
+
   // Subscribe to a newly created stream
   session.on('streamCreated', function (event) {
     session.subscribe(event.stream, 'subscriber', {
@@ -61,21 +61,20 @@ function initializeSession() {
   publisher = OT.initPublisher('publisher', {
     insertMode: 'append',
     width: '100%',
-    height: '100%',
+    height: '100%'
   }, handleError);
 
   // Check whether screen sharing is possible. If possible, initialize screen sharing publisher
   OT.checkScreenSharingCapability(function (response) {
-    if(!response.supported || response.extensionRegistered === false) {
+    if (!response.supported || response.extensionRegistered === false) {
       alert('screen sharing not supported');
-    }
-    else {
+    } else {
       screenPublisher = OT.initPublisher('screen', {
         insertMode: 'append',
         width: '100%',
         height: '100%',
-        videoSource:'screen'
-      },handleError);    
+        videoSource: 'screen'
+      }, handleError);
     }
   });
 
