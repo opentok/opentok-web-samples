@@ -9,40 +9,40 @@ var publisher;
 
 // Handling all of our errors here by alerting them
 function handleError(error) {
-    if (error) {
-      alert(error.message);
-    }
+  if (error) {
+    alert(error.message);
+  }
 }
-  
+
 
 function toggleScreen() {
-
-  //If the screen publisher is connected to the session, unpublish screen and re-publish camera footage
+  // If the screen publisher is connected to the session, unpublish screen and re-publish camera footage
   if (screenPublisher.session) {
     session.unpublish(screenPublisher);
-    session.publish(publisher,handleError);
-    document.getElementById("publishScreen").classList.remove("toggle-button-on")
-    document.getElementById("publishScreen").classList.add("toggle-button-off")
+    session.publish(publisher, handleError);
+    document.getElementById('publishScreen').classList.remove('toggle-button-on');
+    document.getElementById('publishScreen').classList.add('toggle-button-off');
   //Else, if the camera publisher is connected to the session, unpublish camera footage and re-publish screen
   } else if (publisher.session) {
     session.unpublish(publisher);
-    session.publish(screenPublisher,handleError);
-    document.getElementById("publishScreen").classList.add("toggle-button-on")
-    document.getElementById("publishScreen").classList.remove("toggle-button-off")
-
+    session.publish(screenPublisher, handleError);
+    document.getElementById('publishScreen').classList.add('toggle-button-on');
+    document.getElementById('publishScreen').classList.remove('toggle-button-off');
   }
-
 }
 
 function preventDefaults() {
-  //If a stream is destroyed BY THIS CLIENT's publishers override default behaviour.
-  publisher.on("streamDestroyed", function(event) {
-    if (event.stream.connection.connectionId == session.connection.connectionId)
-     event.preventDefault();
+  // If a stream is destroyed BY THIS CLIENT's publishers override default behaviour.
+  publisher.on('streamDestroyed', function (event) {
+    if (event.stream.connection.connectionId === session.connection.connectionId) {
+      event.preventDefault();
+    }
   });
-  screenPublisher.on("streamDestroyed", function(event) {
-    if (event.stream.connection.connectionId == session.connection.connectionId)
-     event.preventDefault();
+  
+  screenPublisher.on('streamDestroyed', function (event) {
+    if (event.stream.connection.connectionId === session.connection.connectionId) {
+      event.preventDefault();
+    }
   });
 }
 
@@ -50,31 +50,31 @@ function initializeSession() {
   session = OT.initSession(apiKey, sessionId);
   
   // Subscribe to a newly created stream
-  session.on('streamCreated', function(event) {
+  session.on('streamCreated', function (event) {
     session.subscribe(event.stream, 'subscriber', {
       insertMode: 'append',
       width: '100%',
       height: '100%'
     }, handleError);
   });
-    // Create a publisher
+  // Create a publisher
   publisher = OT.initPublisher('publisher', {
     insertMode: 'append',
     width: '100%',
     height: '100%',
   }, handleError);
 
-  //check whether screen sharing is possible. If possible, initialize screen sharing publisher
-  OT.checkScreenSharingCapability(function(response) {
+  // Check whether screen sharing is possible. If possible, initialize screen sharing publisher
+  OT.checkScreenSharingCapability(function (response) {
     if(!response.supported || response.extensionRegistered === false) {
-        alert("screen sharing not supported")
+      alert('screen sharing not supported');
     }
     else {
-      screenPublisher = OT.initPublisher("screen", {
+      screenPublisher = OT.initPublisher('screen', {
         insertMode: 'append',
         width: '100%',
         height: '100%',
-        videoSource:"screen"
+        videoSource:'screen'
       },handleError);    
     }
   });
@@ -82,7 +82,7 @@ function initializeSession() {
   preventDefaults();
 
   // Connect to the session
-  session.connect(token, function(error) {
+  session.connect(token, function (error) {
     // If the connection is successful, publish to the session
     if (error) {
       handleError(error);
@@ -91,9 +91,8 @@ function initializeSession() {
     }
   });
 
-  //when the publish screen button is pressed, call toggleScreen
-  document.getElementById("publishScreen").addEventListener("click",toggleScreen);
-
+  // When the publish screen button is pressed, call toggleScreen
+  document.getElementById('publishScreen').addEventListener('click', toggleScreen);
 }
 
 // See the config.js file.
