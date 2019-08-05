@@ -39,7 +39,7 @@ function initializeSession() {
 
   // If you disconnect from a call, overrride the default behaviour.
   publisher.on('streamDestroyed', function (event) {
-    if (session.connection === null || event.stream.connection.connectionId == session.connection.connectionId) {
+    if (session.connection === null || event.stream.connection.connectionId === session.connection.connectionId) {
       event.preventDefault();
     }
   });
@@ -91,7 +91,7 @@ function initializeSession() {
       session.disconnect();
       calling = false;
     } else {
-      session.connect(token, function (error) {  
+      session.connect(token, function (error) {
         if (error) {
           handleError(error);
         } else {
@@ -101,23 +101,19 @@ function initializeSession() {
     }
     setButtons(calling);
     toggleStyle(document.getElementById('call'));
-
   }
-
 
   document.getElementById('call').addEventListener('click', callOrHangup);
 
   // OPTIONAL - Disconnect on hangup
-  /* 
+  /*
   session.on('streamDestroyed', function() {
     if (session.connection) session.disconnect();
     setButtons(false)
     toggleCall();
   });
   */
-
 }
-
 
 // See the config.js file.
 if (API_KEY && TOKEN && SESSION_ID) {
