@@ -4,7 +4,7 @@ const assert = require('assert');
 
 describe('Basic Video Chat Test', () => {
   beforeAll(() => {
-    browser.url('Basic Video Chat');
+    browser.url('Basic-Video-Chat');
   });
 
   it('should have the right title', () => {
