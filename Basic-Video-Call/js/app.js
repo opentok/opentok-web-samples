@@ -3,6 +3,7 @@
 var apiKey;
 var sessionId;
 var token;
+var publisher;
 
 // Handling all of our errors here by alerting them
 function handleError(error) {
@@ -17,9 +18,33 @@ function toggleStyle(button) { // toggles button css class
   button.classList.toggle('toggle-button-off');
 }
 
+function toggleMicrophone() {
+  if (publisher.session) publisher.publishAudio(!publisher.stream.hasAudio);
+  const microphoneToggle = document.getElementById('microphone-toggle');
+  toggleStyle(microphoneToggle);
+}
+
+function toggleCamera() {
+  if (publisher.session) publisher.publishVideo(!publisher.stream.hasVideo);
+  const cameraToggle = document.getElementById('camera-toggle');
+  toggleStyle(cameraToggle);
+}
+
+function setButtons(on) {
+  const buttons = [document.getElementById('microphone-toggle'), document.getElementById('camera-toggle')];
+  buttons.forEach(button => {
+    if (on) {
+      button.classList.remove('toggle-button-off');
+      button.classList.add('toggle-button-on');
+    } else {
+      button.classList.remove('toggle-button-on');
+      button.classList.add('toggle-button-off');
+    }
+  });
+}
 
 function initializeSession() {
-  var session = OT.initSession(apiKey, sessionId);
+  const session = OT.initSession(apiKey, sessionId);
 
   // Subscribe to a newly created stream
   session.on('streamCreated', function (event) {
@@ -31,7 +56,7 @@ function initializeSession() {
   });
 
   // Create a publisher
-  var publisher = OT.initPublisher('publisher', {
+  publisher = OT.initPublisher('publisher', {
     insertMode: 'append',
     width: '100%',
     height: '100%'
@@ -54,35 +79,8 @@ function initializeSession() {
     }
   });
 
-  function toggleMicrophone() {
-    if (publisher.session) publisher.publishAudio(!publisher.stream.hasAudio);
-    var microphoneToggle = document.getElementById('microphone-toggle');
-    toggleStyle(microphoneToggle);
-  }
-
   document.getElementById('camera-toggle').addEventListener('click', toggleCamera);
-
-  function toggleCamera() {
-    if (publisher.session) publisher.publishVideo(!publisher.stream.hasVideo);
-    var cameraToggle = document.getElementById('camera-toggle');
-    toggleStyle(cameraToggle);
-  }
-
   document.getElementById('microphone-toggle').addEventListener('click', toggleMicrophone);
-
-
-  function setButtons(on) {
-    const buttons = [document.getElementById('microphone-toggle'), document.getElementById('camera-toggle')];
-    buttons.forEach(button => {
-      if (on) {
-        button.classList.remove('toggle-button-off');
-        button.classList.add('toggle-button-on');
-      } else {
-        button.classList.remove('toggle-button-on');
-        button.classList.add('toggle-button-off');
-      }
-    });
-  }
 
   function callOrHangup() {
     var calling = true;
@@ -114,7 +112,6 @@ function initializeSession() {
   });
   */
 }
-
 // See the config.js file.
 if (API_KEY && TOKEN && SESSION_ID) {
   apiKey = API_KEY;
