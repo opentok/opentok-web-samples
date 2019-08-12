@@ -6,7 +6,7 @@ var token;
 var screenPublisher;
 var session;
 var publisher;
-
+var canPublish = false;
 // Handling all of our errors here by alerting them
 function handleError(error) {
   if (error) {
@@ -25,7 +25,9 @@ function toggleScreen() {
   // Else, if the camera publisher is connected to the session, unpublish camera footage and re-publish screen
   } else if (publisher.session) {
     session.unpublish(publisher);
-    session.publish(screenPublisher, handleError);
+    if (canPublish) {
+      session.publish(screenPublisher, handleError);
+    }
     document.getElementById('publishScreen').classList.add('toggle-button-on');
     document.getElementById('publishScreen').classList.remove('toggle-button-off');
   }
@@ -69,6 +71,7 @@ function initializeSession() {
     if (!response.supported || response.extensionRegistered === false) {
       alert('screen sharing not supported');
     } else {
+      canPublish = true;
       screenPublisher = OT.initPublisher('screen', {
         insertMode: 'append',
         width: '100%',
