@@ -71,7 +71,7 @@ function initializeSession() {
     if (!response.supported || response.extensionRegistered === false) {
       alert('screen sharing not supported');
     } else if (response.extensionInstalled === false) {
-      alert('screen sharing extension required, please install one to share your screen')
+      alert('screen sharing extension required, please install one to share your screen');
     } else {
       canPublish = true;
       screenPublisher = OT.initPublisher('screen', {
