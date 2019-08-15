@@ -1,12 +1,12 @@
 /* global OT API_KEY TOKEN SESSION_ID SAMPLE_SERVER_BASE_URL */
 
-var apiKey;
-var sessionId;
-var token;
-var screenPublisher;
-var session;
-var publisher;
-var canPublish = false;
+let apiKey;
+let sessionId;
+let token;
+let screenPublisher;
+let session;
+let publisher;
+let canPublish = false;
 // Handling all of our errors here by alerting them
 function handleError(error) {
   if (error) {
