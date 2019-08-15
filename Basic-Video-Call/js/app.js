@@ -1,9 +1,9 @@
 /* global OT API_KEY TOKEN SESSION_ID SAMPLE_SERVER_BASE_URL */
 
-var apiKey;
-var sessionId;
-var token;
-var publisher;
+let apiKey;
+let sessionId;
+let token;
+let publisher;
 
 // Handling all of our errors here by alerting them
 function handleError(error) {
@@ -83,7 +83,7 @@ function initializeSession() {
   document.getElementById('microphone-toggle').addEventListener('click', toggleMicrophone);
 
   function callOrHangup() {
-    var calling = true;
+    let calling = true;
     if (session.connection) {
       session.unpublish(publisher);
       session.disconnect();
