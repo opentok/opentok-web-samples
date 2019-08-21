@@ -5,8 +5,9 @@ let sessionId;
 let token;
 let publisher;
 let subscriber;
-let subscribedToAudio, subscribedToVideo;
-const publishButtons = [document.getElementById('microphone-toggle'), document.getElementById('camera-toggle')];
+let subscribedToAudio;
+let subscribedToVideo;
+
 // Handling all of our errors here by alerting them
 function handleError(error) {
   if (error) {
@@ -16,7 +17,7 @@ function handleError(error) {
 
 function setVolume() {
   if (subscriber && subscriber.session) {
-  subscriber.setAudioVolume(Number(document.getElementById('volume').value));
+    subscriber.setAudioVolume(Number(document.getElementById('volume').value));
   }
 }
 
@@ -138,12 +139,12 @@ function initializeSession() {
   session.on('streamDestroyed', function disableSubscriberButtons() {
     setButtons(false, [document.getElementById('audio-toggle'), document.getElementById('video-toggle')]);
   });
-  
+
   // OPTIONAL - Disconnect on hangup
   /*
   session.on('streamDestroyed', function dicsonnect() {
     if (session.connection) session.disconnect();
-    setButtons(false, publishButtons);
+    setButtons(false, [document.getElementById('microphone-toggle'), document.getElementById('camera-toggle')]);
     toggleCall();
   });
   */
