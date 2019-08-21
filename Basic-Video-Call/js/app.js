@@ -4,7 +4,9 @@ let apiKey;
 let sessionId;
 let token;
 let publisher;
-
+let subscriber;
+let subscribedToAudio, subscribedToVideo;
+const publishButtons = [document.getElementById('microphone-toggle'), document.getElementById('camera-toggle')];
 // Handling all of our errors here by alerting them
 function handleError(error) {
   if (error) {
@@ -12,6 +14,11 @@ function handleError(error) {
   }
 }
 
+function setVolume() {
+  if (subscriber && subscriber.session) {
+  subscriber.setAudioVolume(Number(document.getElementById('volume').value));
+  }
+}
 
 function toggleStyle(button) { // toggles button css class
   button.classList.toggle('toggle-button-on');
@@ -30,8 +37,21 @@ function toggleCamera() {
   toggleStyle(cameraToggle);
 }
 
-function setButtons(on) {
-  const buttons = [document.getElementById('microphone-toggle'), document.getElementById('camera-toggle')];
+function toggleAudio() {
+  subscribedToAudio = !subscribedToAudio;
+  if (subscriber && subscriber.session) subscriber.subscribeToAudio(subscribedToAudio);
+  const audioToggle = document.getElementById('audio-toggle');
+  toggleStyle(audioToggle);
+}
+
+function toggleVideo() {
+  subscribedToVideo = !subscribedToVideo;
+  if (subscriber && subscriber.session) subscriber.subscribeToVideo(subscribedToVideo);
+  const videoToggle = document.getElementById('video-toggle');
+  toggleStyle(videoToggle);
+}
+
+function setButtons(on, buttons) {
   buttons.forEach(button => {
     if (on) {
       button.classList.remove('toggle-button-off');
@@ -47,12 +67,19 @@ function initializeSession() {
   const session = OT.initSession(apiKey, sessionId);
 
   // Subscribe to a newly created stream
-  session.on('streamCreated', function (event) {
-    session.subscribe(event.stream, 'subscriber', {
+  session.on('streamCreated', function subscribe(event) {
+    subscriber = session.subscribe(event.stream, 'subscriber', {
       insertMode: 'append',
       width: '100%',
       height: '100%'
     }, handleError);
+    if (subscriber && subscriber.session) {
+      subscribedToAudio = subscriber.stream.hasAudio;
+      subscribedToVideo = subscriber.stream.hasVideo;
+      console.log('set');
+      setButtons(subscribedToAudio, [document.getElementById('audio-toggle')]);
+      setButtons(subscribedToVideo, [document.getElementById('video-toggle')]);
+    }
   });
 
   // Create a publisher
@@ -63,51 +90,60 @@ function initializeSession() {
   }, handleError);
 
   // If you disconnect from a call, overrride the default behaviour.
-  publisher.on('streamDestroyed', function (event) {
+  publisher.on('streamDestroyed', function preventSessionDefault(event) {
     if (session.connection === null || event.stream.connection.connectionId === session.connection.connectionId) {
       event.preventDefault();
     }
   });
 
-  // Connect to the session
-  session.connect(token, function (error) {
+
+  function callback(error) {
     // If the connection is successful, publish to the session
     if (error) {
       handleError(error);
     } else {
       session.publish(publisher, handleError);
     }
-  });
+  }
+
+  // Connect to the session
+  session.connect(token, callback);
+
+  function callOrHangup() {
+    if (session.connection) {
+      session.unpublish(publisher);
+      session.disconnect();
+    } else {
+      session.connect(token, callback);
+    }
+    setButtons(publisher.stream.hasVideo, [document.getElementById('camera-toggle')]);
+    setButtons(publisher.stream.hasAudio, [document.getElementById('microphone-toggle')]);
+    toggleStyle(document.getElementById('call'));
+  }
 
   document.getElementById('camera-toggle').addEventListener('click', toggleCamera);
   document.getElementById('microphone-toggle').addEventListener('click', toggleMicrophone);
 
-  function callOrHangup() {
-    let calling = true;
-    if (session.connection) {
-      session.unpublish(publisher);
-      session.disconnect();
-      calling = false;
-    } else {
-      session.connect(token, function (error) {
-        if (error) {
-          handleError(error);
-        } else {
-          session.publish(publisher, handleError);
-        }
-      });
-    }
-    setButtons(calling);
-    toggleStyle(document.getElementById('call'));
-  }
+  document.getElementById('video-toggle').addEventListener('click', toggleVideo);
+  document.getElementById('audio-toggle').addEventListener('click', toggleAudio);
 
   document.getElementById('call').addEventListener('click', callOrHangup);
+  document.getElementById('cycle').addEventListener('click', () => publisher.cycleVideo());
 
+  // 'input' and 'change' event so that the volume will change even WHILE dragging on all browsers.
+  document.getElementById('volume').addEventListener('input', setVolume);
+  document.getElementById('volume').addEventListener('change', setVolume);
+
+
+  session.on('streamDestroyed', function disableSubscriberButtons() {
+    setButtons(false, [document.getElementById('audio-toggle'), document.getElementById('video-toggle')]);
+  });
+  
   // OPTIONAL - Disconnect on hangup
   /*
-  session.on('streamDestroyed', function() {
+  session.on('streamDestroyed', function dicsonnect() {
     if (session.connection) session.disconnect();
-    setButtons(false)
+    setButtons(false, publishButtons);
     toggleCall();
   });
   */

@@ -41,12 +41,13 @@ body, html {
 .toggle-button {
     position: absolute;
     z-index: 1000;
-    height: 40px;
-    width: 40px;
+    height: 60px;
+    width: 60px;
     border-radius: 50%;
     text-align: center;
     overflow-wrap: break-word;
 }
+
 #camera-toggle {
     bottom: 20px;
     left: 400px;
@@ -54,9 +55,27 @@ body, html {
 
 #microphone-toggle {
     bottom: 20px;
-    left: 460px;
+    left: 470px;
 }
+
 #call {
     bottom: 20px;
-    left: 520px;
+    left: 540px;
+    font-size: large;
+}
+
+#cycle {
+    bottom: 20px;
+    left: 610px;
+    background-color: aqua;
+}
+
+#video-toggle {
+    top: 20px;
+    right: 40px;
+}
+
+#audio-toggle {
+    top: 100px;
+    right: 40px;
 }
