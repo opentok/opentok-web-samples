@@ -28,7 +28,11 @@
     <button id="audio-toggle" class="toggle-button-on toggle-button">sub to audio</button>
     <button id="call" class= "toggle-button toggle-button-off">call</button>
     <button id="cycle" class= "toggle-button">cycle video</button>
-    <input type="range" id="volume" min="0" max="100" class="input">
+    <div id="volume-range">
+        <p id ="maximum-volume">100</p>
+        <input type="range" id="volume" min="0" max="100">
+        <p id ="minimum-volume">0</p>
+    </div>
 
     <script type="text/javascript" src="js/config.js"></script>
     <script type="text/javascript" src="js/app.js"></script>

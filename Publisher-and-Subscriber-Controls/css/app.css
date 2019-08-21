@@ -79,3 +79,25 @@ body, html {
     top: 100px;
     right: 40px;
 }
+
+#volume {
+    position: absolute;
+    z-index: 1000;
+    bottom: 100px;
+    transform: rotate(90deg);
+    right: 0px;
+}
+
+#minimum-volume{
+    position: absolute;
+    z-index: 1000;
+    bottom: 10px;
+    right: 62px;
+}
+
+#maximum-volume{
+    position: absolute;
+    z-index: 1000;
+    bottom: 160px;
+    right: 55px;
+}
