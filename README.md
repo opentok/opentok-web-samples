@@ -12,6 +12,8 @@ The code for this sample is found the following subdirectories:
 * Basic Video Chat ([demo](https://opentok.github.io/opentok-web-samples/Basic%20Video%20Chat/)) ([source](https://github.com/opentok/opentok-web-samples/tree/master/Basic%20Video%20Chat)) -- This sample shows you how to connect to an OpenTok session, publish a stream, and
   subscribe to a stream.
 
+* Basic-Video-Call ([demo](https://opentok.github.io/opentok-web-samples/Basic-Video-Call/)) ([source](https://github.com/opentok/opentok-web-samples/tree/master/Basic-Video-Call)) -- This sample shows you how to use several options of the publisher and subscriber, including (but not limited to) how to toggle whether publishing / subscribing to audio / video.
+
 * Archiving ([demo](https://opentok.github.io/opentok-web-samples/Archiving/)) ([source](https://github.com/opentok/opentok-web-samples/tree/master/Archiving)) -- This sample shows you how to record an OpenTok session.
 
 * Electron-Basic-Video-Chat ([source](https://github.com/opentok/opentok-web-samples/tree/master/Electron-Basic-Video-Chat)) -- This sample shows you how to connect to an OpenTok session, publish a stream, and subscribe to a stream in an [Electron](https://electronjs.org/) application.
