@@ -63,14 +63,12 @@ body, html {
 .toggle-button {
     position: absolute;
     z-index: 1000;
-    height: 45px;
-    width: 45px;
+    height: 60px;
+    width: 60px;
     border-radius: 50%;
-    text-align: center;
-    overflow-wrap: break-word;
 }
 
-#publishScreen {
+#screen-sharing {
     bottom: 20px;
     left: 400px;
 }

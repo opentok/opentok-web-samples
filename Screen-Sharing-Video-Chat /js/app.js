@@ -16,32 +16,33 @@ function handleError(error) {
 
 
 function toggleScreen() {
+  const screenSharing = document.getElementById('screen-sharing');
   // If the screen publisher is connected to the session, unpublish screen and re-publish camera footage
   if (screenPublisher.session) {
     session.unpublish(screenPublisher);
     session.publish(publisher, handleError);
-    document.getElementById('publishScreen').classList.remove('toggle-button-on');
-    document.getElementById('publishScreen').classList.add('toggle-button-off');
+    screenSharing.classList.remove('toggle-button-on');
+    screenSharing.classList.add('toggle-button-off');
   // Else, if the camera publisher is connected to the session, unpublish camera footage and re-publish screen
   } else if (publisher.session) {
     session.unpublish(publisher);
     if (canPublish) {
       session.publish(screenPublisher, handleError);
     }
-    document.getElementById('publishScreen').classList.add('toggle-button-on');
-    document.getElementById('publishScreen').classList.remove('toggle-button-off');
+    screenSharing.classList.add('toggle-button-on');
+    screenSharing.classList.remove('toggle-button-off');
   }
 }
 
 function preventDefaults() {
   // If a stream is destroyed BY THIS CLIENT's publishers override default behaviour.
-  publisher.on('streamDestroyed', function (event) {
+  publisher.on('streamDestroyed', function preventSessionDefault(event) {
     if (event.stream.connection.connectionId === session.connection.connectionId) {
       event.preventDefault();
     }
   });
 
-  screenPublisher.on('streamDestroyed', function (event) {
+  screenPublisher.on('streamDestroyed', function preventPublisherDefault(event) {
     if (event.stream.connection.connectionId === session.connection.connectionId) {
       event.preventDefault();
     }
@@ -52,7 +53,7 @@ function initializeSession() {
   session = OT.initSession(apiKey, sessionId);
 
   // Subscribe to a newly created stream
-  session.on('streamCreated', function (event) {
+  session.on('streamCreated', function streamCreated(event) {
     session.subscribe(event.stream, 'subscriber', {
       insertMode: 'append',
       width: '100%',
@@ -67,7 +68,7 @@ function initializeSession() {
   }, handleError);
 
   // Check whether screen sharing is possible. If possible, initialize screen sharing publisher
-  OT.checkScreenSharingCapability(function (response) {
+  OT.checkScreenSharingCapability(function checkScreenSharingCapability(response) {
     if (!response.supported || response.extensionRegistered === false) {
       alert('screen sharing not supported');
     } else if (response.extensionInstalled === false) {
@@ -86,7 +87,7 @@ function initializeSession() {
   preventDefaults();
 
   // Connect to the session
-  session.connect(token, function (error) {
+  session.connect(token, function callback(error) {
     // If the connection is successful, publish to the session
     if (error) {
       handleError(error);
@@ -96,7 +97,7 @@ function initializeSession() {
   });
 
   // When the publish screen button is pressed, call toggleScreen
-  document.getElementById('publishScreen').addEventListener('click', toggleScreen);
+  document.getElementById('screen-sharing').addEventListener('click', toggleScreen);
 }
 
 // See the config.js file.

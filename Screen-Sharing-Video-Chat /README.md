@@ -7,6 +7,9 @@ It is quite similar to the [Basic Video Chat](../Basic%20Video%20Chat) example a
 ## Running the App
 
 * Simply open [index.html](index.html) in your browser.
+* The "screen sharing" button toggles between publishing your camera and the screen.
+  
+  This is done by unpublishing the stream from the active publisher and publishing the inactive one, while still keeping both of the publishers alive.
 
 ## Known Limitations
 
