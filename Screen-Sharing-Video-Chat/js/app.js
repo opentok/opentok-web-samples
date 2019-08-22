@@ -60,7 +60,7 @@ function toggleScreen() {
     screenPublisher.destroy();
     screenSharingButton.classList.remove('toggle-button-on');
     screenSharingButton.classList.add('toggle-button-off');
-    screenSharingButton.innerHTML = "Share Screen"
+    screenSharingButton.innerHTML = 'Share Screen';
   // Else, check whether screen sharing is possible. If possible, initialize a new screen sharing publisher (allows the user to stream a different widow everytime)
   } else {
     screenSharingButton.disabled = true;
@@ -72,10 +72,10 @@ function toggleScreen() {
     }, function handleInitScreenPublisherError(error) {
       screenSharingButton.disabled = false;
       if (error) {
-        handleError(error)
-        screenSharingButton.innerHTML = "Share Screen"
+        handleError(error);
+        screenSharingButton.innerHTML = 'Share Screen';
       } else {
-        screenSharingButton.innerHTML = "Stop Sharing Screen"
+        screenSharingButton.innerHTML = 'Stop Sharing Screen';
       }
     });
     if (session && session.connection) {
