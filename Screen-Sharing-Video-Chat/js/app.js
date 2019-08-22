@@ -8,6 +8,7 @@ var screenSubscriber;
 var session;
 var cameraPublisher;
 var cameraSubscriber;
+var screenSharingButton = document.getElementById('screen-sharing');
 var elements = {'screen-subscriber': document.getElementById('screen-subscriber'), 'camera-subscriber': document.getElementById('camera-subscriber'), 'screen-publisher': document.getElementById('screen-publisher')};
 
 // Handling all of our errors here by alerting them
@@ -54,34 +55,34 @@ function rearrangeElements() {
 }
 
 function toggleScreen() {
-  var screenSharing = document.getElementById('screen-sharing');
-  // If the screen publisher is connected to the session, unpublish screen
+  // If the screen publisher is connected to the session, destroy the screen sharing publisher
   if (screenPublisher && screenPublisher.session) {
     screenPublisher.destroy();
-    screenSharing.classList.remove('toggle-button-on');
-    screenSharing.classList.add('toggle-button-off');
-
-  // Else, check whether screen sharing is possible. If possible, initialize screen sharing publisher
-  } else if (cameraPublisher.session) {
-    OT.checkScreenSharingCapability(function checkScreenSharingCapability(response) {
-      if (!response.supported || response.extensionRegistered === false) {
-        alert('screen sharing not supported');
-      } else if (response.extensionInstalled === false) {
-        alert('screen sharing extension required, please install one to share your screen');
+    screenSharingButton.classList.remove('toggle-button-on');
+    screenSharingButton.classList.add('toggle-button-off');
+    screenSharingButton.innerHTML = "Share Screen"
+  // Else, check whether screen sharing is possible. If possible, initialize a new screen sharing publisher (allows the user to stream a different widow everytime)
+  } else {
+    screenSharingButton.disabled = true;
+    screenPublisher = OT.initPublisher('screen-publisher', {
+      insertMode: 'append',
+      width: '100%',
+      height: '100%',
+      videoSource: 'screen'
+    }, function handleInitScreenPublisherError(error) {
+      screenSharingButton.disabled = false;
+      if (error) {
+        handleError(error)
+        screenSharingButton.innerHTML = "Share Screen"
       } else {
-        screenPublisher = OT.initPublisher('screen-publisher', {
-          insertMode: 'append',
-          width: '100%',
-          height: '100%',
-          videoSource: 'screen'
-        }, handleError);
-        if (session && session.connection) {
-          session.publish(screenPublisher, handleError);
-        }
+        screenSharingButton.innerHTML = "Stop Sharing Screen"
       }
     });
-    screenSharing.classList.add('toggle-button-on');
-    screenSharing.classList.remove('toggle-button-off');
+    if (session && session.connection) {
+      session.publish(screenPublisher, handleError);
+    }
+    screenSharingButton.classList.add('toggle-button-on');
+    screenSharingButton.classList.remove('toggle-button-off');
   }
   rearrangeElements();
 }
@@ -123,11 +124,24 @@ function initializeSession() {
       handleError(error);
     } else {
       session.publish(cameraPublisher, handleError);
+
+      screenSharingButton.disabled = false;
+
+      // When the publish screen button is pressed, call toggleScreen
+      screenSharingButton.addEventListener('click', toggleScreen);
     }
   });
 
-  // When the publish screen button is pressed, call toggleScreen
-  document.getElementById('screen-sharing').addEventListener('click', toggleScreen);
+  // Check whether screen sharing is possible. If possible, display the Share Screen button
+  OT.checkScreenSharingCapability(function checkScreenSharingCapability(response) {
+    if (!response.supported || response.extensionRegistered === false) {
+      alert('screen sharing not supported');
+    } else if (response.extensionInstalled === false) {
+      alert('screen sharing extension required, please install one to share your screen');
+    } else {
+      screenSharingButton.style.display = 'block';
+    }
+  });
 
   ['screen-subscriber', 'screen-publisher'].forEach(element => document.getElementById(element).addEventListener('click', () => switchWithBig(document.getElementById(element))));
 }

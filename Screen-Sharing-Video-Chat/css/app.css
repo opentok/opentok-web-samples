@@ -69,6 +69,7 @@ body, html {
 }
 
 #screen-sharing {
+    display: none;
     bottom: 20px;
     left: 400px;
 }
