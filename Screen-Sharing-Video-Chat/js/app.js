@@ -55,10 +55,8 @@ function initializeSession() {
   session.on('streamCreated', function streamCreated(event) {
     if (event.stream.videoType === 'camera') {
       session.subscribe(event.stream, 'camera-subscriber', options, handleError);
-      document.getElementById('camera-subscriber').style.display = 'block';
     } else { // The videoType is either 'screen' or 'custom'
       session.subscribe(event.stream, 'screen-subscriber', options, handleError);
-      document.getElementById('screen-subscriber').style.display = 'block';
     }
   });
 
