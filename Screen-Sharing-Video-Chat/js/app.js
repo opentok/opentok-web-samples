@@ -9,8 +9,11 @@ var session;
 var cameraPublisher;
 var cameraSubscriber;
 var screenSharingButton = document.getElementById('screen-sharing');
-var elements = {'screen-subscriber': document.getElementById('screen-subscriber'), 'camera-subscriber': document.getElementById('camera-subscriber'), 'screen-publisher': document.getElementById('screen-publisher')};
-
+var options = {
+  insertMode: 'append',
+  width: '100%',
+  height: '100%'
+}
 // Handling all of our errors here by alerting them
 function handleError(error) {
   if (error) {
@@ -18,48 +21,10 @@ function handleError(error) {
   }
 }
 
-function switchWithBig(pressed) {
-  if (!pressed.classList.contains('big-subscriber')) {
-    Object.keys(elements).forEach(element => {
-      if (elements[element].classList.contains('big-subscriber')) {
-        elements[element].classList.remove('big-subscriber');
-        if (element.startsWith('screen')) {
-          elements[element].classList.add('small-screen');
-        } else {
-          elements[element].classList.add('small-camera');
-        }
-      }
-    });
-    pressed.classList.forEach(cls => pressed.classList.remove(cls));
-    pressed.classList.add('big-subscriber');
-  }
-}
-
-function rearrangeElements() {
-  Object.keys(elements).forEach(element => elements[element].classList.forEach(cls => elements[element].classList.remove(cls)));
-  if (screenSubscriber && screenSubscriber.stream) {
-    elements['screen-subscriber'].classList.add('big-subscriber');
-  } else if (screenPublisher && screenPublisher.session) {
-    elements['screen-publisher'].classList.add('big-subscriber');
-  } else if (cameraSubscriber && cameraSubscriber.stream) {
-    elements['camera-subscriber'].classList.add('big-subscriber');
-  }
-
-  if (screenPublisher && screenPublisher.session && !(elements['screen-publisher'].classList.contains('big-subscriber'))) {
-    elements['screen-publisher'].classList.add('small-screen');
-  }
-
-  if (cameraSubscriber && cameraSubscriber.session && !(elements['camera-subscriber'].classList.contains('big-subscriber'))) {
-    elements['camera-subscriber'].classList.add('small-camera');
-  }
-}
-
 function toggleScreen() {
   // If the screen publisher is connected to the session, destroy the screen sharing publisher
   if (screenPublisher && screenPublisher.session) {
     screenPublisher.destroy();
-    screenSharingButton.classList.remove('toggle-button-on');
-    screenSharingButton.classList.add('toggle-button-off');
     screenSharingButton.innerHTML = 'Share Screen';
   // Else, check whether screen sharing is possible. If possible, initialize a new screen sharing publisher (allows the user to stream a different widow everytime)
   } else {
@@ -81,10 +46,7 @@ function toggleScreen() {
     if (session && session.connection) {
       session.publish(screenPublisher, handleError);
     }
-    screenSharingButton.classList.add('toggle-button-on');
-    screenSharingButton.classList.remove('toggle-button-off');
   }
-  rearrangeElements();
 }
 
 function initializeSession() {
@@ -93,29 +55,16 @@ function initializeSession() {
   // Subscribe to a newly created stream
   session.on('streamCreated', function streamCreated(event) {
     if (event.stream.videoType === 'camera') {
-      cameraSubscriber = session.subscribe(event.stream, 'camera-subscriber', {
-        insertMode: 'append',
-        width: '100%',
-        height: '100%'
-      }, handleError);
-      cameraSubscriber.on('destroyed', rearrangeElements);
+      cameraSubscriber = session.subscribe(event.stream, 'camera-subscriber', options, handleError);
+      document.getElementById('camera-subscriber').style.display = 'block'
     } else { // The videoType is either 'screen' or 'custom'
-      screenSubscriber = session.subscribe(event.stream, 'screen-subscriber', {
-        insertMode: 'append',
-        width: '100%',
-        height: '100%'
-      }, handleError);
-      screenSubscriber.on('destroyed', rearrangeElements);
+      screenSubscriber = session.subscribe(event.stream, 'screen-subscriber', options, handleError);
+      document.getElementById('screen-subscriber').style.display = 'block'
     }
-    rearrangeElements();
   });
 
   // Create a publisher
-  cameraPublisher = OT.initPublisher('camera-publisher', {
-    insertMode: 'append',
-    width: '100%',
-    height: '100%'
-  }, handleError);
+  cameraPublisher = OT.initPublisher('camera-publisher', options, handleError);
 
   // Connect to the session
   session.connect(token, function callback(error) {
@@ -142,8 +91,6 @@ function initializeSession() {
       screenSharingButton.style.display = 'block';
     }
   });
-
-  ['screen-subscriber', 'screen-publisher'].forEach(element => document.getElementById(element).addEventListener('click', () => switchWithBig(document.getElementById(element))));
 }
 
 // See the config.js file.
