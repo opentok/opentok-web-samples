@@ -9,8 +9,7 @@ It is quite similar to the [Basic Video Chat](../Basic%20Video%20Chat) example a
 * Simply open [index.html](index.html) in your browser.
 * The "screen sharing" button toggles publishing your screen.
   
-  This is done by unpublishing the stream from the active publisher and publishing the inactive one, while still keeping both of the publishers alive.
-* If you are both subscribed to a screen sharing stream, and publishing a screen sharing screen of your own, you can click the small `<div>` to make the small and the big one switch places.
+  This is done by destroying the current `screenPublisher`, creating a new one to stream from and publishing it's stream to the session.
   
 ## Known Limitations
 
