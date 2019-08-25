@@ -4,16 +4,15 @@ var apiKey;
 var sessionId;
 var token;
 var screenPublisher;
-var screenSubscriber;
 var session;
 var cameraPublisher;
-var cameraSubscriber;
 var screenSharingButton = document.getElementById('screen-sharing');
 var options = {
   insertMode: 'append',
   width: '100%',
   height: '100%'
-}
+};
+
 // Handling all of our errors here by alerting them
 function handleError(error) {
   if (error) {
@@ -55,11 +54,11 @@ function initializeSession() {
   // Subscribe to a newly created stream
   session.on('streamCreated', function streamCreated(event) {
     if (event.stream.videoType === 'camera') {
-      cameraSubscriber = session.subscribe(event.stream, 'camera-subscriber', options, handleError);
-      document.getElementById('camera-subscriber').style.display = 'block'
+      session.subscribe(event.stream, 'camera-subscriber', options, handleError);
+      document.getElementById('camera-subscriber').style.display = 'block';
     } else { // The videoType is either 'screen' or 'custom'
-      screenSubscriber = session.subscribe(event.stream, 'screen-subscriber', options, handleError);
-      document.getElementById('screen-subscriber').style.display = 'block'
+      session.subscribe(event.stream, 'screen-subscriber', options, handleError);
+      document.getElementById('screen-subscriber').style.display = 'block';
     }
   });
 
