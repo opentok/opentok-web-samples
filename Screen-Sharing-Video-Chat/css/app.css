@@ -1,5 +1,5 @@
 body, html {
-    background-color: gray;
+    background-color: rgb(0, 63, 95);
     height: 100%;
     width: 100%;
     padding: 0;
@@ -11,6 +11,7 @@ div {
     width: 50%;
     height: 50%;
     position: fixed;
+    border: 1px solid rgb(0, 63, 95);
 }
 
 #videos {
@@ -59,4 +60,28 @@ div {
     width: 60px;
     border-radius: 50%;
     background-color: red;
+}
+
+.TokBox-label {
+    background-color: rgb(0, 153, 204);
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    color: white;
+}
+#my-label {
+    position: absolute;
+    font-size: large;
+    bottom: 49%;
+    left: 0px;
+    border-radius: 5%;
+    z-index: 1000;
+}
+
+#others-label {
+    position: absolute;
+    font-size: large;
+    bottom: 49%;
+    right: 0px;
+    border-radius: 5%;
+    z-index: 1000;
+    
 }
