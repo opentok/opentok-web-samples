@@ -1,12 +1,12 @@
 /* global OT API_KEY TOKEN SESSION_ID SAMPLE_SERVER_BASE_URL */
 
-let apiKey;
-let sessionId;
-let token;
-let publisher;
-let subscriber;
-let subscribedToAudio;
-let subscribedToVideo;
+var apiKey;
+var sessionId;
+var token;
+var publisher;
+var subscriber;
+var subscribedToAudio;
+var subscribedToVideo;
 
 // Handling all of our errors here by alerting them
 function handleError(error) {
@@ -28,27 +28,27 @@ function toggleStyle(button) { // toggles button css class
 
 function toggleMicrophone() {
   if (publisher.session) publisher.publishAudio(!publisher.stream.hasAudio);
-  const microphoneToggle = document.getElementById('microphone-toggle');
+  var microphoneToggle = document.getElementById('microphone-toggle');
   toggleStyle(microphoneToggle);
 }
 
 function toggleCamera() {
   if (publisher.session) publisher.publishVideo(!publisher.stream.hasVideo);
-  const cameraToggle = document.getElementById('camera-toggle');
+  var cameraToggle = document.getElementById('camera-toggle');
   toggleStyle(cameraToggle);
 }
 
 function toggleAudio() {
   subscribedToAudio = !subscribedToAudio;
   if (subscriber && subscriber.session) subscriber.subscribeToAudio(subscribedToAudio);
-  const audioToggle = document.getElementById('audio-toggle');
+  var audioToggle = document.getElementById('audio-toggle');
   toggleStyle(audioToggle);
 }
 
 function toggleVideo() {
   subscribedToVideo = !subscribedToVideo;
   if (subscriber && subscriber.session) subscriber.subscribeToVideo(subscribedToVideo);
-  const videoToggle = document.getElementById('video-toggle');
+  var videoToggle = document.getElementById('video-toggle');
   toggleStyle(videoToggle);
 }
 
@@ -65,7 +65,7 @@ function setButtons(on, buttons) {
 }
 
 function initializeSession() {
-  const session = OT.initSession(apiKey, sessionId);
+  var session = OT.initSession(apiKey, sessionId);
 
   // Subscribe to a newly created stream
   session.on('streamCreated', function subscribe(event) {
