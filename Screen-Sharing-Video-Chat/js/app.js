@@ -46,9 +46,9 @@ function toggleScreen() {
       session.publish(screenPublisher, handleError);
 
       // If the stream is destroyed for any reason, we would like to reset the screen sharing button
-      screenPublisher.on('destroyed', function resetButton(params) {
+      screenPublisher.on('destroyed', function resetButton() {
         screenSharingButton.innerHTML = 'Share Screen';
-      })
+      });
     }
   }
 }
