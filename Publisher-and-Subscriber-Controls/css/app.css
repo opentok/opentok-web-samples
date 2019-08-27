@@ -97,3 +97,7 @@ body, html {
     bottom: 160px;
     right: 55px;
 }
+
+#volume-range {
+    display: none;
+}

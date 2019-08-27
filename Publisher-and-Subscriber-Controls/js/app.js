@@ -74,7 +74,7 @@ function initializeSession() {
       width: '100%',
       height: '100%'
     }, handleError);
-    
+
     subscriber.on('connected', function enableSubscriberButtons() {
       subscribedToAudio = subscriber.stream.hasAudio;
       subscribedToVideo = subscriber.stream.hasVideo;
@@ -83,13 +83,14 @@ function initializeSession() {
 
       document.getElementById('audio-toggle').style.display = 'block';
       document.getElementById('video-toggle').style.display = 'block';
-      
+      document.getElementById('volume-range').style.display = 'block';
     });
 
     subscriber.on('disconnected destroyed', function hideSubscriberButtons() {
       setButtons(false, [document.getElementById('audio-toggle'), document.getElementById('video-toggle')]);
       document.getElementById('audio-toggle').style.display = 'none';
       document.getElementById('video-toggle').style.display = 'none';
+      document.getElementById('volume-range').style.display = 'none';
     });
   });
 
@@ -100,7 +101,7 @@ function initializeSession() {
     height: '100%'
   }, handleError);
 
-        
+
   publisher.on('destroyed', function hidePublisherButtons() {
     setButtons(false, [document.getElementById('microphone-toggle'), document.getElementById('camera-toggle')]);
     document.getElementById('camera-toggle').style.display = 'none';
@@ -130,7 +131,6 @@ function initializeSession() {
   // 'input' and 'change' event so that the volume will change even WHILE dragging on all browsers.
   document.getElementById('volume').addEventListener('input', setVolume);
   document.getElementById('volume').addEventListener('change', setVolume);
-
 
 
   session.on('sessionDisconnected', function sessionDisconnected(event) {
