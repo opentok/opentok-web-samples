@@ -139,16 +139,8 @@ function initializeSession() {
   session.on('streamDestroyed', function disableSubscriberButtons() {
     setButtons(false, [document.getElementById('audio-toggle'), document.getElementById('video-toggle')]);
   });
-
-  // OPTIONAL - Disconnect on hangup
-  /*
-  session.on('streamDestroyed', function dicsonnect() {
-    if (session.connection) session.disconnect();
-    setButtons(false, [document.getElementById('microphone-toggle'), document.getElementById('camera-toggle')]);
-    toggleCall();
-  });
-  */
 }
+
 // See the config.js file.
 if (API_KEY && TOKEN && SESSION_ID) {
   apiKey = API_KEY;
