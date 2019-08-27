@@ -27,13 +27,13 @@ function toggleStyle(button) { // toggles button css class
 }
 
 function toggleMicrophone() {
-  if (publisher.session) publisher.publishAudio(!publisher.stream.hasAudio);
+  if (publisher && publisher.session) publisher.publishAudio(!publisher.stream.hasAudio);
   var microphoneToggle = document.getElementById('microphone-toggle');
   toggleStyle(microphoneToggle);
 }
 
 function toggleCamera() {
-  if (publisher.session) publisher.publishVideo(!publisher.stream.hasVideo);
+  if (publisher && publisher.session) publisher.publishVideo(!publisher.stream.hasVideo);
   var cameraToggle = document.getElementById('camera-toggle');
   toggleStyle(cameraToggle);
 }
@@ -74,13 +74,23 @@ function initializeSession() {
       width: '100%',
       height: '100%'
     }, handleError);
-    if (subscriber && subscriber.session) {
+    
+    subscriber.on('connected', function enableSubscriberButtons() {
       subscribedToAudio = subscriber.stream.hasAudio;
       subscribedToVideo = subscriber.stream.hasVideo;
-      console.log('set');
       setButtons(subscribedToAudio, [document.getElementById('audio-toggle')]);
       setButtons(subscribedToVideo, [document.getElementById('video-toggle')]);
-    }
+
+      document.getElementById('audio-toggle').style.display = 'block';
+      document.getElementById('video-toggle').style.display = 'block';
+      
+    });
+
+    subscriber.on('disconnected destroyed', function hideSubscriberButtons() {
+      setButtons(false, [document.getElementById('audio-toggle'), document.getElementById('video-toggle')]);
+      document.getElementById('audio-toggle').style.display = 'none';
+      document.getElementById('video-toggle').style.display = 'none';
+    });
   });
 
   // Create a publisher
@@ -90,13 +100,12 @@ function initializeSession() {
     height: '100%'
   }, handleError);
 
-  // If you disconnect from a call, overrride the default behaviour.
-  publisher.on('streamDestroyed', function preventSessionDefault(event) {
-    if (session.connection === null || event.stream.connection.connectionId === session.connection.connectionId) {
-      event.preventDefault();
-    }
+        
+  publisher.on('destroyed', function hidePublisherButtons() {
+    setButtons(false, [document.getElementById('microphone-toggle'), document.getElementById('camera-toggle')]);
+    document.getElementById('camera-toggle').style.display = 'none';
+    document.getElementById('microphone-toggle').style.display = 'none';
   });
-
 
   function callback(error) {
     // If the connection is successful, publish to the session
@@ -110,25 +119,12 @@ function initializeSession() {
   // Connect to the session
   session.connect(token, callback);
 
-  function callOrHangup() {
-    if (session.connection) {
-      session.unpublish(publisher);
-      session.disconnect();
-    } else {
-      session.connect(token, callback);
-    }
-    setButtons(publisher.stream.hasVideo, [document.getElementById('camera-toggle')]);
-    setButtons(publisher.stream.hasAudio, [document.getElementById('microphone-toggle')]);
-    toggleStyle(document.getElementById('call'));
-  }
-
   document.getElementById('camera-toggle').addEventListener('click', toggleCamera);
   document.getElementById('microphone-toggle').addEventListener('click', toggleMicrophone);
 
   document.getElementById('video-toggle').addEventListener('click', toggleVideo);
   document.getElementById('audio-toggle').addEventListener('click', toggleAudio);
 
-  document.getElementById('call').addEventListener('click', callOrHangup);
   document.getElementById('cycle').addEventListener('click', () => publisher.cycleVideo());
 
   // 'input' and 'change' event so that the volume will change even WHILE dragging on all browsers.
@@ -136,8 +132,9 @@ function initializeSession() {
   document.getElementById('volume').addEventListener('change', setVolume);
 
 
-  session.on('streamDestroyed', function disableSubscriberButtons() {
-    setButtons(false, [document.getElementById('audio-toggle'), document.getElementById('video-toggle')]);
+
+  session.on('sessionDisconnected', function sessionDisconnected(event) {
+    console.log('You were disconnected from the session.', event.reason);
   });
 }
 

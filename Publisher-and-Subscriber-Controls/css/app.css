@@ -58,26 +58,22 @@ body, html {
     left: 470px;
 }
 
-#call {
-    bottom: 20px;
-    left: 540px;
-    font-size: large;
-}
-
 #cycle {
     bottom: 20px;
-    left: 610px;
+    left: 540px;
     background-color: aqua;
 }
 
 #video-toggle {
     top: 20px;
     right: 40px;
+    display: none;
 }
 
 #audio-toggle {
     top: 100px;
     right: 40px;
+    display: none;
 }
 
 #volume {
