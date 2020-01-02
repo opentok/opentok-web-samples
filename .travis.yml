@@ -23,6 +23,8 @@ matrix:
     - os: linux
       env: BROWSER=chrome  BVER=stable
     - os: linux
+      env: BROWSER=chrome  BVER=beta
+    - os: linux
       env: BROWSER=firefox  BVER=stable
     - os: osx
       osx_image: xcode9.2
