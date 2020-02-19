@@ -25,7 +25,7 @@
   "homepage": "https://github.com/opentok/opentok-web-samples#readme",
   "devDependencies": {
     "babel-eslint": "^8.2.1",
-    "chromedriver": "^2.35.0",
+    "chromedriver": "^79.0.3",
     "eslint": "^4.17.0",
     "eslint-config-airbnb-es5": "^1.2.0",
     "eslint-plugin-import": "^2.8.0",
