@@ -51,13 +51,11 @@ describe('Archiving Sample Test', () => {
       const viewButton = $('#buttons #view');
       viewButton.waitForVisible(2000);
       // Wait for us go to the archive view URL
-      if (browser.desiredCapabilities.browserName !== 'internet explorer') {
-        viewButton.click();
-        browser.waitUntil(() => {
-          let pageUrl = browser.getUrl();
-          return pageUrl.match('^https:\/\/.+\/archive\/.+\/view$', 'ga');
-        }, 5000);
-      }
+      viewButton.click();
+      browser.waitUntil(() => {
+        let pageUrl = browser.getUrl();
+        return pageUrl.match('^https:\/\/.+\/archive\/.+\/view$', 'ga');
+      }, 5000);
     });
   });
 });

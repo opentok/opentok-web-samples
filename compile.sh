@@ -67,10 +67,5 @@ if [ "$BROWSER" = "safari" ]; then
 else
   npm start &
 fi
-if [ "$BROWSER" = "ie" ]; then
-  ./node_modules/opentok-test-scripts/plugin-installer/packageSauceLabsInstaller.sh
-  mkdir -p out/plugin-installer
-  mv ./node_modules/opentok-test-scripts/plugin-installer/SauceLabsInstaller.exe out/plugin-installer
-fi
 npm test
 if [ "$BROWSER" = "ie" ]; then rm -r out/plugin-installer; fi
