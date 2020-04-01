@@ -1,5 +1,6 @@
 const BROWSER = process.env.BROWSER || 'chrome';
 const config = {
+
   //
   // ==================
   // Specify Test Files
@@ -13,7 +14,9 @@ const config = {
   // Some tests only run in certain browsers. So we put the name of browsers in the test file name
   // eg. test-chrome-firefox.js will only run in chrome and firefox vs test-chrome-firefox-safari.js
   // will run in chrome, firefox and safari.
-  specs: [`*/test/*test*${BROWSER}*.js`],
+  specs: [
+    `*/test/*test*${BROWSER}*.js`
+  ],
   // Patterns to exclude.
   exclude: [
     // 'path/to/excluded/files'
@@ -250,40 +253,38 @@ const config = {
 };
 
 switch (BROWSER) {
-  case 'firefox':
-    config.services.push('firefox-profile');
-    config.capabilities.push({
-      browserName: 'firefox',
+case 'firefox':
+  config.services.push('firefox-profile');
+  config.capabilities.push({
+    browserName: 'firefox',
+    binary: process.env.BROWSERBIN
+  });
+  config.firefoxProfile = {
+    'media.navigator.permission.disabled': true,
+    'media.navigator.streams.fake': true
+  };
+  break;
+case 'safari':
+  config.capabilities.push({
+    browserName: 'safari'
+  });
+  config.baseUrl = 'http://127.0.0.1';
+  break;
+case 'chrome':
+default:
+  // Default to chrome
+  config.port = '9515';
+  config.path = '/';
+  config.services.push('chromedriver');
+  config.capabilities.push({
+    browserName: 'chrome',
+    chromeOptions: {
+      args: ['use-fake-device-for-media-stream',
+        'use-fake-ui-for-media-stream'],
       binary: process.env.BROWSERBIN
-    });
-    config.firefoxProfile = {
-      'media.navigator.permission.disabled': true,
-      'media.navigator.streams.fake': true
-    };
-    break;
-  case 'safari':
-    config.capabilities.push({
-      browserName: 'safari'
-    });
-    config.baseUrl = 'http://127.0.0.1';
-    break;
-  case 'chrome':
-  default:
-    // Default to chrome
-    config.port = '9515';
-    config.path = '/';
-    config.services.push('chromedriver');
-    config.capabilities.push({
-      browserName: 'chrome',
-      chromeOptions: {
-        args: [
-          'use-fake-device-for-media-stream',
-          'use-fake-ui-for-media-stream'
-        ],
-        binary: process.env.BROWSERBIN
-      }
-    });
-    break;
+    }
+  });
+  break;
 }
 
 exports.config = config;
