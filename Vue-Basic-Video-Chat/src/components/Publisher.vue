@@ -3,10 +3,9 @@
 </template>
 
 <script>
-import OT from '@opentok/client';
-
+import OT from "@opentok/client";
 export default {
-  name: 'publisher',
+  name: "publisher",
   props: {
     session: {
       type: OT.Session,
@@ -18,20 +17,20 @@ export default {
     }
   },
   mounted: function() {
-    const publisher = OT.initPublisher(this.$el, this.opts, (err) => {
+    const publisher = OT.initPublisher(this.$el, this.opts, err => {
       if (err) {
-        this.$emit('error', err);
+        this.$emit("error", err);
       } else {
-        this.$emit('publisherCompleted');
+        this.$emit("publisherCompleted");
       }
     });
-    this.$emit('publisherCreated', publisher);
+    this.$emit("publisherCreated", publisher);
     const publish = () => {
-      this.session.publish(publisher, (err) => {
+      this.session.publish(publisher, err => {
         if (err) {
-          this.$emit('error', err);
+          this.$emit("error", err);
         } else {
-          this.$emit('publisherConnected', publisher);
+          this.$emit("publisherConnected", publisher);
         }
       });
     };
@@ -39,7 +38,7 @@ export default {
       publish();
     }
     if (this.session) {
-      this.session.on('sessionConnected', publish);
+      this.session.on("sessionConnected", publish);
     }
   }
 };
