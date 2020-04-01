@@ -1,6 +1,5 @@
-const BROWSER = process.env.BROWSER || 'chrome';
+const BROWSER = process.env.BROWSER || "chrome";
 const config = {
-
   //
   // ==================
   // Specify Test Files
@@ -14,9 +13,7 @@ const config = {
   // Some tests only run in certain browsers. So we put the name of browsers in the test file name
   // eg. test-chrome-firefox.js will only run in chrome and firefox vs test-chrome-firefox-safari.js
   // will run in chrome, firefox and safari.
-  specs: [
-    `*/test/*test*${BROWSER}*.js`
-  ],
+  specs: [`*/test/*test*${BROWSER}*.js`],
   // Patterns to exclude.
   exclude: [
     // 'path/to/excluded/files'
@@ -57,7 +54,7 @@ const config = {
   sync: true,
   //
   // Level of logging verbosity: silent | verbose | command | data | result | error
-  logLevel: 'result',
+  logLevel: "result",
   //
   // Enables colors for log output.
   coloredLogs: true,
@@ -70,13 +67,13 @@ const config = {
   bail: 0,
   //
   // Saves a screenshot to a given path if a command fails.
-  screenshotPath: './errorShots/',
+  screenshotPath: "./errorShots/",
   //
   // Set a base URL in order to shorten url command calls. If your `url` parameter starts
   // with `/`, the base url gets prepended, not including the path portion of your baseUrl.
   // If your `url` parameter starts without a scheme or `/` (like `some/path`), the base url
   // gets prepended directly.
-  baseUrl: 'http://localhost:8080',
+  baseUrl: "http://localhost:8080",
   //
   // Default timeout for all waitFor* commands.
   waitforTimeout: 10000,
@@ -118,7 +115,7 @@ const config = {
   //
   // Make sure you have the wdio adapter package for the specific framework installed
   // before running any tests.
-  framework: 'jasmine',
+  framework: "jasmine",
   //
   // Test reporter for stdout.
   // The only one supported by default is 'dot'
@@ -253,55 +250,40 @@ const config = {
 };
 
 switch (BROWSER) {
-case 'firefox':
-  config.services.push('firefox-profile');
-  config.capabilities.push({
-    browserName: 'firefox',
-    binary: process.env.BROWSERBIN
-  });
-  config.firefoxProfile = {
-    'media.navigator.permission.disabled': true,
-    'media.navigator.streams.fake': true
-  };
-  break;
-case 'safari':
-  config.capabilities.push({
-    browserName: 'safari'
-  });
-  config.baseUrl = 'http://127.0.0.1';
-  break;
-case 'ie':
-  config.services.push('sauce');
-  config.user = process.env.SAUCE_USERNAME;
-  config.key = process.env.SAUCE_ACCESS_KEY;
-  config.sauceConnect = false;
-  config.sauceConnectOpts = {
-    tunnelIdentifier: process.env.TRAVIS_JOB_NUMBER
-  };
-  config.capabilities.push({
-    browserName: 'internet explorer',
-    version: 11,
-    platform: 'Windows 8.1',
-    'tunnel-identifier': process.env.TRAVIS_JOB_NUMBER,
-    prerun: 'http://localhost:8080/plugin-installer/SauceLabsInstaller.exe',
-    background: false
-  });
-  break;
-case 'chrome':
-default:
-  // Default to chrome
-  config.port = '9515';
-  config.path = '/';
-  config.services.push('chromedriver');
-  config.capabilities.push({
-    browserName: 'chrome',
-    chromeOptions: {
-      args: ['use-fake-device-for-media-stream',
-        'use-fake-ui-for-media-stream'],
+  case "firefox":
+    config.services.push("firefox-profile");
+    config.capabilities.push({
+      browserName: "firefox",
       binary: process.env.BROWSERBIN
-    }
-  });
-  break;
+    });
+    config.firefoxProfile = {
+      "media.navigator.permission.disabled": true,
+      "media.navigator.streams.fake": true
+    };
+    break;
+  case "safari":
+    config.capabilities.push({
+      browserName: "safari"
+    });
+    config.baseUrl = "http://127.0.0.1";
+    break;
+  case "chrome":
+  default:
+    // Default to chrome
+    config.port = "9515";
+    config.path = "/";
+    config.services.push("chromedriver");
+    config.capabilities.push({
+      browserName: "chrome",
+      chromeOptions: {
+        args: [
+          "use-fake-device-for-media-stream",
+          "use-fake-ui-for-media-stream"
+        ],
+        binary: process.env.BROWSERBIN
+      }
+    });
+    break;
 }
 
 exports.config = config;
