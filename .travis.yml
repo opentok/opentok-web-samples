@@ -4,10 +4,10 @@ sudo: required
 node_js: 8
 
 before_install:
-- export DISPLAY=:99.0
-- if [ -f /etc/init.d/xvfb ]; then sh -e /etc/init.d/xvfb start; fi
-- if [ $BROWSER == 'firefox' ]; then pulseaudio --start; fi
-- ./startSelenium.sh
+  - export DISPLAY=:99.0
+  - if [ -f /etc/init.d/xvfb ]; then sh -e /etc/init.d/xvfb start; fi
+  - if [ $BROWSER == 'firefox' ]; then pulseaudio --start; fi
+  - ./startSelenium.sh
 
 script: run-tests
 
@@ -27,8 +27,6 @@ matrix:
     - os: osx
       osx_image: xcode9.2
       env: BROWSER=safari BVER=stable
-    - os: linux
-      env: BROWSER=ie BVER=11 SAUCELABS=true
 
 env:
   global:
