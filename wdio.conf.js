@@ -1,4 +1,4 @@
-const BROWSER = process.env.BROWSER || "chrome";
+const BROWSER = process.env.BROWSER || 'chrome';
 const config = {
   //
   // ==================
@@ -54,7 +54,7 @@ const config = {
   sync: true,
   //
   // Level of logging verbosity: silent | verbose | command | data | result | error
-  logLevel: "result",
+  logLevel: 'result',
   //
   // Enables colors for log output.
   coloredLogs: true,
@@ -67,13 +67,13 @@ const config = {
   bail: 0,
   //
   // Saves a screenshot to a given path if a command fails.
-  screenshotPath: "./errorShots/",
+  screenshotPath: './errorShots/',
   //
   // Set a base URL in order to shorten url command calls. If your `url` parameter starts
   // with `/`, the base url gets prepended, not including the path portion of your baseUrl.
   // If your `url` parameter starts without a scheme or `/` (like `some/path`), the base url
   // gets prepended directly.
-  baseUrl: "http://localhost:8080",
+  baseUrl: 'http://localhost:8080',
   //
   // Default timeout for all waitFor* commands.
   waitforTimeout: 10000,
@@ -115,7 +115,7 @@ const config = {
   //
   // Make sure you have the wdio adapter package for the specific framework installed
   // before running any tests.
-  framework: "jasmine",
+  framework: 'jasmine',
   //
   // Test reporter for stdout.
   // The only one supported by default is 'dot'
@@ -250,35 +250,35 @@ const config = {
 };
 
 switch (BROWSER) {
-  case "firefox":
-    config.services.push("firefox-profile");
+  case 'firefox':
+    config.services.push('firefox-profile');
     config.capabilities.push({
-      browserName: "firefox",
+      browserName: 'firefox',
       binary: process.env.BROWSERBIN
     });
     config.firefoxProfile = {
-      "media.navigator.permission.disabled": true,
-      "media.navigator.streams.fake": true
+      'media.navigator.permission.disabled': true,
+      'media.navigator.streams.fake': true
     };
     break;
-  case "safari":
+  case 'safari':
     config.capabilities.push({
-      browserName: "safari"
+      browserName: 'safari'
     });
-    config.baseUrl = "http://127.0.0.1";
+    config.baseUrl = 'http://127.0.0.1';
     break;
-  case "chrome":
+  case 'chrome':
   default:
     // Default to chrome
-    config.port = "9515";
-    config.path = "/";
-    config.services.push("chromedriver");
+    config.port = '9515';
+    config.path = '/';
+    config.services.push('chromedriver');
     config.capabilities.push({
-      browserName: "chrome",
+      browserName: 'chrome',
       chromeOptions: {
         args: [
-          "use-fake-device-for-media-stream",
-          "use-fake-ui-for-media-stream"
+          'use-fake-device-for-media-stream',
+          'use-fake-ui-for-media-stream'
         ],
         binary: process.env.BROWSERBIN
       }
