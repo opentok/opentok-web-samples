@@ -2,11 +2,7 @@
   <div id="session" @error="errorHandler">
     <publisher :session="session" @error="errorHandler"></publisher>
     <div id="subscribers" v-for="stream in streams" :key="stream.streamId">
-      <subscriber
-        @error="errorHandler"
-        :stream="stream"
-        :session="session"
-      ></subscriber>
+      <subscriber @error="errorHandler" :stream="stream" :session="session"></subscriber>
     </div>
   </div>
 </template>
@@ -20,12 +16,14 @@ const errorHandler = err => {
   alert(err.message);
 };
 
-const apiKey = process.env.VUE_APP_API_KEY;
-
 export default {
   name: "session",
   components: { Publisher, Subscriber },
   props: {
+    apiKey: {
+      type: String,
+      default: process.env.VUE_APP_API_KEY
+    },
     sessionId: {
       type: String,
       default: process.env.VUE_APP_SESSION_ID
@@ -36,7 +34,7 @@ export default {
     }
   },
   created() {
-    this.session = OT.initSession(apiKey, this.sessionId);
+    this.session = OT.initSession(this.apiKey, this.sessionId);
 
     this.session.connect(this.token, err => {
       if (err) {

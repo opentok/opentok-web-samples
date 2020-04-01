@@ -54,7 +54,8 @@ cp -r React-Basic-Video-Chat/build/ out/React-Basic-Video-Chat/
 # Build Vue Sample
 cd Vue-Basic-Video-Chat/
 npm install
-sed -i -- 's/http:\/\/YOUR-SERVER-URL/https:\/\/opentok-web-samples-backend.herokuapp.com/g' config.js
+cp .env-example .env
+sed -i -- 's/http:\/\/YOUR-SERVER-URL/https:\/\/opentok-web-samples-backend.herokuapp.com/g' .env
 npm run build
 cd ..
 mkdir -p out/Vue-Basic-Video-Chat
