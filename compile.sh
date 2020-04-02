@@ -59,7 +59,7 @@ sed -i -- 's/http:\/\/YOUR-SERVER-URL/https:\/\/opentok-web-samples-backend.hero
 npm run build
 cd ..
 mkdir -p out/Vue-Basic-Video-Chat
-cp -r Vue-Basic-Video-Chat/dist out/Vue-Basic-Video-Chat/
+cp -r Vue-Basic-Video-Chat/dist/. out/Vue-Basic-Video-Chat/
 
 # Run tests
 if [ "$BROWSER" = "safari" ]; then
