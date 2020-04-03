@@ -9,10 +9,10 @@
 
 <script>
 import OT from '@opentok/client';
-import Publisher from './Publisher.vue';
-import Subscriber from './Subscriber.vue';
+import Publisher from '@/components/Publisher.vue';
+import Subscriber from '@/components/Subscriber.vue';
 
-const errorHandler = (err) => {
+const errorHandler = err => {
   alert(err.message);
 };
 
@@ -20,30 +20,32 @@ export default {
   name: 'session',
   components: { Publisher, Subscriber },
   props: {
+    apiKey: {
+      type: String,
+      default: process.env.VUE_APP_API_KEY
+    },
     sessionId: {
       type: String,
-      required: true
+      default: process.env.VUE_APP_SESSION_ID
     },
     token: {
       type: String,
-      required: true
-    },
-    apiKey: {
-      type: String,
-      required: true
-    },
+      default: process.env.VUE_APP_TOKEN
+    }
   },
-  created () {
+  created() {
     this.session = OT.initSession(this.apiKey, this.sessionId);
-    this.session.connect(this.token, (err) => {
+
+    this.session.connect(this.token, err => {
       if (err) {
         errorHandler(err);
       }
     });
-    this.session.on('streamCreated', (event) => {
+
+    this.session.on('streamCreated', event => {
       this.streams.push(event.stream);
     });
-    this.session.on('streamDestroyed', (event) => {
+    this.session.on('streamDestroyed', event => {
       const idx = this.streams.indexOf(event.stream);
       if (idx > -1) {
         this.streams.splice(idx, 1);
@@ -52,7 +54,7 @@ export default {
   },
   data: () => ({
     streams: [],
-    session: null,
+    session: null
   }),
   methods: {
     errorHandler
@@ -61,10 +63,10 @@ export default {
 </script>
 
 <style>
-  .OT_subscriber {
-    float: left;
-  }
-  .OT_publisher {
-    float: left;
-  }
+.OT_subscriber {
+  float: left;
+}
+.OT_publisher {
+  float: left;
+}
 </style>

@@ -54,23 +54,18 @@ cp -r React-Basic-Video-Chat/build/ out/React-Basic-Video-Chat/
 # Build Vue Sample
 cd Vue-Basic-Video-Chat/
 npm install
-sed -i -- 's/http:\/\/YOUR-SERVER-URL/https:\/\/opentok-web-samples-backend.herokuapp.com/g' config.js
+cp .env-example .env
+sed -i -- 's/http:\/\/YOUR-SERVER-URL/https:\/\/opentok-web-samples-backend.herokuapp.com/g' .env
 npm run build
 cd ..
 mkdir -p out/Vue-Basic-Video-Chat
-cp -r Vue-Basic-Video-Chat/dist out/Vue-Basic-Video-Chat/
-cp -r Vue-Basic-Video-Chat/index.html out/Vue-Basic-Video-Chat/
+cp -r Vue-Basic-Video-Chat/dist/. out/Vue-Basic-Video-Chat/
 
 # Run tests
 if [ "$BROWSER" = "safari" ]; then
   sudo npx http-server out -p 80 &
 else
   npm start &
-fi
-if [ "$BROWSER" = "ie" ]; then
-  ./node_modules/opentok-test-scripts/plugin-installer/packageSauceLabsInstaller.sh
-  mkdir -p out/plugin-installer
-  mv ./node_modules/opentok-test-scripts/plugin-installer/SauceLabsInstaller.exe out/plugin-installer
 fi
 npm test
 if [ "$BROWSER" = "ie" ]; then rm -r out/plugin-installer; fi

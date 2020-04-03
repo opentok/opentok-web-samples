@@ -23,17 +23,21 @@ describe('Vue Basic Video Chat Test', () => {
     let secondTabId;
 
     beforeAll(() => {
-      [ firstTabId ] = browser.getTabIds();
+      [firstTabId] = browser.getTabIds();
       browser.newWindow('.');
       secondTabId = browser.getTabIds().find(tabId => tabId !== firstTabId);
       browser.switchTab(secondTabId);
     });
 
     it('The subscriber should load if you open a new window', () => {
-      const subscriber = $('div.OT_subscriber:not(.OT_loading) .OT_video-element');
+      const subscriber = $(
+        'div.OT_subscriber:not(.OT_loading) .OT_video-element'
+      );
       subscriber.waitForExist(15000);
       browser.switchTab();
-      const subscriber2 = $('div.OT_subscriber:not(.OT_loading) .OT_video-element');
+      const subscriber2 = $(
+        'div.OT_subscriber:not(.OT_loading) .OT_video-element'
+      );
       subscriber2.waitForExist(15000);
     });
   });

@@ -3,6 +3,7 @@
 </template>
 
 <script>
+import OT from '@opentok/client';
 export default {
   name: 'subscriber',
   props: {
@@ -20,13 +21,18 @@ export default {
     }
   },
   mounted: function() {
-    const subscriber = this.session.subscribe(this.stream, this.$el, this.opts, (err) => {
-      if (err) {
-        this.$emit('error', err);
-      } else {
-        this.$emit('subscriberConnected', subscriber);
+    const subscriber = this.session.subscribe(
+      this.stream,
+      this.$el,
+      this.opts,
+      err => {
+        if (err) {
+          this.$emit('error', err);
+        } else {
+          this.$emit('subscriberConnected', subscriber);
+        }
       }
-    });
+    );
     this.$emit('subscriberCreated', subscriber);
   }
 };

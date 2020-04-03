@@ -4,7 +4,6 @@
 
 <script>
 import OT from '@opentok/client';
-
 export default {
   name: 'publisher',
   props: {
@@ -18,7 +17,7 @@ export default {
     }
   },
   mounted: function() {
-    const publisher = OT.initPublisher(this.$el, this.opts, (err) => {
+    const publisher = OT.initPublisher(this.$el, this.opts, err => {
       if (err) {
         this.$emit('error', err);
       } else {
@@ -27,7 +26,7 @@ export default {
     });
     this.$emit('publisherCreated', publisher);
     const publish = () => {
-      this.session.publish(publisher, (err) => {
+      this.session.publish(publisher, err => {
         if (err) {
           this.$emit('error', err);
         } else {
