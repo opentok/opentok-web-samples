@@ -3,9 +3,9 @@
 </template>
 
 <script>
-import OT from "@opentok/client";
+import OT from '@opentok/client';
 export default {
-  name: "subscriber",
+  name: 'subscriber',
   props: {
     stream: {
       type: OT.Stream,
@@ -27,13 +27,13 @@ export default {
       this.opts,
       err => {
         if (err) {
-          this.$emit("error", err);
+          this.$emit('error', err);
         } else {
-          this.$emit("subscriberConnected", subscriber);
+          this.$emit('subscriberConnected', subscriber);
         }
       }
     );
-    this.$emit("subscriberCreated", subscriber);
+    this.$emit('subscriberCreated', subscriber);
   }
 };
 </script>

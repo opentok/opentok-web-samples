@@ -1,5 +1,5 @@
-import Vue from "vue";
-import Session from "@/components/Session.vue";
+import Vue from 'vue';
+import Session from '@/components/Session.vue';
 
 Vue.config.productionTip = false;
 
@@ -13,7 +13,7 @@ const createSession = (apiKey, sessionId, token) => {
           token
         }
       })
-  }).$mount("#app");
+  }).$mount('#app');
 };
 
 if (
@@ -23,14 +23,14 @@ if (
 ) {
   createSession();
 } else {
-  fetch(process.env.VUE_APP_SAMPLE_SERVER_BASE_URL + "/session")
+  fetch(process.env.VUE_APP_SAMPLE_SERVER_BASE_URL + '/session')
     .then(data => data.json())
     .then(json => {
       createSession(json.apiKey, json.sessionId, json.token);
     })
     .catch(() => {
       alert(
-        "Failed to get opentok sessionId and token. Make sure you have updated the .env file."
+        'Failed to get opentok sessionId and token. Make sure you have updated the .env file.'
       );
     });
 }

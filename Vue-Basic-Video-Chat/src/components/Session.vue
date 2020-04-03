@@ -8,16 +8,16 @@
 </template>
 
 <script>
-import OT from "@opentok/client";
-import Publisher from "@/components/Publisher.vue";
-import Subscriber from "@/components/Subscriber.vue";
+import OT from '@opentok/client';
+import Publisher from '@/components/Publisher.vue';
+import Subscriber from '@/components/Subscriber.vue';
 
 const errorHandler = err => {
   alert(err.message);
 };
 
 export default {
-  name: "session",
+  name: 'session',
   components: { Publisher, Subscriber },
   props: {
     apiKey: {
@@ -42,10 +42,10 @@ export default {
       }
     });
 
-    this.session.on("streamCreated", event => {
+    this.session.on('streamCreated', event => {
       this.streams.push(event.stream);
     });
-    this.session.on("streamDestroyed", event => {
+    this.session.on('streamDestroyed', event => {
       const idx = this.streams.indexOf(event.stream);
       if (idx > -1) {
         this.streams.splice(idx, 1);
