@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.org/opentok/opentok-web-samples.svg?branch=master)](https://travis-ci.org/opentok/opentok-web-samples)
+[![Build Status](https://travis-ci.org/opentok/opentok-web-samples.svg?branch=main)](https://travis-ci.org/opentok/opentok-web-samples)
 
 # OpenTok Web Samples
 
