@@ -123,7 +123,7 @@ and a completion handler function:
         };
         var publisher = OT.initPublisher('publisher', publisherOptions, function(error) {
           if (error) {
-            console.log('There was an error initilizing the publisher: ', error.name, error.message);
+            console.log('There was an error initializing the publisher: ', error.name, error.message);
             return;
           }
           session.publish(publisher, function(error) {
@@ -197,7 +197,7 @@ The Session object dispatches a `streamCreated` event when a new stream (other t
 created in a session. A stream is created when a client publishes to the session. The
 `streamCreated` event is also dispatched for each existing stream in the session when you first
 connect. This event is defined by the StreamEvent object, which has a `stream` property,
-representing stream that was created. The application adds an event listener for the
+representing the stream that was created. The application adds an event listener for the
 `streamCreated` event and subscribes to all streams created in the session using the
 `Session.subscribe()` method:
 
