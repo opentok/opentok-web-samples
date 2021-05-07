@@ -34,6 +34,8 @@ The code for this sample is found the following subdirectories:
 * Vue-Basic-Video-Chat ([demo](https://opentok.github.io/opentok-web-samples/Vue-Basic-Video-Chat/)) ([source](https://github.com/opentok/opentok-web-samples/tree/master/Vue-Basic-Video-Chat)) -- This sample shows you how to connect to an OpenTok session, publish a stream, and
   subscribe to a stream using [Vue.js](https://vuejs.org/).
 
+* Screen-Sharing-Video-Chat ([demo](https://opentok.github.io/opentok-web-samples/Screen-Sharing-Video-Chat/)) ([source](https://github.com/opentok/opentok-web-samples/tree/master/Screen-Sharing-Video-Chat)) -- This sample shows you how to publish a stream of your screen to OpenTok.js, and how to diconnect and then reconnect a publisher to a session, effectively reusing that publisher.
+
 See the README file in each of these subdirectories for application-specific notes.
 
 Each of these sample applications are described in the [Web tutorials
