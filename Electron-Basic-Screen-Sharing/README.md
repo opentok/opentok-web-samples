@@ -45,16 +45,19 @@ overview](https://tokbox.com/opentok/tutorials/create-token/).
 ## Connecting to the session
 
 First, this method initializes a Session object:
-
-    // Set Credentials
-    const apiKey = "";
-    const sessionId = "";
-    const token = "";
+```javascript
+// Set Credentials
+const apiKey = "";
+const sessionId = "";
+const token = "";
+```
 
 Upon obtaining the session ID, token, and API, we initialize the session.
 
-    // Initialize Session Object
-    const session = OT.initSession(apiKey, sessionId);
+```javascript
+// Initialize Session Object
+const session = OT.initSession(apiKey, sessionId);
+```
 
 The `OT.initSession()` method takes two parameters -- the OpenTok API key and the session ID. It
 initializes and returns an OpenTok Session object.
@@ -64,17 +67,19 @@ session. You must connect before sending or receiving audio-video streams in the
 interacting with the session in any way). The `connect()` method takes two parameters -- a token
 and a completion handler function:
 
-    // Connect to the Session
-    session.connect(token, (error) => {
-      
-      // If the connection is successful, initialize a publisher and publish to the session
-      if (error) {
-        return console.log(`There was an error connecting to session: ${error}`);
-      } else {
-        // Create a publisher
-        // Publish
-      }
-    });
+```javascript
+// Connect to the Session
+session.connect(token, (error) => {
+  
+  // If the connection is successful, initialize a publisher and publish to the session
+  if (error) {
+    return console.log(`There was an error connecting to session: ${error}`);
+  } else {
+    // Create a publisher
+    // Publish
+  }
+});
+```
 
 
 An error object is passed into the completion handler of the `session.connect()` method if the
@@ -82,16 +87,16 @@ client fails to connect to the OpenTok session. Otherwise, no error object is pa
 that the client connected successfully to the session.
 
 The Session object dispatches a `streamDestroyed` event when the stream is Destroyed. The application defines an event handler for this event:
-```
-  session.on({
-    streamCreated: (event) => {
-      session.subscribe(event.stream, 'subscriber', (error) => {
-        if (error) {
-          console.log(`There was an issue subscribing to the stream ${event}`);
-        }
-      });
-    }
-  });
+```javascript
+session.on({
+  streamCreated: (event) => {
+    session.subscribe(event.stream, 'subscriber', (error) => {
+      if (error) {
+        console.log(`There was an issue subscribing to the stream ${event}`);
+      }
+    });
+  }
+});
 ```
 
 ## Publishing an audio video stream to the session
@@ -108,23 +113,23 @@ optional parameters:
 * The properties of the publisher
 * The completion handler
 
-```
-  const publisher = OT.initPublisher('publisher', { videoSource: 'screen' }, (error) => {
-    if (error) {
-      return console.log(`There was an error initializing the publisher: ${error}`);
-    }
-  });
+```javascript
+const publisher = OT.initPublisher('publisher', { videoSource: 'screen' }, (error) => {
+  if (error) {
+    return console.log(`There was an error initializing the publisher: ${error}`);
+  }
+});
 ```
 
 Once the Publisher object is initialized, we publish to the session using the `publish()`
 method of the Session object:
 
-```
-  session.publish(publisher, (error) => {
-    if (error) {
-      return console.log(`There was an error when trying to publish: ${error}`);
-    }
-  });
+```javascript
+session.publish(publisher, (error) => {
+  if (error) {
+    return console.log(`There was an error when trying to publish: ${error}`);
+  }
+});
 ```
 ## Subscribing to another client's audio-video stream
 
@@ -136,15 +141,15 @@ representing stream that was created. The application adds an event listener for
 `streamCreated` event and subscribes to all streams created in the session using the
 `session.subscribe()` method:
 
-```
-    // Subscribe to a newly created stream
-    session.on({
-      streamCreated: (event) => {
-        session.subscribe(event.stream, 'subscriber', (error) => {
-          if (error) console.log(`There was an issue subscribing to the stream ${error}`);
-        });
-      }
+```javascript
+// Subscribe to a newly created stream
+session.on({
+  streamCreated: (event) => {
+    session.subscribe(event.stream, 'subscriber', (error) => {
+      if (error) console.log(`There was an issue subscribing to the stream ${error}`);
     });
+  }
+});
 ```
 The `session.subscribe()` method takes four parameters:
 
@@ -156,7 +161,7 @@ The `session.subscribe()` method takes four parameters:
 
 ## Running the application
 
-`$ npm start`
+`$ yarn start`
 
 ## Known Issues
 
@@ -164,4 +169,20 @@ The `session.subscribe()` method takes four parameters:
   `ERROR:audio_send_stream.cc(93)] Failed to set up send codec state.`
   This is a known [Electron issue](https://github.com/electron/electron/issues/8991).
   We recommend staying up to date with the issue to see if the Electron team or other contributors have a solution.
-  
+
+* Electron versions 12-16 have two different approaches to enabling screen-sharing after 
+the [planned change to default contextIsolation to true](https://www.electronjs.org/docs/latest/breaking-changes#default-changed-contextisolation-defaults-to-true).
+The *recommended* approach is to [launch Electron with a preload script](https://github.com/ggoldens/opentok-web-samples/blob/main/Electron-Basic-Screen-Sharing/app.js#L31)
+to [expose the desktopCapturer method](https://github.com/ggoldens/opentok-web-samples/blob/main/Electron-Basic-Screen-Sharing/)
+for the application. The following changes are needed to test this example application
+with Electron versions 12-16:
+  1. Change installed electron version with <pre>yarn add electron@*versionNumber*</pre>
+  2. Comment/remove lines 4-7 in [`Electron-Basic-Screen-Sharing/app.js`](https://github.com/opentok/opentok-web-samples/blob/main/Electron-Basic-Screen-Sharing/app.js).
+  3. Comment/remove lines 5, and 10-12 in [`Electron-Basic-Screen-Sharing/preload.js`](https://github.com/opentok/opentok-web-samples/blob/main/Electron-Basic-Screen-Sharing/preload.js).
+  4. Comment in line 3 in [`Electron-Basic-Screen-Sharing/preload.js`](https://github.com/opentok/opentok-web-samples/blob/main/Electron-Basic-Screen-Sharing/preload.js).
+
+* Electron 17 introduces a [planned breaking change](https://www.electronjs.org/docs/latest/breaking-changes#removed-desktopcapturergetsources-in-the-renderer)
+ for the `desktopCapturer.getSources` method. To allow screen sharing in your application,
+ follow the instructions in the above documentation and/or reference the following two files
+ in this example application: [`Electron-Basic-Screen-Sharing/app.js`](https://github.com/opentok/opentok-web-samples/blob/main/Electron-Basic-Screen-Sharing/app.js) and
+ [`Electron-Basic-Screen-Sharing/preload.js`](https://github.com/opentok/opentok-web-samples/blob/main/Electron-Basic-Screen-Sharing/preload.js).

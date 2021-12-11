@@ -1,7 +1,7 @@
 // Set Credentials
-const apiKey = '47383071';
-const sessionId = '2_MX40NzM4MzA3MX5-MTYzODk5NzkyODM2MH5VaWpyQjk5VTlPSEZJcWNmWWZKODVvR1J-fg';
-const token = 'T1==cGFydG5lcl9pZD00NzM4MzA3MSZzaWc9ODEzOThmMWRhOTViYTE4Y2RiOTViNzZkNzZmMzczZTFkY2U5NmQ5YzpzZXNzaW9uX2lkPTJfTVg0ME56TTRNekEzTVg1LU1UWXpPRGs1TnpreU9ETTJNSDVWYVdweVFqazVWVGxQU0VaSmNXTm1XV1pLT0RWdlIxSi1mZyZjcmVhdGVfdGltZT0xNjM4OTk3OTQ1Jm5vbmNlPTAuMzMwMjcyMjk1NTI2ODg0MiZyb2xlPXB1Ymxpc2hlciZleHBpcmVfdGltZT0xNjM5NjAyNzQ0JmluaXRpYWxfbGF5b3V0X2NsYXNzX2xpc3Q9';
+const apiKey = '';
+const sessionId = '';
+const token = '';
 
 if (!apiKey || !sessionId || !token) {
   alert('You need to add your apiKey, sessionId and token to openTok.js');
