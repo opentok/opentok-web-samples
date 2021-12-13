@@ -25,7 +25,9 @@ session.on({
 });
 
 // Create a publisher
-const publisher = OT.initPublisher('publisher', { videoSource: 'screen' }, (initError) => {
+const publisherProperties = { videoSource: 'screen' };
+
+const publisher = OT.initPublisher('publisher', publisherProperties, (initError) => {
   if (initError) {
     console.error(`There was an error initializing the publisher: ${initError}`);
   }

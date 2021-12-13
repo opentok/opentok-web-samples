@@ -1,7 +1,7 @@
 OpenTok.js Electron Basic Sample
 =======================
 
-This sample application shows how to connect to an OpenTok session, publish a stream, and subscribe to a stream in a basic Electron application.
+This sample application shows how to connect to an OpenTok session, publish a screen-sharing stream, and subscribe to a stream in a basic Electron application.
 
 ## Quick started
 1. Get values for your OpenTok API key, session ID, and token. You can obtain these values from your TokBox account. Make sure that the token isn't expired.
@@ -114,7 +114,9 @@ optional parameters:
 * The completion handler
 
 ```javascript
-const publisher = OT.initPublisher('publisher', { videoSource: 'screen' }, (error) => {
+const publisherProperties = { videoSource: 'screen' };
+
+const publisher = OT.initPublisher('publisher', publisherProperties, (error) => {
   if (error) {
     return console.log(`There was an error initializing the publisher: ${error}`);
   }
@@ -174,9 +176,9 @@ The `session.subscribe()` method takes four parameters:
 the [planned change to default contextIsolation to true](https://www.electronjs.org/docs/latest/breaking-changes#default-changed-contextisolation-defaults-to-true).
 The *recommended* approach is to [launch Electron with a preload script](https://github.com/ggoldens/opentok-web-samples/blob/main/Electron-Basic-Screen-Sharing/app.js#L31)
 to [expose the desktopCapturer method](https://github.com/ggoldens/opentok-web-samples/blob/main/Electron-Basic-Screen-Sharing/)
-for the application. The following changes are needed to test this example application
+for the application. The following changes are needed to test this example screen-sharing application
 with Electron versions 12-16:
-  1. Change installed electron version with <pre>yarn add electron@*versionNumber*</pre>
+  1. Change installed electron version to any version 12-16 with <pre>yarn add electron@*versionNumber*</pre>
   2. Comment/remove lines 4-7 in [`Electron-Basic-Screen-Sharing/app.js`](https://github.com/opentok/opentok-web-samples/blob/main/Electron-Basic-Screen-Sharing/app.js).
   3. Comment/remove lines 5, and 10-12 in [`Electron-Basic-Screen-Sharing/preload.js`](https://github.com/opentok/opentok-web-samples/blob/main/Electron-Basic-Screen-Sharing/preload.js).
   4. Comment in line 3 in [`Electron-Basic-Screen-Sharing/preload.js`](https://github.com/opentok/opentok-web-samples/blob/main/Electron-Basic-Screen-Sharing/preload.js).
