@@ -1,12 +1,11 @@
 const {
-  // comment the following line in to test screen sharing in Electron 12-16
-  // desktopCapturer,
   contextBridge,
-  // comment the following line out to test screen sharing in Electron 12-16
   ipcRenderer
 } = require('electron');
 
-// comment the desktopCapturer object out to test screen sharing in Electron 12-16
+// Event emitter to send asynchronous messages to the main process. The
+// corresponding ipcMain handler listens for the 'DESKTOP_CAPTURER_GET_SOURCES'
+// channel and returns an array of the available DesktopCapturerSource objects.
 const desktopCapturer = {
   getSources: (opts) => ipcRenderer.invoke('DESKTOP_CAPTURER_GET_SOURCES', opts)
 };

@@ -1,0 +1,19 @@
+{
+  "name": "electron-basic-screen-sharing",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "start": "electron ."
+  },
+  "contributors": [
+    "Manik Sachdeva",
+    "German Goldenstein",
+    "Christian Pettet"
+  ],
+  "license": "ISC",
+  "dependencies": {
+    "@opentok/client": "^2.21.2",
+    "electron": "12"
+  }
+}

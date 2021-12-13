@@ -1,6 +1,8 @@
 const electron = require('electron');
 
-// comment out the following handler to test screen sharing in versions 12-16
+// Event emitter to handle messages sent from the renderer process. This handler
+// will be called whenever a renderer calls
+// ipcRenderer.invoke('DESKTOP_CAPTURER_GET_SOURCES', ...args)
 electron.ipcMain.handle(
   'DESKTOP_CAPTURER_GET_SOURCES',
   (event, opts) => electron.desktopCapturer.getSources(opts)
@@ -24,10 +26,6 @@ const createWindow = () => {
     width: 800,
     height: 600,
     webPreferences: {
-      // Un-comment the next two lines to set contextIsolation in 'false'
-      // nodeIntegration: true,
-      // contextIsolation: false,
-      // Comment the next line out in case you want to set contextIsolation in 'false'
       preload: path.join(__dirname, 'preload.js') // use a preload script
     }
   });
