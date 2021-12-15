@@ -1,4 +1,4 @@
-OpenTok.js Electron Basic Screen-Sharing Sample (Electron 12 to Electron 16)
+OpenTok.js Electron Basic Screen-Sharing Sample (Electron 17)
 =======================
 
 This sample application shows how to connect to an OpenTok session, publish a screen-sharing stream, and subscribe to a stream in a basic Electron application.
@@ -165,6 +165,12 @@ The `session.subscribe()` method takes four parameters:
 
 `$ yarn start`
 
+## Electron Screen-Sharing Example Applications
+* [Electron 01-04](https://github.com/opentok/opentok-web-samples/tree/Electron-SS-V01-to-V04/Electron-Basic-Screen-Sharing/README.md) *<span style="color:red">legacy</span>*
+* [Electron 05-11](https://github.com/opentok/opentok-web-samples/tree/Electron-SS-V05-to-V11/Electron-Basic-Screen-Sharing/README.md) *<span style="color:red">legacy</span>*
+* [Electron 12-16](https://github.com/opentok/opentok-web-samples/tree/Electron-SS-V12-to-V16/Electron-Basic-Screen-Sharing/README.md) *<span style="color:green">current release</span>*
+* [Electron 17](https://github.com/opentok/opentok-web-samples/tree/main/Electron-Basic-Screen-Sharing/README.md) *<span style="color:green">future release</span>*
+
 ## Known Issues
 
 * When starting the application, you'll notice a silent error: 
@@ -176,13 +182,13 @@ The `session.subscribe()` method takes four parameters:
 screen-sharing after
 [the default contextIsolation property changed from `false` to `true`](https://www.electronjs.org/docs/latest/breaking-changes#default-changed-contextisolation-defaults-to-true).
 The *recommended* approach is to launch Electron with a preload script to expose
-the desktopCapturer method for the application ([see example application here](https://github.com/opentok/opentok-web-samples/blob/main/Electron-Basic-Screen-Sharing/V12-to-V16/README.md)).
+the desktopCapturer method for the application ([see example application here](https://github.com/opentok/opentok-web-samples/tree/Electron-SS-V12-to-V16/Electron-Basic-Screen-Sharing/README.md)).
 A less secure approach that restores the previous behavior is to manually set
 `contextIsolation: false` on application startup.
 
 * Electron 17 introduces a [breaking change](https://www.electronjs.org/docs/latest/breaking-changes#removed-desktopcapturergetsources-in-the-renderer)
 for the `desktopCapturer.getSources` method, affecting screen-sharing.
 To allow screen sharing in your application, see the documentation link above and/or
-[the example application here](https://github.com/opentok/opentok-web-samples/blob/main/Electron-Basic-Screen-Sharing/V17/README.md)
+[the example application here](https://github.com/opentok/opentok-web-samples/blob/main/Electron-Basic-Screen-Sharing/README.md)
 to create an event handler in the main process to listen for an event emitter
 created in the renderer process.
