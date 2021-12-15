@@ -1,4 +1,4 @@
-OpenTok.js Electron Basic Screen-Sharing Sample (Electron 5 to 11)
+OpenTok.js Electron Basic Screen-Sharing Sample (Electron 17)
 =======================
 
 This sample application shows how to connect to an OpenTok session, publish a screen-sharing stream, and subscribe to a stream in a basic Electron application.
