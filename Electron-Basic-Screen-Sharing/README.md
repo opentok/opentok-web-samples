@@ -4,7 +4,8 @@ OpenTok.js Electron Basic Screen-Sharing Sample (Electron 17)
 This sample application shows how to publish a screen-sharing stream in a basic 
 Electron application using the latest Electron version. The basics of video-chat
 on Electron are covered [here](../Electron-Basic-Video-Chat). The application
-creates a Publisher object while passing the screen in as the video source.
+creates a Publisher object while passing the screen in as the video source in
+the properties argument.
 
 ## Starting the Application
 1. Get values for your OpenTok API key, session ID, and token. You can obtain these values from your TokBox account. Make sure that the token isn't expired.
