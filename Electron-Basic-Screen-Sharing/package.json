@@ -1,5 +1,5 @@
 {
-  "name": "electron-basic-screen-sharing-v17",
+  "name": "electron-basic-screen-sharing",
   "version": "1.0.0",
   "description": "",
   "main": "app.js",
@@ -13,6 +13,6 @@
   ],
   "license": "ISC",
   "dependencies": {
-    "electron": "^17.0.0-alpha.3"
+    "electron": "^17.0.0-beta.1"
   }
 }
