@@ -14,6 +14,8 @@ The code for this sample is found the following subdirectories:
 
 * Archiving ([demo](https://opentok.github.io/opentok-web-samples/Archiving/)) ([source](https://github.com/opentok/opentok-web-samples/tree/master/Archiving)) -- This sample shows you how to record an OpenTok session.
 
+* Electron-Basic-Screen-Sharing ([source](https://github.com/opentok/opentok-web-samples/tree/master/Electron-Basic-Screen-Sharing)) -- This sample shows you how to connect to an OpenTok session, publish a screen-share stream, and subscribe to a stream in an [Electron](https://electronjs.org/) application.
+
 * Electron-Basic-Video-Chat ([source](https://github.com/opentok/opentok-web-samples/tree/master/Electron-Basic-Video-Chat)) -- This sample shows you how to connect to an OpenTok session, publish a stream, and subscribe to a stream in an [Electron](https://electronjs.org/) application.
 
 * Publish-Canvas ([demo](https://opentok.github.io/opentok-web-samples/Publish-Canvas/)) ([source](https://github.com/opentok/opentok-web-samples/tree/master/Publish-Canvas)) -- In this sample application we show you how to publish a custom stream from a Canvas tag.
