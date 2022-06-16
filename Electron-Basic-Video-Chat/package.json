@@ -10,6 +10,6 @@
   "license": "ISC",
   "dependencies": {
     "@opentok/client": "^2.16.0",
-    "electron": "^2.0.0"
+    "electron": "^15.5.5"
   }
 }
