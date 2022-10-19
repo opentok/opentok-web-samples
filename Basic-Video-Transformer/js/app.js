@@ -36,6 +36,9 @@ function initializeSession() {
     height: '100%'
   };
   var publisher = OT.initPublisher('publisher', publisherOptions, handleError);
+  if (OT.hasMediaProcessorSupport()) {
+    publisher.setVideoMediaProcessorConnector(connector);
+  }
 
   // Connect to the session
   session.connect(token, function callback(error) {
