@@ -1,6 +1,6 @@
-import { MediaProcessor } from '../node_modules/@vonage/media-processor/dist/media-processor.es.js';
+import { MediaProcessorConnector } from '../node_modules/@vonage/media-processor/dist/media-processor.es.js';
+import { MediaProcessorHelperWorker } from './media-processor-helper-worker.js';
 /* global OT API_KEY TOKEN SESSION_ID SAMPLE_SERVER_BASE_URL */
-console.log(typeof MediaProcessor);
 
 var apiKey;
 var sessionId;
@@ -29,6 +29,9 @@ function initializeSession() {
     console.log('You were disconnected from the session.', event.reason);
   });
 
+  const mediaProcessor = new MediaProcessorHelperWorker();
+  const mediaProcessorConnector = new MediaProcessorConnector(mediaProcessor);
+
   // initialize the publisher
   var publisherOptions = {
     insertMode: 'append',
@@ -37,7 +40,7 @@ function initializeSession() {
   };
   var publisher = OT.initPublisher('publisher', publisherOptions, handleError);
   if (OT.hasMediaProcessorSupport()) {
-    publisher.setVideoMediaProcessorConnector(connector);
+    publisher.setVideoMediaProcessorConnector(mediaProcessorConnector);
   }
 
   // Connect to the session
