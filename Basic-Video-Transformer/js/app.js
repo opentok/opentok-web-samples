@@ -1,5 +1,6 @@
-import { MediaProcessorConnector } from '../node_modules/@vonage/media-processor/dist/media-processor.es.js';
-import { MediaProcessorHelperWorker } from './media-processor-helper-worker.js';
+import { MediaProcessorConnector, MediaProcessor } from '../node_modules/@vonage/media-processor/dist/media-processor.es.js';
+import { WorkerMediaProcessor } from './media-processor-helper-worker.js';
+import { GreyScaleTransformer } from './transformer.js';
 /* global OT API_KEY TOKEN SESSION_ID SAMPLE_SERVER_BASE_URL */
 
 var apiKey;
@@ -11,6 +12,14 @@ function handleError(error) {
     console.error(error);
   }
 }
+// const mediaProcessor = new WorkerMediaProcessor();
+// const mediaProcessorConnector = new MediaProcessorConnector(mediaProcessor);
+
+const mediaProcessor = new MediaProcessor();
+mediaProcessor.setTransformers(
+  [new GreyScaleTransformer()]
+);
+const mediaProcessorConnector = new MediaProcessorConnector(mediaProcessor);
 
 function initializeSession() {
   var session = OT.initSession(apiKey, sessionId);
@@ -29,8 +38,6 @@ function initializeSession() {
     console.log('You were disconnected from the session.', event.reason);
   });
 
-  const mediaProcessor = new MediaProcessorHelperWorker();
-  const mediaProcessorConnector = new MediaProcessorConnector(mediaProcessor);
 
   // initialize the publisher
   var publisherOptions = {
@@ -39,8 +46,11 @@ function initializeSession() {
     height: '100%'
   };
   var publisher = OT.initPublisher('publisher', publisherOptions, handleError);
+  console.log('after initializing publisher');
   if (OT.hasMediaProcessorSupport()) {
+    console.log('before setting mediaProcessorConnector');
     publisher.setVideoMediaProcessorConnector(mediaProcessorConnector);
+    console.log('after setting mediaProcessorConnector');
   }
 
   // Connect to the session

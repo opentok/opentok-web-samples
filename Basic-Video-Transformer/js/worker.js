@@ -2,14 +2,22 @@
 import { MediaProcessor } from '../node_modules/@vonage/media-processor/dist/media-processor.es.js';
 import { GreyScaleTransformer } from './transformer.js';
 
-const mediaProcessor = new MediaProcessor();
-const transformers = [new GreyScaleTransformer()];
-mediaProcessor.setTransformers(transformers);
+let mediaProcessor;
 
 onmessage = async (event) => {
+  console.log('worker message');
   const { operation } = event.data;
   switch (operation) {
+    case 'init': {
+      console.log('worker initializing');
+      mediaProcessor = new MediaProcessor();
+      const transformers = [new GreyScaleTransformer()];
+      mediaProcessor.setTransformers(transformers);
+      break;
+    }
+
     case 'transform': {
+      console.log('worker transforming');
       const { readable, writable } = event.data;
       mediaProcessor.transform(readable, writable).then(() => {
         const msg = { callbackType: 'success', message: 'transform' };

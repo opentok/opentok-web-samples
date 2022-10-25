@@ -1,16 +1,22 @@
-export class MediaProcessorHelperWorker {
+export class WorkerMediaProcessor {
   constructor() {
-    this.worker = new Worker('js/worker.js');
+    console.log('WorkerMediaProcessor started');
+    this.worker = new Worker('js/worker.js', { type: 'module' });
     this.worker.addEventListener('message', (msg) => {
+      console.log('worker event listener: ', msg.data.message);
       if (msg.data.message === 'transform') {
         this.worker.transform();
       } else if (msg.data.message === 'destroy') {
         this.worker.terminate();
       }
     });
+    this.worker.postMessage({
+      operation: 'init'
+    });
   }
 
-  async transform(readable, writable) {
+  transform(readable, writable) {
+    console.log('WorkerMediaProcessor transforming');
     this.worker.postMessage(
       {
         operation: 'transform',
