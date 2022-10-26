@@ -15,11 +15,13 @@ function handleError(error) {
 // const mediaProcessor = new WorkerMediaProcessor();
 // const mediaProcessorConnector = new MediaProcessorConnector(mediaProcessor);
 
+const transformer = new GreyScaleTransformer('hello, world');
 const mediaProcessor = new MediaProcessor();
-mediaProcessor.setTransformers(
-  [new GreyScaleTransformer()]
-);
+const transformers = [transformer];
+mediaProcessor.setTransformers(transformers);
 const mediaProcessorConnector = new MediaProcessorConnector(mediaProcessor);
+console.log('mediaProcessor: ', mediaProcessor);
+console.log('mediaProcessorConnector: ', mediaProcessorConnector);
 
 function initializeSession() {
   var session = OT.initSession(apiKey, sessionId);
@@ -45,11 +47,15 @@ function initializeSession() {
     width: '100%',
     height: '100%'
   };
-  var publisher = OT.initPublisher('publisher', publisherOptions, handleError);
+  var publisher = OT.initPublisher('publisher', publisherOptions, (error) => {
+    if (error) {
+      console.warn(error);
+    }
+  });
   console.log('after initializing publisher');
   if (OT.hasMediaProcessorSupport()) {
     console.log('before setting mediaProcessorConnector');
-    publisher.setVideoMediaProcessorConnector(mediaProcessorConnector);
+    publisher.setVideoMediaProcessorConnector(mediaProcessorConnector).catch(e => { throw e; });
     console.log('after setting mediaProcessorConnector');
   }
 
