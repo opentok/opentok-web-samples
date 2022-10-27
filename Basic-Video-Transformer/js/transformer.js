@@ -9,7 +9,7 @@ class LouReedTransformer {
   }
 
   start() {
-    console.log('[CanvasTransform] start');
+    console.log('transformer starting');
     this.canvas_ = new OffscreenCanvas(1, 1);
     this.ctx_ = this.canvas_.getContext('2d', { alpha: false, desynchronized: true });
     if (!this.ctx_) {
@@ -36,7 +36,7 @@ class LouReedTransformer {
   }
 
   async transform(frame, controller) {
-    console.log('transformer started');
+    console.log('transformer transforming');
     this.canvas_.width = frame.displayWidth;
     this.canvas_.height = frame.displayHeight;
     const timestamp = frame.timestamp;

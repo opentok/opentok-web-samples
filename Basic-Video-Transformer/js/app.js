@@ -1,12 +1,16 @@
 import { MediaProcessorConnector, MediaProcessor } from '../node_modules/@vonage/media-processor/dist/media-processor.es.js';
-import { WorkerMediaProcessor } from './media-processor-helper-worker.js';
+// import { WorkerMediaProcessor } from './media-processor-helper-worker.js';
 // import { GreyScaleTransformer } from './transformer.js';
 /* global OT API_KEY TOKEN SESSION_ID SAMPLE_SERVER_BASE_URL */
-/* global LouReedTransformer */
+/* global LouReedTransformer MediaProcessor MediaProcessorConnector */
 
 var apiKey;
 var sessionId;
 var token;
+
+console.log(LouReedTransformer);
+console.log(MediaProcessor);
+console.log(MediaProcessorConnector);
 
 function handleError(error) {
   if (error) {
@@ -17,12 +21,10 @@ function handleError(error) {
 // const mediaProcessorConnector = new MediaProcessorConnector(mediaProcessor);
 
 const transformer = new LouReedTransformer();
-const mediaProcessor = new MediaProcessor();
 const transformers = [transformer];
+const mediaProcessor = new MediaProcessor();
 mediaProcessor.setTransformers(transformers);
 const mediaProcessorConnector = new MediaProcessorConnector(mediaProcessor);
-console.log('mediaProcessor: ', mediaProcessor);
-console.log('mediaProcessorConnector: ', mediaProcessorConnector);
 
 function initializeSession() {
   var session = OT.initSession(apiKey, sessionId);
@@ -53,12 +55,6 @@ function initializeSession() {
       console.warn(error);
     }
   });
-  console.log('after initializing publisher');
-  if (OT.hasMediaProcessorSupport()) {
-    console.log('before setting mediaProcessorConnector');
-    publisher.setVideoMediaProcessorConnector(mediaProcessorConnector).catch(e => { throw e; });
-    console.log('after setting mediaProcessorConnector');
-  }
 
   // Connect to the session
   session.connect(token, function callback(error) {
@@ -69,6 +65,15 @@ function initializeSession() {
       session.publish(publisher, handleError);
     }
   });
+  if (OT.hasMediaProcessorSupport()) {
+    console.log('before setting mediaProcessorConnector');
+    publisher.setVideoMediaProcessorConnector(mediaProcessorConnector).catch(e => { throw e; });
+    console.log('after setting mediaProcessorConnector');
+  }
+  console.log(publisher.setVideoMediaProcessorConnector);
+  publisher.setVideoMediaProcessorConnector(mediaProcessorConnector)
+    .then(() => { console.log('set connector'); })
+    .catch(e => { throw e; });
 }
 
 // See the config.js file.
