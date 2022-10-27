@@ -16,6 +16,11 @@ function handleError(error) {
   if (error) {
     console.error(error);
   }
+  if (OT.hasMediaProcessorSupport()) {
+    console.log('before setting mediaProcessorConnector');
+    publisher.setVideoMediaProcessorConnector(mediaProcessorConnector).catch(e => { throw e; });
+    console.log('after setting mediaProcessorConnector');
+  }
 }
 // const mediaProcessor = new WorkerMediaProcessor();
 // const mediaProcessorConnector = new MediaProcessorConnector(mediaProcessor);
@@ -26,7 +31,7 @@ const mediaProcessor = new MediaProcessor();
 mediaProcessor.setTransformers(transformers);
 const mediaProcessorConnector = new MediaProcessorConnector(mediaProcessor);
 
-function initializeSession() {
+async function initializeSession() {
   var session = OT.initSession(apiKey, sessionId);
 
   // Subscribe to a newly created stream
@@ -50,7 +55,7 @@ function initializeSession() {
     width: '100%',
     height: '100%'
   };
-  var publisher = OT.initPublisher('publisher', publisherOptions, (error) => {
+  var publisher = await OT.initPublisher('publisher', publisherOptions, (error) => {
     if (error) {
       console.warn(error);
     }
@@ -65,15 +70,12 @@ function initializeSession() {
       session.publish(publisher, handleError);
     }
   });
-  if (OT.hasMediaProcessorSupport()) {
-    console.log('before setting mediaProcessorConnector');
-    publisher.setVideoMediaProcessorConnector(mediaProcessorConnector).catch(e => { throw e; });
-    console.log('after setting mediaProcessorConnector');
-  }
-  console.log(publisher.setVideoMediaProcessorConnector);
-  publisher.setVideoMediaProcessorConnector(mediaProcessorConnector)
-    .then(() => { console.log('set connector'); })
-    .catch(e => { throw e; });
+  
+  // console.log('publisher', publisher);
+  // console.log(publisher.setVideoMediaProcessorConnector);
+  // publisher.setVideoMediaProcessorConnector(mediaProcessorConnector)
+  //   .then(() => { console.log('set connector'); })
+  //   .catch(e => { throw e; });
 }
 
 // See the config.js file.
@@ -90,7 +92,7 @@ if (API_KEY && TOKEN && SESSION_ID) {
     apiKey = json.apiKey;
     sessionId = json.sessionId;
     token = json.token;
-
+  }).then(() => {
     initializeSession();
   }).catch(function catchErr(error) {
     handleError(error);
