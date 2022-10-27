@@ -1,7 +1,8 @@
 import { MediaProcessorConnector, MediaProcessor } from '../node_modules/@vonage/media-processor/dist/media-processor.es.js';
 import { WorkerMediaProcessor } from './media-processor-helper-worker.js';
-import { GreyScaleTransformer } from './transformer.js';
+// import { GreyScaleTransformer } from './transformer.js';
 /* global OT API_KEY TOKEN SESSION_ID SAMPLE_SERVER_BASE_URL */
+/* global LouReedTransformer */
 
 var apiKey;
 var sessionId;
@@ -15,7 +16,7 @@ function handleError(error) {
 // const mediaProcessor = new WorkerMediaProcessor();
 // const mediaProcessorConnector = new MediaProcessorConnector(mediaProcessor);
 
-const transformer = new GreyScaleTransformer('hello, world');
+const transformer = new LouReedTransformer();
 const mediaProcessor = new MediaProcessor();
 const transformers = [transformer];
 mediaProcessor.setTransformers(transformers);
