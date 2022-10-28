@@ -1,4 +1,4 @@
-import { MediaProcessorConnector, MediaProcessor } from '../node_modules/@vonage/media-processor/dist/media-processor.es.js';
+import { MediaProcessorConnector, MediaProcessor } from '@vonage/media-processor/dist/media-processor.es.js';
 // import { WorkerMediaProcessor } from './media-processor-helper-worker.js';
 // import { GreyScaleTransformer } from './transformer.js';
 /* global OT API_KEY TOKEN SESSION_ID SAMPLE_SERVER_BASE_URL */
@@ -8,7 +8,7 @@ var apiKey;
 var sessionId;
 var token;
 
-console.log(LouReedTransformer);
+console.log(AudioTransformer);
 console.log(MediaProcessor);
 console.log(MediaProcessorConnector);
 
@@ -19,7 +19,7 @@ function handleError(error) {
   if (OT.hasMediaProcessorSupport()) {
     console.log('before setting mediaProcessorConnector');
     publisher
-      .setVideoMediaProcessorConnector(mediaProcessorConnector)
+      .setAudioMediaProcessorConnector(mediaProcessorConnector)
       .then(() => {
         console.log("set connector");
       })
@@ -32,7 +32,7 @@ function handleError(error) {
 // const mediaProcessor = new WorkerMediaProcessor();
 // const mediaProcessorConnector = new MediaProcessorConnector(mediaProcessor);
 
-const transformer = new LouReedTransformer();
+const transformer = new AudioTransformer();
 const transformers = [transformer];
 const mediaProcessor = new MediaProcessor();
 mediaProcessor.setTransformers(transformers);
