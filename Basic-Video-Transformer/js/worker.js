@@ -1,6 +1,5 @@
 /* eslint-disable indent */
 import { MediaProcessor } from '../node_modules/@vonage/media-processor/dist/media-processor.es.js';
-import { GreyScaleTransformer } from './transformer.js';
 
 let mediaProcessor;
 

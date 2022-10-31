@@ -21,9 +21,21 @@ body, html {
     position: absolute;
     width: 360px;
     height: 240px;
-    bottom: 10px;
+    bottom: 50px;
     left: 10px;
     z-index: 100;
+    border: 3px solid white;
+    border-radius: 3px;
+}
+
+#buttonholder {
+    position: absolute;
+    /* width: 70%; */
+    margin-left: auto;
+    margin-right: auto;
+    bottom: 2px;
+    left: 20px;
+    z-index: 200;
     border: 3px solid white;
     border-radius: 3px;
 }

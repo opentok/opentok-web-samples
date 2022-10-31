@@ -1,5 +1,5 @@
 import { MediaProcessorConnector, MediaProcessor } from '../node_modules/@vonage/media-processor/dist/media-processor.es.js';
-// import { WorkerMediaProcessor } from './media-processor-helper-worker.js';
+import { WorkerMediaProcessor } from './media-processor-helper-worker.js';
 // import { GreyScaleTransformer } from './transformer.js';
 /* global OT API_KEY TOKEN SESSION_ID SAMPLE_SERVER_BASE_URL */
 /* global LouReedTransformer MediaProcessor MediaProcessorConnector */
@@ -8,18 +8,14 @@ var apiKey;
 var sessionId;
 var token;
 
-console.log(LouReedTransformer);
-console.log(MediaProcessor);
-console.log(MediaProcessorConnector);
-
 // const mediaProcessor = new WorkerMediaProcessor();
 // const mediaProcessorConnector = new MediaProcessorConnector(mediaProcessor);
 
-const transformer = new LouReedTransformer();
-const transformers = [transformer];
-const mediaProcessor = new MediaProcessor();
-mediaProcessor.setTransformers(transformers);
-const mediaProcessorConnector = new MediaProcessorConnector(mediaProcessor);
+// const transformer = new LouReedTransformer();
+// const transformers = [transformer];
+// const mediaProcessor = new MediaProcessor();
+// mediaProcessor.setTransformers(transformers);
+// const mediaProcessorConnector = new MediaProcessorConnector(mediaProcessor);
 
 async function initializeSession() {
   var session = OT.initSession(apiKey, sessionId);
@@ -56,6 +52,10 @@ async function initializeSession() {
       console.error(error);
     }
     if (OT.hasMediaProcessorSupport()) {
+      const mediaProcessor = new WorkerMediaProcessor();
+      const mediaProcessorConnector = new MediaProcessorConnector(
+        mediaProcessor
+      );
       console.log('before setting mediaProcessorConnector');
       publisher
         .setVideoMediaProcessorConnector(mediaProcessorConnector)
@@ -68,7 +68,6 @@ async function initializeSession() {
       console.log('after setting mediaProcessorConnector');
     }
   }
-
   // Connect to the session
   session.connect(token, async (error) => {
     if (error) {
@@ -78,12 +77,6 @@ async function initializeSession() {
       session.publish(publisher, handleError);
     }
   });
-
-  // console.log('publisher', publisher);
-  // console.log(publisher.setVideoMediaProcessorConnector);
-  // publisher.setVideoMediaProcessorConnector(mediaProcessorConnector)
-  //   .then(() => { console.log('set connector'); })
-  //   .catch(e => { throw e; });
 }
 
 // See the config.js file.
