@@ -56,13 +56,14 @@ async function initializeSession() {
       const mediaProcessorConnector = new MediaProcessorConnector(
         mediaProcessor
       );
-      console.log('before setting mediaProcessorConnector');
+
       publisher
         .setVideoMediaProcessorConnector(mediaProcessorConnector)
         .then(() => {
           console.log('set connector');
         })
         .catch((e) => {
+          console.log('erroring');
           throw e;
         });
       console.log('after setting mediaProcessorConnector');

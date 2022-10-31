@@ -7,7 +7,7 @@ export class WorkerMediaProcessor {
     });
   }
 
-  transform(readable, writable) {
+  async transform(readable, writable) {
     console.log('WorkerMediaProcessor transforming');
     this.worker.postMessage(
       {
