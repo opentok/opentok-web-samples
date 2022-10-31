@@ -1,5 +1,6 @@
 /* eslint-disable indent */
 import { MediaProcessor } from '../node_modules/@vonage/media-processor/dist/media-processor.es.js';
+import LouReedTransformer from './transformer.js';
 
 let mediaProcessor;
 
@@ -10,7 +11,7 @@ onmessage = async (event) => {
     case 'init': {
       console.log('worker initializing');
       mediaProcessor = new MediaProcessor();
-      const transformers = [new GreyScaleTransformer()];
+      const transformers = [new LouReedTransformer()];
       mediaProcessor.setTransformers(transformers);
       break;
     }
@@ -21,7 +22,8 @@ onmessage = async (event) => {
       mediaProcessor.transform(readable, writable).then(() => {
         const msg = { callbackType: 'success', message: 'transform' };
         postMessage(JSON.stringify(msg));
-      });
+      }).catch(e => console.error(e));
+      console.log('done transforming');
       break;
     }
 

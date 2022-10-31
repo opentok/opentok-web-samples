@@ -1,7 +1,7 @@
 /* eslint-disable no-unused-vars */
 /* global VideoFrame */
 
-class LouReedTransformer {
+export default class LouReedTransformer {
   constructor() {
     console.log('transformer initializing');
     this.canvas_ = null;
