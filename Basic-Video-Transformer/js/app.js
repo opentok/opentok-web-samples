@@ -12,23 +12,6 @@ console.log(LouReedTransformer);
 console.log(MediaProcessor);
 console.log(MediaProcessorConnector);
 
-function handleError(error) {
-  if (error) {
-    console.error(error);
-  }
-  if (OT.hasMediaProcessorSupport()) {
-    console.log('before setting mediaProcessorConnector');
-    publisher
-      .setVideoMediaProcessorConnector(mediaProcessorConnector)
-      .then(() => {
-        console.log("set connector");
-      })
-      .catch((e) => {
-        throw e;
-      });
-    console.log('after setting mediaProcessorConnector');
-  }
-}
 // const mediaProcessor = new WorkerMediaProcessor();
 // const mediaProcessorConnector = new MediaProcessorConnector(mediaProcessor);
 
@@ -68,16 +51,34 @@ async function initializeSession() {
     }
   });
 
-  // Connect to the session
-  session.connect(token, function callback(error) {
+  async function handleError(error) {
     if (error) {
-      handleError(error);
+      console.error(error);
+    }
+    if (OT.hasMediaProcessorSupport()) {
+      console.log('before setting mediaProcessorConnector');
+      publisher
+        .setVideoMediaProcessorConnector(mediaProcessorConnector)
+        .then(() => {
+          console.log('set connector');
+        })
+        .catch((e) => {
+          throw e;
+        });
+      console.log('after setting mediaProcessorConnector');
+    }
+  }
+
+  // Connect to the session
+  session.connect(token, async (error) => {
+    if (error) {
+      await handleError(error);
     } else {
       // If the connection is successful, publish the publisher to the session
       session.publish(publisher, handleError);
     }
   });
-  
+
   // console.log('publisher', publisher);
   // console.log(publisher.setVideoMediaProcessorConnector);
   // publisher.setVideoMediaProcessorConnector(mediaProcessorConnector)
