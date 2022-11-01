@@ -17,27 +17,20 @@ const addListeners = () => {
   const mainThread = document.querySelector("#main");
   const workerThread = document.querySelector("#worker");
 
-  const changeThread = () =>
-    (thread = mainThread.checked ? mainThread.value : workerThread.value);
+  const changeThread = async () => {
+    thread = mainThread.checked ? mainThread.value : workerThread.value;
+    await transform();
+  };
 
   mainThread.addEventListener("change", () => changeThread);
   workerThread.addEventListener("change", () => changeThread);
 };
 
-// const mediaProcessor = new WorkerMediaProcessor();
-// const mediaProcessorConnector = new MediaProcessorConnector(mediaProcessor);
-
-// const transformer = new LouReedTransformer();
-// const transformers = [transformer];
-// const mediaProcessor = new MediaProcessor();
-// mediaProcessor.setTransformers(transformers);
-// const mediaProcessorConnector = new MediaProcessorConnector(mediaProcessor);
-
-async function initializeSession() {
+const initializeSession = async() => {
   const session = OT.initSession(apiKey, sessionId);
 
   // Subscribe to a newly created stream
-  session.on("streamCreated", function streamCreated(event) {
+  session.on("streamCreated", (event) => {
     const subscriberOptions = {
       insertMode: "append",
       width: "100%",
@@ -50,7 +43,7 @@ async function initializeSession() {
       handleError
     );
   });
-  session.on("sessionDisconnected", function sessionDisconnected(event) {
+  session.on("sessionDisconnected", (event) => {
     console.log("You were disconnected from the session.", event.reason);
   });
 
@@ -70,17 +63,28 @@ async function initializeSession() {
     }
   );
 
-  async function handleError(error) {
-    if (error) {
-      console.error(error);
-    }
+  const transform = async () => {
+    let mediaProcessorConnector;
+    const mainThreadTransform = () => {
+      const transformer = new LouReedTransformer();
+      const transformers = [transformer];
+      const mediaProcessor = new MediaProcessor();
+      mediaProcessor.setTransformers(transformers);
+      mediaProcessorConnector = new MediaProcessorConnector(mediaProcessor);
+    };
+
+    const workerThreadTransform = () => {
+      const mediaProcessor = new WorkerMediaProcessor();
+      mediaProcessorConnector = new MediaProcessorConnector(mediaProcessor);
+    };
+
     if (OT.hasMediaProcessorSupport()) {
       console.log("thread: ", thread);
-      const mediaProcessor = new WorkerMediaProcessor();
-      const mediaProcessorConnector = new MediaProcessorConnector(
-        mediaProcessor
-      );
-
+      if (thread === "main") {
+        workerThreadTransform();
+      } else if (thread === "worker") {
+        mainThreadTransform();
+      }
       publisher
         .setVideoMediaProcessorConnector(mediaProcessorConnector)
         .then(() => {
@@ -90,6 +94,14 @@ async function initializeSession() {
           console.log("erroring");
           throw e;
         });
+    }
+  };
+
+  const handleError = async (error) => {
+    if (error) {
+      console.error(error);
+    }
+    if (OT.hasMediaProcessorSupport()) {
       console.log("after setting mediaProcessorConnector");
     }
   }
@@ -99,7 +111,7 @@ async function initializeSession() {
       await handleError(error);
     } else {
       // If the connection is successful, publish the publisher to the session
-      session.publish(publisher, handleError);
+      session.publish(publisher, transform);
     }
   });
 }
