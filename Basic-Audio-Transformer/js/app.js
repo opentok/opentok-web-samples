@@ -1,4 +1,4 @@
-import { MediaProcessorConnector, MediaProcessor } from '@vonage/media-processor/dist/media-processor.es.js';
+import { MediaProcessorConnector, MediaProcessor } from '../node_modules/@vonage/media-processor/dist/media-processor.es.js';
 // import { WorkerMediaProcessor } from './media-processor-helper-worker.js';
 // import { GreyScaleTransformer } from './transformer.js';
 /* global OT API_KEY TOKEN SESSION_ID SAMPLE_SERVER_BASE_URL */
@@ -12,23 +12,6 @@ console.log(AudioTransformer);
 console.log(MediaProcessor);
 console.log(MediaProcessorConnector);
 
-function handleError(error) {
-  if (error) {
-    console.error(error);
-  }
-  if (OT.hasMediaProcessorSupport()) {
-    console.log('before setting mediaProcessorConnector');
-    publisher
-      .setAudioMediaProcessorConnector(mediaProcessorConnector)
-      .then(() => {
-        console.log("set connector");
-      })
-      .catch((e) => {
-        throw e;
-      });
-    console.log('after setting mediaProcessorConnector');
-  }
-}
 // const mediaProcessor = new WorkerMediaProcessor();
 // const mediaProcessorConnector = new MediaProcessorConnector(mediaProcessor);
 
@@ -67,6 +50,24 @@ async function initializeSession() {
       console.warn(error);
     }
   });
+
+  function handleError(error) {
+    if (error) {
+      console.error(error);
+    }
+    if (OT.hasMediaProcessorSupport()) {
+      console.log("before setting mediaProcessorConnector");
+      publisher
+        .setAudioMediaProcessorConnector(mediaProcessorConnector)
+        .then(() => {
+          console.log("set connector");
+        })
+        .catch((e) => {
+          throw e;
+        });
+      console.log("after setting mediaProcessorConnector");
+    }
+  }
 
   // Connect to the session
   session.connect(token, function callback(error) {

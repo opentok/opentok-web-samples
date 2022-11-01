@@ -13,20 +13,41 @@ let apiKey;
 let sessionId;
 let token;
 
-const addListeners = () => {
-  const mainThread = document.querySelector("#main");
-  const workerThread = document.querySelector("#worker");
-
-  const changeThread = async () => {
-    thread = mainThread.checked ? mainThread.value : workerThread.value;
-    await transform();
+const transform = async (publisher) => {
+  let mediaProcessorConnector;
+  const mainThreadTransform = () => {
+    const transformer = new LouReedTransformer();
+    const transformers = [transformer];
+    const mediaProcessor = new MediaProcessor();
+    mediaProcessor.setTransformers(transformers);
+    mediaProcessorConnector = new MediaProcessorConnector(mediaProcessor);
   };
 
-  mainThread.addEventListener("change", () => changeThread);
-  workerThread.addEventListener("change", () => changeThread);
+  const workerThreadTransform = () => {
+    const mediaProcessor = new WorkerMediaProcessor();
+    mediaProcessorConnector = new MediaProcessorConnector(mediaProcessor);
+  };
+
+  if (OT.hasMediaProcessorSupport()) {
+    console.log("thread: ", thread);
+    if (thread === "main") {
+      workerThreadTransform();
+    } else if (thread === "worker") {
+      mainThreadTransform();
+    }
+    publisher
+      .setVideoMediaProcessorConnector(mediaProcessorConnector)
+      .then(() => {
+        console.log("set connector");
+      })
+      .catch((e) => {
+        console.log("erroring");
+        throw e;
+      });
+  }
 };
 
-const initializeSession = async() => {
+const initializeSession = async () => {
   const session = OT.initSession(apiKey, sessionId);
 
   // Subscribe to a newly created stream
@@ -63,46 +84,26 @@ const initializeSession = async() => {
     }
   );
 
-  const transform = async () => {
-    let mediaProcessorConnector;
-    const mainThreadTransform = () => {
-      const transformer = new LouReedTransformer();
-      const transformers = [transformer];
-      const mediaProcessor = new MediaProcessor();
-      mediaProcessor.setTransformers(transformers);
-      mediaProcessorConnector = new MediaProcessorConnector(mediaProcessor);
-    };
+  const addListeners = () => {
+    const mainThread = document.querySelector("#main");
+    const workerThread = document.querySelector("#worker");
 
-    const workerThreadTransform = () => {
-      const mediaProcessor = new WorkerMediaProcessor();
-      mediaProcessorConnector = new MediaProcessorConnector(mediaProcessor);
-    };
-
-    if (OT.hasMediaProcessorSupport()) {
+    const changeThread = () => {
+      thread = mainThread.checked ? mainThread.value : workerThread.value;
       console.log("thread: ", thread);
-      if (thread === "main") {
-        workerThreadTransform();
-      } else if (thread === "worker") {
-        mainThreadTransform();
-      }
-      publisher
-        .setVideoMediaProcessorConnector(mediaProcessorConnector)
-        .then(() => {
-          console.log("set connector");
-        })
-        .catch((e) => {
-          console.log("erroring");
-          throw e;
-        });
-    }
+    };
+
+    mainThread.addEventListener("change", () =>
+      changeThread().then(() => transform(publisher))
+    );
+    workerThread.addEventListener("change", () =>
+      changeThread().then(() => transform(publisher))
+    );
   };
 
   const handleError = async (error) => {
     if (error) {
       console.error(error);
-    }
-    if (OT.hasMediaProcessorSupport()) {
-      console.log("after setting mediaProcessorConnector");
     }
   }
   // Connect to the session
@@ -111,9 +112,11 @@ const initializeSession = async() => {
       await handleError(error);
     } else {
       // If the connection is successful, publish the publisher to the session
-      session.publish(publisher, transform);
+      session.publish(publisher, () => transform(publisher));
+      addListeners();
     }
   });
+
 }
 
 // See the config.js file.
@@ -121,7 +124,6 @@ if (API_KEY && TOKEN && SESSION_ID) {
   apiKey = API_KEY;
   sessionId = SESSION_ID;
   token = TOKEN;
-  addListeners();
   initializeSession();
 } else if (SAMPLE_SERVER_BASE_URL) {
   // Make an Ajax request to get the OpenTok API key, session ID, and token from the server
