@@ -1,6 +1,5 @@
 export class WorkerMediaProcessor {
   constructor() {
-    console.log('WorkerMediaProcessor started');
     this.worker = new Worker('js/worker.js', { type: 'module' });
     this.worker.postMessage({
       operation: 'init'
@@ -8,7 +7,6 @@ export class WorkerMediaProcessor {
   }
 
   async transform(readable, writable) {
-    console.log('WorkerMediaProcessor transforming');
     this.worker.postMessage(
       {
         operation: 'transform',

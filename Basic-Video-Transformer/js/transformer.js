@@ -1,15 +1,13 @@
 /* eslint-disable no-unused-vars */
 /* global VideoFrame */
 
-export default class LouReedTransformer {
+export default class Transformer {
   constructor() {
-    console.log('transformer initializing');
     this.canvas_ = null;
     this.ctx_ = null;
   }
 
   start() {
-    console.log('transformer starting');
     this.canvas_ = new OffscreenCanvas(1, 1);
     this.ctx_ = this.canvas_.getContext('2d', { alpha: false, desynchronized: true });
     if (!this.ctx_) {
@@ -36,7 +34,6 @@ export default class LouReedTransformer {
   }
 
   async transform(frame, controller) {
-    console.log('transformer transforming');
     this.canvas_.width = frame.displayWidth;
     this.canvas_.height = frame.displayHeight;
     const timestamp = frame.timestamp;

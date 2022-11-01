@@ -1,49 +1,31 @@
 import {
   MediaProcessorConnector,
-  MediaProcessor,
 } from "../node_modules/@vonage/media-processor/dist/media-processor.es.js";
 import { WorkerMediaProcessor } from "./media-processor-helper-worker.js";
-// import { GreyScaleTransformer } from './transformer.js';
 /* global OT API_KEY TOKEN SESSION_ID SAMPLE_SERVER_BASE_URL */
-/* global LouReedTransformer MediaProcessor MediaProcessorConnector */
-
-let thread = "main";
+/* global MediaProcessor MediaProcessorConnector */
 
 let apiKey;
 let sessionId;
 let token;
 
 const transform = async (publisher) => {
-  let mediaProcessorConnector;
-  const mainThreadTransform = () => {
-    const transformer = new LouReedTransformer();
-    const transformers = [transformer];
-    const mediaProcessor = new MediaProcessor();
-    mediaProcessor.setTransformers(transformers);
-    mediaProcessorConnector = new MediaProcessorConnector(mediaProcessor);
-  };
-
-  const workerThreadTransform = () => {
-    const mediaProcessor = new WorkerMediaProcessor();
-    mediaProcessorConnector = new MediaProcessorConnector(mediaProcessor);
-  };
+  const mediaProcessor = new WorkerMediaProcessor();
+  const mediaProcessorConnector = new MediaProcessorConnector(mediaProcessor);
 
   if (OT.hasMediaProcessorSupport()) {
-    console.log("thread: ", thread);
-    if (thread === "main") {
-      workerThreadTransform();
-    } else if (thread === "worker") {
-      mainThreadTransform();
-    }
     publisher
       .setVideoMediaProcessorConnector(mediaProcessorConnector)
-      .then(() => {
-        console.log("set connector");
-      })
       .catch((e) => {
         console.log("erroring");
         throw e;
       });
+  }
+};
+
+const handleError = async (error) => {
+  if (error) {
+    console.error(error);
   }
 };
 
@@ -64,9 +46,6 @@ const initializeSession = async () => {
       handleError
     );
   });
-  session.on("sessionDisconnected", (event) => {
-    console.log("You were disconnected from the session.", event.reason);
-  });
 
   // initialize the publisher
   const publisherOptions = {
@@ -84,39 +63,16 @@ const initializeSession = async () => {
     }
   );
 
-  const addListeners = () => {
-    const mainThread = document.querySelector("#main");
-    const workerThread = document.querySelector("#worker");
-
-    const changeThread = () => {
-      thread = mainThread.checked ? mainThread.value : workerThread.value;
-      console.log("thread: ", thread);
-    };
-
-    mainThread.addEventListener("change", () =>
-      changeThread().then(() => transform(publisher))
-    );
-    workerThread.addEventListener("change", () =>
-      changeThread().then(() => transform(publisher))
-    );
-  };
-
-  const handleError = async (error) => {
-    if (error) {
-      console.error(error);
-    }
-  }
   // Connect to the session
   session.connect(token, async (error) => {
     if (error) {
       await handleError(error);
     } else {
       // If the connection is successful, publish the publisher to the session
+      // and transform stream
       session.publish(publisher, () => transform(publisher));
-      addListeners();
     }
   });
-
 }
 
 // See the config.js file.
