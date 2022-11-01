@@ -1,0 +1,18 @@
+{
+  "name": "basic-transformer",
+  "version": "1.0.0",
+  "description": "This sample application shows how to use a basic transformer with the Vonage",
+  "main": "index.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "test"
+  },
+  "author": "Iu Jie",
+  "license": "ISC",
+  "dependencies": {
+    "@opentok/client": "^2.23.7",
+    "@vonage/ml-transformers": "^3.2.0"
+  }
+}
