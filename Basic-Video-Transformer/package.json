@@ -1,7 +1,7 @@
 {
-  "name": "basic-transformer",
+  "name": "basic-video-transformer",
   "version": "1.0.0",
-  "description": "This sample application shows how to use a basic transformer with the Vonage",
+  "description": "This sample application shows how to use a basic video transformer with the Vonage",
   "main": "index.js",
   "directories": {
     "test": "test"
@@ -12,7 +12,6 @@
   "author": "Misha Behei, Christian Pettet",
   "license": "ISC",
   "dependencies": {
-    "@opentok/client": "^2.23.7",
     "@vonage/ml-transformers": "^3.2.0"
   }
 }
