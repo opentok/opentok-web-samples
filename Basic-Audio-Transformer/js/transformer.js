@@ -46,5 +46,7 @@ class AudioTransformer {
   }
 
   // eslint-disable-next-line class-methods-use-this
-  flush() {}
+  flush() {
+    console.log('canvas transformer flush');
+  }
 }

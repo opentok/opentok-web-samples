@@ -1,7 +1,7 @@
 import {
   MediaProcessorConnector,
 } from "../node_modules/@vonage/media-processor/dist/media-processor.es.js";
-import { WorkerMediaProcessor } from "./media-processor-helper-worker.js";
+import { WorkerMediaProcessor } from "./worker-media-processor.js";
 /* global OT API_KEY TOKEN SESSION_ID SAMPLE_SERVER_BASE_URL */
 /* global MediaProcessorConnector */
 
@@ -72,7 +72,7 @@ const initializeSession = async () => {
       session.publish(publisher, () => transformStream(publisher));
     }
   });
-}
+};
 
 // See the config.js file.
 if (API_KEY && TOKEN && SESSION_ID) {

@@ -1,90 +1,76 @@
-import { MediaProcessorConnector, MediaProcessor } from '../node_modules/@vonage/media-processor/dist/media-processor.es.js';
-// import { WorkerMediaProcessor } from './media-processor-helper-worker.js';
-// import { GreyScaleTransformer } from './transformer.js';
+import { MediaProcessorConnector } from '../node_modules/@vonage/media-processor/dist/media-processor.es.js';
+import { WorkerMediaProcessor } from "./worker-media-processor.js";
 /* global OT API_KEY TOKEN SESSION_ID SAMPLE_SERVER_BASE_URL */
-/* global LouReedTransformer MediaProcessor MediaProcessorConnector */
+/* global MediaProcessorConnector */
 
-var apiKey;
-var sessionId;
-var token;
+let apiKey;
+let sessionId;
+let token;
 
-console.log(AudioTransformer);
-console.log(MediaProcessor);
-console.log(MediaProcessorConnector);
+const transformStream = async (publisher) => {
+  const mediaProcessor = new WorkerMediaProcessor();
+  const mediaProcessorConnector = new MediaProcessorConnector(mediaProcessor);
 
-// const mediaProcessor = new WorkerMediaProcessor();
-// const mediaProcessorConnector = new MediaProcessorConnector(mediaProcessor);
+  if (OT.hasMediaProcessorSupport()) {
+    publisher
+      .setAudioMediaProcessorConnector(mediaProcessorConnector)
+      .catch((e) => {
+        console.error(e);
+      });
+  }
+};
 
-const transformer = new AudioTransformer();
-const transformers = [transformer];
-const mediaProcessor = new MediaProcessor();
-mediaProcessor.setTransformers(transformers);
-const mediaProcessorConnector = new MediaProcessorConnector(mediaProcessor);
+const handleError = async (error) => {
+  if (error) {
+    console.error(error);
+  }
+};
 
-async function initializeSession() {
-  var session = OT.initSession(apiKey, sessionId);
+const initializeSession = async () => {
+  const session = OT.initSession(apiKey, sessionId);
 
   // Subscribe to a newly created stream
-  session.on('streamCreated', function streamCreated(event) {
-    var subscriberOptions = {
-      insertMode: 'append',
-      width: '100%',
-      height: '100%'
+  session.on("streamCreated", (event) => {
+    const subscriberOptions = {
+      insertMode: "append",
+      width: "100%",
+      height: "100%",
     };
-    session.subscribe(event.stream, 'subscriber', subscriberOptions, handleError);
+    session.subscribe(
+      event.stream,
+      "subscriber",
+      subscriberOptions,
+      handleError
+    );
   });
-
-  session.on('sessionDisconnected', function sessionDisconnected(event) {
-    console.log('You were disconnected from the session.', event.reason);
-  });
-
 
   // initialize the publisher
-  var publisherOptions = {
-    insertMode: 'append',
-    width: '100%',
-    height: '100%'
+  const publisherOptions = {
+    insertMode: "append",
+    width: "100%",
+    height: "100%",
   };
-  var publisher = await OT.initPublisher('publisher', publisherOptions, (error) => {
-    if (error) {
-      console.warn(error);
+  const publisher = await OT.initPublisher(
+    "publisher",
+    publisherOptions,
+    (error) => {
+      if (error) {
+        console.warn(error);
+      }
     }
-  });
-
-  function handleError(error) {
-    if (error) {
-      console.error(error);
-    }
-    if (OT.hasMediaProcessorSupport()) {
-      console.log("before setting mediaProcessorConnector");
-      publisher
-        .setAudioMediaProcessorConnector(mediaProcessorConnector)
-        .then(() => {
-          console.log("set connector");
-        })
-        .catch((e) => {
-          throw e;
-        });
-      console.log("after setting mediaProcessorConnector");
-    }
-  }
+  );
 
   // Connect to the session
-  session.connect(token, function callback(error) {
+  session.connect(token, async (error) => {
     if (error) {
-      handleError(error);
+      await handleError(error);
     } else {
       // If the connection is successful, publish the publisher to the session
-      session.publish(publisher, handleError);
+      // and transform stream
+      session.publish(publisher, () => transformStream(publisher));
     }
   });
-  
-  // console.log('publisher', publisher);
-  // console.log(publisher.setVideoMediaProcessorConnector);
-  // publisher.setVideoMediaProcessorConnector(mediaProcessorConnector)
-  //   .then(() => { console.log('set connector'); })
-  //   .catch(e => { throw e; });
-}
+};
 
 // See the config.js file.
 if (API_KEY && TOKEN && SESSION_ID) {
@@ -94,16 +80,22 @@ if (API_KEY && TOKEN && SESSION_ID) {
   initializeSession();
 } else if (SAMPLE_SERVER_BASE_URL) {
   // Make an Ajax request to get the OpenTok API key, session ID, and token from the server
-  fetch(SAMPLE_SERVER_BASE_URL + '/session').then(function fetch(res) {
-    return res.json();
-  }).then(function fetchJson(json) {
-    apiKey = json.apiKey;
-    sessionId = json.sessionId;
-    token = json.token;
-  }).then(() => {
-    initializeSession();
-  }).catch(function catchErr(error) {
-    handleError(error);
-    // alert('Failed to get opentok sessionId and token. Make sure you have updated the config.js file.');
-  });
+  fetch(SAMPLE_SERVER_BASE_URL + "/session")
+    .then(function fetch(res) {
+      return res.json();
+    })
+    .then(function fetchJson(json) {
+      apiKey = json.apiKey;
+      sessionId = json.sessionId;
+      token = json.token;
+    })
+    .then(() => {
+      initializeSession();
+    })
+    .catch(function catchErr(error) {
+      handleError(error);
+      alert(
+        "Failed to get opentok sessionId and token. Make sure you have updated the config.js file."
+      );
+    });
 }
