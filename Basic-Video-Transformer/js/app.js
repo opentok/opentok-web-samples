@@ -3,13 +3,13 @@ import {
 } from "../node_modules/@vonage/media-processor/dist/media-processor.es.js";
 import { WorkerMediaProcessor } from "./media-processor-helper-worker.js";
 /* global OT API_KEY TOKEN SESSION_ID SAMPLE_SERVER_BASE_URL */
-/* global MediaProcessor MediaProcessorConnector */
+/* global MediaProcessorConnector */
 
 let apiKey;
 let sessionId;
 let token;
 
-const transform = async (publisher) => {
+const transformStream = async (publisher) => {
   const mediaProcessor = new WorkerMediaProcessor();
   const mediaProcessorConnector = new MediaProcessorConnector(mediaProcessor);
 
@@ -17,8 +17,7 @@ const transform = async (publisher) => {
     publisher
       .setVideoMediaProcessorConnector(mediaProcessorConnector)
       .catch((e) => {
-        console.log("erroring");
-        throw e;
+        console.error(e);
       });
   }
 };
@@ -70,7 +69,7 @@ const initializeSession = async () => {
     } else {
       // If the connection is successful, publish the publisher to the session
       // and transform stream
-      session.publish(publisher, () => transform(publisher));
+      session.publish(publisher, () => transformStream(publisher));
     }
   });
 }
