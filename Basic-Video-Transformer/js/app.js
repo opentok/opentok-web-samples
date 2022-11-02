@@ -96,6 +96,6 @@ if (API_KEY && TOKEN && SESSION_ID) {
     })
     .catch(function catchErr(error) {
       handleError(error);
-      // alert('Failed to get opentok sessionId and token. Make sure you have updated the config.js file.');
+      alert('Failed to get opentok sessionId and token. Make sure you have updated the config.js file.');
     });
 }

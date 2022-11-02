@@ -1,7 +1,7 @@
 {
   "name": "basic-video-transformer",
   "version": "1.0.0",
-  "description": "This sample application shows how to use a basic video transformer with the Vonage",
+  "description": "This sample application shows how to use a basic video transformer",
   "main": "index.js",
   "directories": {
     "test": "test"
