@@ -1,5 +1,5 @@
 import { MediaProcessorConnector } from '../node_modules/@vonage/media-processor/dist/media-processor.es.js';
-import { WorkerMediaProcessor } from "./worker-media-processor.js";
+import { WorkerMediaProcessor } from './worker-media-processor.js';
 /* global OT API_KEY TOKEN SESSION_ID SAMPLE_SERVER_BASE_URL */
 /* global MediaProcessorConnector */
 
@@ -30,15 +30,15 @@ const initializeSession = async () => {
   const session = OT.initSession(apiKey, sessionId);
 
   // Subscribe to a newly created stream
-  session.on("streamCreated", (event) => {
+  session.on('streamCreated', (event) => {
     const subscriberOptions = {
-      insertMode: "append",
-      width: "100%",
-      height: "100%",
+      insertMode: 'append',
+      width: '100%',
+      height: '100%'
     };
     session.subscribe(
       event.stream,
-      "subscriber",
+      'subscriber',
       subscriberOptions,
       handleError
     );
@@ -46,12 +46,12 @@ const initializeSession = async () => {
 
   // initialize the publisher
   const publisherOptions = {
-    insertMode: "append",
-    width: "100%",
-    height: "100%",
+    insertMode: 'append',
+    width: '100%',
+    height: '100%'
   };
   const publisher = await OT.initPublisher(
-    "publisher",
+    'publisher',
     publisherOptions,
     (error) => {
       if (error) {
@@ -80,7 +80,7 @@ if (API_KEY && TOKEN && SESSION_ID) {
   initializeSession();
 } else if (SAMPLE_SERVER_BASE_URL) {
   // Make an Ajax request to get the OpenTok API key, session ID, and token from the server
-  fetch(SAMPLE_SERVER_BASE_URL + "/session")
+  fetch(SAMPLE_SERVER_BASE_URL + '/session')
     .then(function fetch(res) {
       return res.json();
     })
@@ -95,7 +95,7 @@ if (API_KEY && TOKEN && SESSION_ID) {
     .catch(function catchErr(error) {
       handleError(error);
       alert(
-        "Failed to get opentok sessionId and token. Make sure you have updated the config.js file."
+        'Failed to get opentok sessionId and token. Make sure you have updated the config.js file.'
       );
     });
 }
