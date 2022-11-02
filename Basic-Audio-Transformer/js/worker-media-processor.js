@@ -1,17 +1,17 @@
 export class WorkerMediaProcessor {
   constructor() {
-    this.worker = new Worker("js/worker.js", { type: "module" });
+    this.worker = new Worker('js/worker.js', { type: 'module' });
     this.worker.postMessage({
-      operation: "init",
+      operation: 'init'
     });
   }
 
   async transform(readable, writable) {
     this.worker.postMessage(
       {
-        operation: "transform",
+        operation: 'transform',
         readable,
-        writable,
+        writable
       },
       [readable, writable]
     );
@@ -19,7 +19,7 @@ export class WorkerMediaProcessor {
 
   destroy() {
     this.worker.postMessage({
-      operation: "destroy",
+      operation: 'destroy'
     });
   }
 }

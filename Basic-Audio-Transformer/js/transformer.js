@@ -1,7 +1,7 @@
 /* eslint-disable no-unused-vars */
-/* global VideoFrame */
+/* global Float32Array AudioData */
 
-class AudioTransformer {
+export default class AudioTransformer {
   lastValuePerChannel = null;
   cutoff = 100;
 
@@ -9,7 +9,7 @@ class AudioTransformer {
   start() {}
 
   transform(data, controller) {
-    const format = "f32-planar";
+    const format = 'f32-planar';
     const rc = 1.0 / (this.cutoff * 2 * Math.PI);
     const dt = 1.0 / data.sampleRate;
     const alpha = dt / (rc + dt);
@@ -40,7 +40,7 @@ class AudioTransformer {
         numberOfFrames: data.numberOfFrames,
         numberOfChannels: nChannels,
         timestamp: data.timestamp,
-        data: buffer,
+        data: buffer
       })
     );
   }
