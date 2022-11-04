@@ -9,7 +9,11 @@
   "scripts": {
     "test": "test"
   },
-  "author": "Misha Behei, Christian Pettet",
+  "contributors": [{
+    "name": "Misha Behei"
+  }, {
+    "name": "Chris Pettet"
+  }],
   "license": "ISC",
   "dependencies": {
     "@vonage/ml-transformers": "^3.2.0"

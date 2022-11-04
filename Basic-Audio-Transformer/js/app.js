@@ -17,6 +17,8 @@ const transformStream = async (publisher) => {
       .catch((e) => {
         console.error(e);
       });
+  } else {
+    console.log('Browser does not support media processors');
   }
 };
 

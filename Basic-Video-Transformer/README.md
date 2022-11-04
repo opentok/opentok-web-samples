@@ -2,7 +2,7 @@ OpenTok.js Basic Video Transformer
 =======================
 
 This sample application shows how to use a basic transformer with the Vonage
-video APIs. It is very similar to the [Basic Video Chat](../Basic%20Video%20Chat/) example but it adds a [transformer.js](./js/transformer.js), [worker-media-processor.js](./js/worker-media-processor.js), and [worker.js](./js/worker.js) files which create a canvas transformer, a web worker, and a separate thread for the web worker publishing a transformed video stream.
+video APIs. It is very similar to the [Basic Video Chat](../Basic%20Video%20Chat/) example but it adds a [transformer.js](./js/transformer.js), [worker-media-processor.js](./js/worker-media-processor.js), and [worker.js](./js/worker.js) files which create a canvas transformer, a web worker, and a separate thread for the web worker publishing a transformed video stream that uses a threshold processing for implementation.
 
 ## Demo
 

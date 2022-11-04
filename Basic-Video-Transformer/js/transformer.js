@@ -1,6 +1,10 @@
 /* eslint-disable no-unused-vars */
 /* global VideoFrame */
 
+/*
+* This Video transformer implements a threshold filter
+* Credit for implementation: https://img.ly/blog/how-to-apply-filters-in-javascript/
+*/
 export default class Transformer {
   constructor() {
     this.canvas_ = null;

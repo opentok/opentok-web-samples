@@ -1,6 +1,11 @@
 /* eslint-disable no-unused-vars */
 /* global Float32Array AudioData */
 
+
+/*
+* This Audio transformer implements a "lowpass" filter
+* Credit to: https://github.com/maikthomas
+*/
 export default class AudioTransformer {
   lastValuePerChannel = null;
   cutoff = 100;
