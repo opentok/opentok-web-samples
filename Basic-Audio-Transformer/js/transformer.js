@@ -3,8 +3,9 @@
 
 
 /*
-* This Audio transformer implements a "lowpass" filter
+* This Audio transformer implements a lowpass filter
 * Credit to: https://github.com/maikthomas
+* Adapted from: https://github.com/webrtc/samples/blob/gh-pages/src/content/insertable-streams/audio-processing/js/main.js
 */
 export default class AudioTransformer {
   lastValuePerChannel = null;
