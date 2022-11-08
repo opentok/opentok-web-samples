@@ -3,7 +3,7 @@
 
 const FACE_DETECTION_TIME_GAP = 20000;
 
-export default class LouReedTransformer {
+export default class ResizeTransformer {
   mediapipeResult_;
   visibleRectDimension;
   frameMovingSteps;
@@ -86,9 +86,6 @@ export default class LouReedTransformer {
 
       if (deltaX > this.videoInfo.width) this.visibleRectDimensionState.visibleRectWidth = this.visibleRectDimensionState.visibleRectWidth - (deltaX - this.videoInfo.width);
       if (deltaY > this.videoInfo.height) this.visibleRectDimensionState.visibleRectHeight = this.visibleRectDimensionState.visibleRectHeight - (deltaY - this.videoInfo.height);
-
-      console.log("State1", this.visibleRectDimensionState.visibleRectX, " ", this.visibleRectDimensionState.visibleRectY, " ", this.visibleRectDimensionState.visibleRectWidth, " ", this.visibleRectDimensionState.visibleRectHeight)
-      console.log("State2", this.visibleRectDimension.visibleRectX, " ", this.visibleRectDimension.visibleRectY, " ", this.visibleRectDimension.visibleRectWidth, " ", this.visibleRectDimension.visibleRectHeight)
 
       const resizeFrame = new VideoFrame(image, {
         visibleRect: {

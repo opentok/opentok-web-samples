@@ -4,14 +4,40 @@ import {
 import { WorkerMediaProcessor } from "./media-processor-helper-worker.js";
 // import { GreyScaleTransformer } from './transformer.js';
 /* global OT API_KEY TOKEN SESSION_ID SAMPLE_SERVER_BASE_URL */
-/* global LouReedTransformer MediaProcessor MediaProcessorConnector */
+/* global ResizeTransformer MediaProcessor MediaProcessorConnector */
 
 
 let apiKey;
 let sessionId;
 let token;
 
-async function initializeSession() {
+const transformStream = async (publisher) => {
+  if (OT.hasMediaProcessorSupport()) {
+    const mediaProcessor = new WorkerMediaProcessor();
+    const mediaProcessorConnector = new MediaProcessorConnector(
+      mediaProcessor
+    );
+
+    publisher
+      .setVideoMediaProcessorConnector(mediaProcessorConnector)
+      .then(() => {
+        console.log("set connector");
+      })
+      .catch((e) => {
+        console.log("erroring");
+        throw e;
+      });
+    console.log("after setting mediaProcessorConnector");
+  }
+}
+
+const handleError = async (error) => {
+  if (error) {
+    console.error(error);
+  }
+};
+
+const initializeSession = async () => {
   const session = OT.initSession(apiKey, sessionId);
   const publisherContainer = document.getElementById('publisher');
   const subcriberContainer = document.getElementById('subscriber');
@@ -64,35 +90,13 @@ async function initializeSession() {
     }
   );
 
-  async function handleError(error) {
-    if (error) {
-      console.error(error);
-    }
-    if (OT.hasMediaProcessorSupport()) {
-      const mediaProcessor = new WorkerMediaProcessor();
-      const mediaProcessorConnector = new MediaProcessorConnector(
-        mediaProcessor
-      );
-
-      publisher
-        .setVideoMediaProcessorConnector(mediaProcessorConnector)
-        .then(() => {
-          console.log("set connector");
-        })
-        .catch((e) => {
-          console.log("erroring");
-          throw e;
-        });
-      console.log("after setting mediaProcessorConnector");
-    }
-  }
   // Connect to the session
   session.connect(token, async (error) => {
     if (error) {
       await handleError(error);
     } else {
       // If the connection is successful, publish the publisher to the session
-      session.publish(publisher, handleError);
+      session.publish(publisher, () => transformStream(publisher));
     }
   });
 }

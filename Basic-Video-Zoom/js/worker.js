@@ -1,6 +1,6 @@
 /* eslint-disable indent */
 import { MediaProcessor } from '../node_modules/@vonage/media-processor/dist/media-processor.es.js';
-import LouReedTransformer from './transformer.js';
+import ResizeTransformer from './transformer.js';
 
 let mediaProcessor;
 let mediaipeTransformers;
@@ -12,7 +12,7 @@ onmessage = async (event) => {
     case 'init': {
       console.log('worker initializing');
       mediaProcessor = new MediaProcessor();
-      mediaipeTransformers = new LouReedTransformer();
+      mediaipeTransformers = new ResizeTransformer();
       mediaProcessor.setTransformers([mediaipeTransformers]);
       break;
     }
