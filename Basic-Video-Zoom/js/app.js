@@ -2,7 +2,6 @@ import {
   MediaProcessorConnector,
 } from "../node_modules/@vonage/media-processor/dist/media-processor.es.js";
 import { WorkerMediaProcessor } from "./media-processor-helper-worker.js";
-// import { GreyScaleTransformer } from './transformer.js';
 /* global OT API_KEY TOKEN SESSION_ID SAMPLE_SERVER_BASE_URL */
 /* global ResizeTransformer MediaProcessor MediaProcessorConnector */
 
@@ -20,14 +19,9 @@ const transformStream = async (publisher) => {
 
     publisher
       .setVideoMediaProcessorConnector(mediaProcessorConnector)
-      .then(() => {
-        console.log("set connector");
-      })
       .catch((e) => {
-        console.log("erroring");
         throw e;
       });
-    console.log("after setting mediaProcessorConnector");
   }
 }
 
@@ -123,6 +117,5 @@ if (API_KEY && TOKEN && SESSION_ID) {
     })
     .catch(function catchErr(error) {
       handleError(error);
-      // alert('Failed to get opentok sessionId and token. Make sure you have updated the config.js file.');
     });
 }

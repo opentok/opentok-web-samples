@@ -6,7 +6,7 @@ video APIs.
 
 ## Demo
 
-You can see a demo of this sample running at [opentok.github.io/opentok-web-samples/Basic%20Video%20/Zoom/](https://opentok.github.io/opentok-web-samples/Basic%20Video%20Zoom/)
+You can see a demo of this sample running at [opentok.github.io/opentok-web-samples/Basic-Video-Zoom/](https://opentok.github.io/opentok-web-samples/Basic-Video-Zoom/)
 
 > **Note** The demo is setup so that a new room is generated based on your public IP address. So will only work if you are connecting from 2 browsers on the same network.
 
