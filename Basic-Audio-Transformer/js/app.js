@@ -14,9 +14,7 @@ const transformStream = async (publisher) => {
   if (OT.hasMediaProcessorSupport()) {
     publisher
       .setAudioMediaProcessorConnector(mediaProcessorConnector)
-      .catch((e) => {
-        console.error(e);
-      });
+      .catch(handleError);
   } else {
     console.log('Browser does not support media processors');
   }
