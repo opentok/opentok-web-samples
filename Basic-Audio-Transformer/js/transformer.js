@@ -21,7 +21,6 @@ export default class AudioTransformer {
     const alpha = dt / (rc + dt);
     const nChannels = data.numberOfChannels;
     if (!this.lastValuePerChannel) {
-      console.log(`Audio stream has ${nChannels} channels.`);
       this.lastValuePerChannel = Array(nChannels).fill(0);
     }
     const buffer = new Float32Array(data.numberOfFrames * nChannels);
