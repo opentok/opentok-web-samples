@@ -2,11 +2,11 @@ OpenTok.js Basic Background Blur
 =======================
 
 This sample application shows how to add background blur with the Vonage
-video APIs. It is very similar to the [Basic Video Chat](../Basic%20Video%20Chat/) example but it adds a background blur to the publisher. See [Vonage ML Transformers](https://vonage.github.io/ml-transformers-docs/) library for more information.
+video APIs. It is very similar to the [Basic Video Chat](../Basic%20Video%20Chat/) example but it adds a background blur to the publisher. See [Vonage ML Transformers](https://vonage.github.io/ml-transformers-docs/) library for more information. The OpenTok.js library includes a background blur filter through the [Publisher.applyVideoFilter()](https://tokbox.com/developer/sdks/js/reference/Publisher.html#applyVideoFilter). This sample app shows how to apply a video filter with using a media processor from the `@vonage/ml-transformers` library.
 
 ## Demo
 
-You can see a demo of this sample running at [opentok.github.io/opentok-web-samples/Basic-Background-Blur/](https://opentok.github.io/opentok-web-samples/Basic-Background-Blur/)
+You can see a demo of this sample running at [opentok.github.io/opentok-web-samples/Vonage-Media-Library-Blur/](https://opentok.github.io/opentok-web-samples/Vonage-Media-Library-Blur/)
 
 > **Note** The demo is setup so that a new room is generated based on your public IP address. So will only work if you are connecting from 2 browsers on the same network.
 

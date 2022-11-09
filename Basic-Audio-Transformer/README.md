@@ -52,7 +52,7 @@ of Chrome, Electron, Opera, and Edge.) If the client supports Media Processors, 
 the `Publisher.setAudioMediaProcessorConnector()` method, passing in a MediaProcessorConnector
 object:
 
-```
+```javascript
 const transformStream = async (publisher) => {
   const mediaProcessor = new WorkerMediaProcessor();
   const mediaProcessorConnector = new MediaProcessorConnector(mediaProcessor);
@@ -65,6 +65,38 @@ const transformStream = async (publisher) => {
     console.log('Browser does not support media processors');
   }
 };
+```
+
+### Publisher.setAudioMediaProcessorConnector() method
+The OpenTok.js `Publisher.setAudioMediaProcessorConnector()` method applies an audio transformer to a published stream:
+
+```javascript
+publisher
+  .setAudioMediaProcessorConnector(mediaProcessorConnector)
+```
+
+### Audio Transformer
+A Transformer is an object or class instance representing the transformer. For a definition, see the `transformer` parameter of the [`TransformStream()`](https://developer.mozilla.org/en-US/docs/Web/API/TransformStream/TransformStream#parameters) constructor. Also see the [TypeScript Transformer interface](https://github.com/microsoft/TypeScript/blob/main/lib/lib.dom.d.ts#L1768).
+
+To see the example low-pass filter, check out [Basic-Audio-Transformer/js/transformer.js](./js/transformer.js).
+
+### Web Workers
+You will probably run transformers in a Web Worker for performance benefits; this example app uses one.
+
+To do this, initialize both the `MediaProcessor` and the transformer on the worker thread. (See [Basic-Audio-Transformer/js/worker.js](./js/worker.js) and [Basic-Audio-Transformer/js/transformer.js](./js/transformer.js).)
+
+```javascript
+// from Basic-Audio-Transformer/js/worker.js
+mediaProcessor = new MediaProcessor();
+const transformers = [new Transformer()];
+```
+
+To create a MediaProcessorConnector on the main thread while running the MediaProcessor on the worker thread, you need to create you own MediaProcessor that implements the [MediaProcessor interface](https://vonage.github.io/media-processor-docs/docs/intro#mediaprocessor-bridge-code) and communicates with the worker. (See [Basic-Audio-Transformer/js/worker-media-processor.js](./js/worker-media-processor.js) for this sample app's implementation of the MediaProcessor)
+
+```javascript
+// from Basic-Audio-Transformer/js/app.js
+const mediaProcessor = new WorkerMediaProcessor();
+const mediaProcessorConnector = new MediaProcessorConnector(mediaProcessor);
 ```
 
 ## More information
