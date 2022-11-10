@@ -1,0 +1,21 @@
+{
+  "name": "basic-video-transformer",
+  "version": "1.0.0",
+  "description": "This sample application shows how to use a basic video transformer",
+  "main": "index.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "test"
+  },
+  "contributors": [{
+    "name": "Misha Behei"
+  }, {
+    "name": "Chris Pettet"
+  }],
+  "license": "ISC",
+  "dependencies": {
+    "@vonage/ml-transformers": "^3.2.0"
+  }
+}
