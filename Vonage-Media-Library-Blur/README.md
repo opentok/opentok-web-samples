@@ -49,7 +49,7 @@ session.publish(publisher, () => transformStream(publisher));
 The `transformStream())` method calls the `OT.hasMediaProcessorSupport()` method to
 check if the client supports Media Processors. (Media Processors are only supported in recent versions
 of Chrome, Electron, Opera, and Edge.) If the client supports Media Processors, it calls
-the `Publisher.setAudioMediaProcessorConnector()` method, passing in a MediaProcessorConnector
+the `Publisher.setVideoMediaProcessorConnector()` method, passing in a MediaProcessorConnector
 object:
 
 ```javascript
