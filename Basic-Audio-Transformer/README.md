@@ -70,7 +70,7 @@ const transformStream = async (publisher) => {
 The `Publisher.setAudioMediaProcessorConnector()` method applies an audio transformer to a published stream.
 
 ### Audio Transformer
-A Transformer is an object or class instance representing the transformer. For a definition, see the `transformer` parameter of the [`TransformStream()`](https://developer.mozilla.org/en-US/docs/Web/API/TransformStream/TransformStream#parameters) constructor. Also see the [TypeScript Transformer interface](https://github.com/microsoft/TypeScript/blob/main/lib/lib.dom.d.ts#L1768).
+A Transformer is an object or class instance representing the transformer. For a definition, see the `transformer` parameter of the [`TransformStream()`](https://developer.mozilla.org/en-US/docs/Web/API/TransformStream/TransformStream#parameters) constructor. Also see the definition for `Transformer` interface in the [TypeScript Transformer interface](https://github.com/microsoft/TypeScript/blob/main/lib/lib.dom.d.ts).
 
 To see the example low-pass filter, check out [Basic-Audio-Transformer/js/transformer.js](./js/transformer.js).
 
