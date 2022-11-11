@@ -20,9 +20,7 @@ const transformStream = async (publisher) => {
   if (OT.hasMediaProcessorSupport()) {
     publisher
       .setVideoMediaProcessorConnector(processor.getConnector())
-      .catch((e) => {
-        console.error(e);
-      });
+      .catch(handleError);
   } else {
     console.log('Browser does not support media processors');
   }
