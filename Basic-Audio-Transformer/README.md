@@ -67,13 +67,7 @@ const transformStream = async (publisher) => {
 };
 ```
 
-### Publisher.setAudioMediaProcessorConnector() method
-The OpenTok.js `Publisher.setAudioMediaProcessorConnector()` method applies an audio transformer to a published stream:
-
-```javascript
-publisher
-  .setAudioMediaProcessorConnector(mediaProcessorConnector)
-```
+The `Publisher.setAudioMediaProcessorConnector()` method applies an audio transformer to a published stream.
 
 ### Audio Transformer
 A Transformer is an object or class instance representing the transformer. For a definition, see the `transformer` parameter of the [`TransformStream()`](https://developer.mozilla.org/en-US/docs/Web/API/TransformStream/TransformStream#parameters) constructor. Also see the [TypeScript Transformer interface](https://github.com/microsoft/TypeScript/blob/main/lib/lib.dom.d.ts#L1768).
