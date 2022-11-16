@@ -9,6 +9,10 @@ cp index.html out/
 cp -r Basic\ Video\ Chat out/
 sed -i -- 's/http:\/\/YOUR-SERVER-URL/https:\/\/opentok-web-samples-backend.herokuapp.com/g' out/Basic\ Video\ Chat/js/config.js
 
+# Copy Basic-Video-Zoom
+cp -r Basic-Video-Zoom out/
+sed -i -- 's/http:\/\/YOUR-SERVER-URL/https:\/\/opentok-web-samples-backend.herokuapp.com/g' out/Basic-Video-Zoom/js/config.js
+
 # Copy Signaling
 cp -r Signaling out/
 sed -i -- 's/http:\/\/YOUR-SERVER-URL/https:\/\/opentok-web-samples-backend.herokuapp.com/g' out/Signaling/js/config.js
