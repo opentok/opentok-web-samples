@@ -1,12 +1,12 @@
-OpenTok.js Basic Video Transformer
+OpenTok.js Vonage Media Library Background Blur
 =======================
 
-This sample application shows how to use a basic transformer with the Vonage
-video APIs. It is very similar to the [Basic Video Chat](../Basic%20Video%20Chat/) example but it adds a [transformer.js](./js/transformer.js), [worker-media-processor.js](./js/worker-media-processor.js), and [worker.js](./js/worker.js) files which create a canvas transformer, a web worker, and a separate thread for the web worker publishing a transformed video stream that uses a threshold processing for implementation.
+This sample application shows how to add background blur with the Vonage
+video APIs. It is very similar to the [Basic Video Chat](../Basic%20Video%20Chat/) example but it adds a background blur to the publisher. See [Vonage ML Transformers](https://vonage.github.io/ml-transformers-docs/) library for more information. The OpenTok.js library includes a background blur filter through the [Publisher.applyVideoFilter()](https://tokbox.com/developer/sdks/js/reference/Publisher.html#applyVideoFilter). This sample app shows how to apply a video filter with using a media processor from the `@vonage/ml-transformers` library.
 
 ## Demo
 
-You can see a demo of this sample running at [opentok.github.io/opentok-web-samples/Basic-Video-Transformer/](https://opentok.github.io/opentok-web-samples/Basic-Video-Transformer/)
+You can see a demo of this sample running at [opentok.github.io/opentok-web-samples/Vonage-Media-Library-Blur/](https://opentok.github.io/opentok-web-samples/Vonage-Media-Library-Blur/)
 
 > **Note** The demo is set up so that a new room is generated based on your public IP address. So it will only work if you are connecting from two browsers on the same network.
 
@@ -40,7 +40,7 @@ and test the application:
 ## Understanding the code
 
 After connecting to the session, and publishing the audio-video stream, the app calls
-transform the video stream.
+transform the audio stream.
 
 ```javascript
 session.publish(publisher, () => transformStream(publisher));
@@ -54,15 +54,12 @@ object:
 
 ```javascript
 const transformStream = async (publisher) => {
-  const mediaProcessor = new WorkerMediaProcessor();
-  const mediaProcessorConnector = new MediaProcessorConnector(mediaProcessor);
+  const processor = await createVonageMediaProcessor(config);
 
   if (OT.hasMediaProcessorSupport()) {
     publisher
-      .setVideoMediaProcessorConnector(mediaProcessorConnector)
-      .catch((e) => {
-        console.error(e);
-      });
+      .setVideoMediaProcessorConnector(processor.getConnector())
+      .catch(handleError);
   } else {
     console.log('Browser does not support media processors');
   }
@@ -73,27 +70,6 @@ The `Publisher.setVideoMediaProcessorConnector()` method applies a video transfo
 
 ### Video Transformer
 A Transformer is an object or class instance representing the transformer. For a definition, see the `transformer` parameter of the [`TransformStream()`](https://developer.mozilla.org/en-US/docs/Web/API/TransformStream/TransformStream#parameters) constructor. Also see the definition for `Transformer` interface in the [TypeScript Transformer interface](https://github.com/microsoft/TypeScript/blob/main/lib/lib.dom.d.ts).
-
-To see the example thresholding filter, check out [Basic-Video-Transformer/js/transformer.js](./js/transformer.js).
-
-### Web Workers
-You will probably run transformers in a Web Worker for performance benefits; this example app uses one.
-
-To do this, initialize both the `MediaProcessor` and the transformer on the worker thread. (See [Basic-Video-Transformer/js/worker.js](./js/worker.js) and [Basic-Video-Transformer/js/transformer.js](./js/transformer.js).)
-
-```javascript
-// from Basic-Video-Transformer/js/worker.js
-mediaProcessor = new MediaProcessor();
-const transformers = [new Transformer()];
-```
-
-To create a MediaProcessorConnector on the main thread while running the MediaProcessor on the worker thread, you need to create you own MediaProcessor that implements the [MediaProcessor interface](https://vonage.github.io/media-processor-docs/docs/intro#mediaprocessor-bridge-code) and communicates with the worker. (See [Basic-Video-Transformer/js/worker-media-processor.js](./js/worker-media-processor.js) for this sample app's implementation of the MediaProcessor)
-
-```javascript
-// from Basic-Video-Transformer/js/app.js
-const mediaProcessor = new WorkerMediaProcessor();
-const mediaProcessorConnector = new MediaProcessorConnector(mediaProcessor);
-```
 
 ## More information
 
