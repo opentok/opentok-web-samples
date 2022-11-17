@@ -12,7 +12,7 @@ You can see a demo of this sample running at [opentok.github.io/opentok-web-samp
 
 ## Installing dependencies
 
-Before running the app, install the Node modules it uses:
+Please use Node v14 for this sample application. Before running the app, install the Node modules it uses:
 
 ```
 npm install
