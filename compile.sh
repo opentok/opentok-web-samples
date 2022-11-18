@@ -65,6 +65,20 @@ cd ..
 mkdir -p out/Vue-Basic-Video-Chat
 cp -r Vue-Basic-Video-Chat/dist/. out/Vue-Basic-Video-Chat/
 
+# Copy Basic-Audio-Transformer
+cd Basic-Audio-Transformer/
+npm install
+cd ..
+cp -r Basic-Audio-Transformer out/
+sed -i -- 's/http:\/\/YOUR-SERVER-URL/https:\/\/opentok-web-samples-backend.herokuapp.com/g' out/Basic-Audio-Transformer/js/config.js
+
+# Copy Basic-Video-Transformer
+cd Basic-Video-Transformer/
+npm install
+cd ..
+cp -r Basic-Video-Transformer out/
+sed -i -- 's/http:\/\/YOUR-SERVER-URL/https:\/\/opentok-web-samples-backend.herokuapp.com/g' out/Basic-Video-Transformer/js/config.js
+
 # Run tests
 if [ "$BROWSER" = "safari" ]; then
   sudo npx http-server out -p 80 &
