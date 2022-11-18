@@ -20,13 +20,6 @@ matrix:
   include:
     - os: linux
       env: INTEGRATION_CMD='npm run lint'
-    - os: linux
-      env: BROWSER=chrome  BVER=stable
-    - os: linux
-      env: BROWSER=firefox  BVER=stable
-    - os: osx
-      osx_image: xcode9.2
-      env: BROWSER=safari BVER=stable
 
 env:
   global:

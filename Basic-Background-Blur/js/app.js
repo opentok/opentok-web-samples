@@ -1,7 +1,7 @@
 import {
   BlurRadius,
-  createVonageMediaProcessor,
-} from "../node_modules/@vonage/ml-transformers/dist/ml-transformers.es.js";
+  createVonageMediaProcessor
+} from '../node_modules/@vonage/ml-transformers/dist/ml-transformers.es.js';
 /* global OT API_KEY TOKEN SESSION_ID SAMPLE_SERVER_BASE_URL */
 /* global MediaProcessorConnector */
 
@@ -10,8 +10,8 @@ let sessionId;
 let token;
 
 const config = {
-  transformerType: "BackgroundBlur",
-  radius: BlurRadius.High,
+  transformerType: 'BackgroundBlur',
+  radius: BlurRadius.High
 };
 
 const transformStream = async (publisher) => {

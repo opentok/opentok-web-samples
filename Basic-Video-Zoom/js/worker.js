@@ -34,8 +34,8 @@ onmessage = async (event) => {
           height: result.height,
           xCenter: result.xCenter,
           yCenter: result.yCenter
-      }
-      mediaipeTransformers.onResult(faceDimension)
+      };
+      mediaipeTransformers.onResult(faceDimension);
       break;
     }
     case 'destroy': {
