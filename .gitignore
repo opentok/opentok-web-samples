@@ -1,0 +1,8 @@
+node_modules/
+.DS_Store
+out/
+errorShots/
+**/*.*--
+geckodriver
+selenium-server-standalone-*.jar
+imgur.sh

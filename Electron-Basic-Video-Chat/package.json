@@ -1,0 +1,15 @@
+{
+  "name": "electron-basic-video-chat",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "start": "electron ."
+  },
+  "author": "Manik Sachdeva",
+  "license": "ISC",
+  "dependencies": {
+    "@opentok/client": "^2.24.0",
+    "electron": "^21.0.0"
+  }
+}

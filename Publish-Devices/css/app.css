@@ -1,0 +1,40 @@
+#cycle-video-btn {
+  display: none;
+}
+
+#audio-meter {
+  display: none;
+}
+
+#audio-meter meter {
+  width: 200px;
+}
+
+form {
+  border: 1px solid #ccc;
+  width: 400px;
+  text-align: center;
+  padding: 20px;
+}
+
+form label {
+  margin: 5px;
+  display: inline-block;
+  text-align: right;
+  width: 100px;
+}
+
+form select {
+  width: 200px;
+}
+
+form button {
+  margin: 10px;
+  width: 100px;
+}
+
+#publisher {
+  margin: 10px;
+  padding: 0px;
+  left: calc(250px - 192px);
+}
