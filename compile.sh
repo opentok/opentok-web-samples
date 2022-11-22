@@ -66,6 +66,7 @@ mkdir -p out/Vue-Basic-Video-Chat
 cp -r Vue-Basic-Video-Chat/dist/. out/Vue-Basic-Video-Chat/
 
 # Copy Basic-Audio-Transformer
+nvm install 14
 cd Basic-Audio-Transformer/
 npm install
 cd ..
@@ -78,12 +79,4 @@ npm install
 cd ..
 cp -r Basic-Video-Transformer out/
 sed -i -- 's/http:\/\/YOUR-SERVER-URL/https:\/\/opentok-web-samples-backend.herokuapp.com/g' out/Basic-Video-Transformer/js/config.js
-
-# Run tests
-if [ "$BROWSER" = "safari" ]; then
-  sudo npx http-server out -p 80 &
-else
-  npm start &
-fi
-npm test
-if [ "$BROWSER" = "ie" ]; then rm -r out/plugin-installer; fi
+nvm use 8
