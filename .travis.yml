@@ -19,7 +19,7 @@ addons:
 matrix:
   include:
     - os: linux
-      env: INTEGRATION_CMD='npm run lint'
+      env: INTEGRATION_CMD='npm run lint && ./deploy.sh'
 
 env:
   global:
