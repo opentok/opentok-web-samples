@@ -66,7 +66,6 @@ mkdir -p out/Vue-Basic-Video-Chat
 cp -r Vue-Basic-Video-Chat/dist/. out/Vue-Basic-Video-Chat/
 
 # Copy Basic-Audio-Transformer
-nvm install 14
 cd Basic-Audio-Transformer/
 npm install
 cd ..
@@ -79,4 +78,3 @@ npm install
 cd ..
 cp -r Basic-Video-Transformer out/
 sed -i -- 's/http:\/\/YOUR-SERVER-URL/https:\/\/opentok-web-samples-backend.herokuapp.com/g' out/Basic-Video-Transformer/js/config.js
-nvm use 8
