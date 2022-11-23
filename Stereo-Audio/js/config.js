@@ -4,7 +4,7 @@
 // Do not include the trailing slash. See the README for more information:
 
 ((exports) => {
-  exports.SAMPLE_SERVER_BASE_URL = 'http://YOUR-SERVER-URL';
+  exports.SAMPLE_SERVER_BASE_URL = 'https://opentok-web-samples-backend.herokuapp.com';
 
   // OR, if you have not set up a web server that runs the learning-opentok-php code,
   // set these values to OpenTok API key, a valid session ID, and a token for the session.
