@@ -9,6 +9,8 @@ The code for this sample is found the following subdirectories:
 * Angular-Basic-Video-Chat ([demo](https://opentok.github.io/opentok-web-samples/Angular-Basic-Video-Chat/)) ([source](https://github.com/opentok/opentok-web-samples/tree/main/Angular-Basic-Video-Chat)) -- This sample shows you how to connect to an OpenTok session, publish a stream, and
   subscribe to a stream using [Angular 5](https://angular.io/).
 
+* Archiving ([demo](https://opentok.github.io/opentok-web-samples/Archiving/)) ([source](https://github.com/opentok/opentok-web-samples/tree/main/Archiving)) -- This sample shows you how to record an OpenTok session.
+
 * Basic-Audio-Transformer ([demo](https://opentok.github.io/opentok-web-samples/Basic-Audio-Transformer/)) ([source](https://github.com/opentok/opentok-web-samples/tree/main/Basic-Audio-Transformer)) -- This sample application shows how to use a basic audio transformer with the Vonage Video APIs. It is very similar to the Basic Video Chat example but it adds a low-pass filter to the published audio.
 
 * Basic-Background-Blur ([demo](https://opentok.github.io/opentok-web-samples/Basic-Background-Blur/)) ([source](https://github.com/opentok/opentok-web-samples/tree/main/Basic-Background-Blur)) -- This sample application shows how to add background blur with the Vonage Video APIs and Vonage ML Transformers library.
@@ -18,7 +20,7 @@ The code for this sample is found the following subdirectories:
 * Basic Video Chat ([demo](https://opentok.github.io/opentok-web-samples/Basic%20Video%20Chat/)) ([source](https://github.com/opentok/opentok-web-samples/tree/main/Basic%20Video%20Chat)) -- This sample shows you how to connect to an OpenTok session, publish a stream, and
   subscribe to a stream.
 
-* Archiving ([demo](https://opentok.github.io/opentok-web-samples/Archiving/)) ([source](https://github.com/opentok/opentok-web-samples/tree/main/Archiving)) -- This sample shows you how to record an OpenTok session.
+* Basic-Video-Zoom ([demo](https://opentok.github.io/opentok-web-samples/Basic-Video-Zoom/)) ([source](https://github.com/opentok/opentok-web-samples/tree/master/Basic-Video-Zoom)) -- This sample shows you how to use a video transformer to zoom and center a publisher.
 
 * Electron-Basic-Screen-Sharing ([source](https://github.com/opentok/opentok-web-samples/tree/main/Electron-Basic-Screen-Sharing)) -- This sample shows you how to connect to an OpenTok session, publish a screen-share stream, and subscribe to a stream in an [Electron](https://electronjs.org/) application.
 

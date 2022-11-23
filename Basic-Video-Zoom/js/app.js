@@ -1,30 +1,27 @@
 import {
-  BlurRadius,
-  createVonageMediaProcessor
-} from '../node_modules/@vonage/ml-transformers/dist/ml-transformers.es.js';
+  MediaProcessorConnector
+} from '../node_modules/@vonage/media-processor/dist/media-processor.es.js';
+import { WorkerMediaProcessor } from './media-processor-helper-worker.js';
 /* global OT API_KEY TOKEN SESSION_ID SAMPLE_SERVER_BASE_URL */
-/* global MediaProcessorConnector */
+/* global ResizeTransformer MediaProcessor MediaProcessorConnector */
+
 
 let apiKey;
 let sessionId;
 let token;
 
-const config = {
-  transformerType: 'BackgroundBlur',
-  radius: BlurRadius.High
-};
-
 const transformStream = async (publisher) => {
-  const processor = await createVonageMediaProcessor(config);
-
   if (OT.hasMediaProcessorSupport()) {
+    const mediaProcessor = new WorkerMediaProcessor();
+    const mediaProcessorConnector = new MediaProcessorConnector(
+      mediaProcessor
+    );
+
     publisher
-      .setVideoMediaProcessorConnector(processor.getConnector())
+      .setVideoMediaProcessorConnector(mediaProcessorConnector)
       .catch((e) => {
-        console.error(e);
+        throw e;
       });
-  } else {
-    console.log('Browser does not support media processors');
   }
 };
 
@@ -36,13 +33,13 @@ const handleError = async (error) => {
 
 const initializeSession = async () => {
   const session = OT.initSession(apiKey, sessionId);
+  const publisherContainer = document.getElementById('publisher');
+  const subcriberContainer = document.getElementById('subscriber');
 
   // Subscribe to a newly created stream
-  session.on('streamCreated', (event) => {
+  session.on('streamCreated', function streamCreated(event) {
     const subscriberOptions = {
-      insertMode: 'append',
-      width: '100%',
-      height: '100%'
+      insertMode: 'append'
     };
     session.subscribe(
       event.stream,
@@ -52,11 +49,29 @@ const initializeSession = async () => {
     );
   });
 
+  session.on('streamPropertyChanged', (e) => {
+    if (!e.changedProperty === 'videoDimensions') return;
+    if (e.stream.connection.id === session.connection.id) {
+      // change publisher container size
+      const publisher = publisherContainer.getElementsByClassName('OT_publisher')[0];
+      const width = (e.newValue.width / e.newValue.height) * 300; // fix height to 300px
+      publisher.style.width = `${width}px`;
+      publisher.style.height = '200px';
+    } else {
+      // change subscriber container size
+      const subscriber = subcriberContainer.getElementsByClassName('OT_subscriber')[0];
+      const width = (e.newValue.width / e.newValue.height) * screen.height * 0.7; // fix height to 0.7*screenHeight
+      subscriber.style.width = `${width}px`;
+      subscriber.style.height = `${screen.height * 0.7}px`;
+    }
+  });
+  session.on('sessionDisconnected', function sessionDisconnected(event) {
+    console.log('You were disconnected from the session.', event.reason);
+  });
+
   // initialize the publisher
   const publisherOptions = {
-    insertMode: 'append',
-    width: '100%',
-    height: '100%'
+    insertMode: 'append'
   };
   const publisher = await OT.initPublisher(
     'publisher',
@@ -74,7 +89,6 @@ const initializeSession = async () => {
       await handleError(error);
     } else {
       // If the connection is successful, publish the publisher to the session
-      // and transform stream
       session.publish(publisher, () => transformStream(publisher));
     }
   });
@@ -102,6 +116,5 @@ if (API_KEY && TOKEN && SESSION_ID) {
     })
     .catch(function catchErr(error) {
       handleError(error);
-      alert('Failed to get opentok sessionId and token. Make sure you have updated the config.js file.');
     });
 }

@@ -9,6 +9,10 @@ cp index.html out/
 cp -r Basic\ Video\ Chat out/
 sed -i -- 's/http:\/\/YOUR-SERVER-URL/https:\/\/opentok-web-samples-backend.herokuapp.com/g' out/Basic\ Video\ Chat/js/config.js
 
+# Copy Basic-Video-Zoom
+cp -r Basic-Video-Zoom out/
+sed -i -- 's/http:\/\/YOUR-SERVER-URL/https:\/\/opentok-web-samples-backend.herokuapp.com/g' out/Basic-Video-Zoom/js/config.js
+
 # Copy Signaling
 cp -r Signaling out/
 sed -i -- 's/http:\/\/YOUR-SERVER-URL/https:\/\/opentok-web-samples-backend.herokuapp.com/g' out/Signaling/js/config.js
@@ -61,11 +65,16 @@ cd ..
 mkdir -p out/Vue-Basic-Video-Chat
 cp -r Vue-Basic-Video-Chat/dist/. out/Vue-Basic-Video-Chat/
 
-# Run tests
-if [ "$BROWSER" = "safari" ]; then
-  sudo npx http-server out -p 80 &
-else
-  npm start &
-fi
-npm test
-if [ "$BROWSER" = "ie" ]; then rm -r out/plugin-installer; fi
+# Copy Basic-Audio-Transformer
+cd Basic-Audio-Transformer/
+npm install
+cd ..
+cp -r Basic-Audio-Transformer out/
+sed -i -- 's/http:\/\/YOUR-SERVER-URL/https:\/\/opentok-web-samples-backend.herokuapp.com/g' out/Basic-Audio-Transformer/js/config.js
+
+# Copy Basic-Video-Transformer
+cd Basic-Video-Transformer/
+npm install
+cd ..
+cp -r Basic-Video-Transformer out/
+sed -i -- 's/http:\/\/YOUR-SERVER-URL/https:\/\/opentok-web-samples-backend.herokuapp.com/g' out/Basic-Video-Transformer/js/config.js
