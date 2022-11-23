@@ -1,0 +1,27 @@
+{
+  "name": "@mediapipe/pose",
+  "version": "0.5.1635988162",
+  "description": "Mediapipe Pose Solution",
+  "main": "pose.js",
+  "module": "pose.js",
+  "jsdelivr": "pose.js",
+  "unpkg": "pose.js",
+  "types": "index.d.ts",
+  "author": "mhays@google.com",
+  "license": "Apache-2.0",
+  "homepage": "https://google.github.io/mediapipe/solutions/pose",
+  "keywords": [ "AR", "ML", "Augmented" ],
+  "devDependencies": {
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+  },
+  "browser": {
+    "node-fetch": false,
+    "util": false,
+    "crypto": false
+  },
+  "sideEffects" : ["pose_solution_packed_assets.data","pose_solution_packed_assets_loader.js","pose_solution_simd_wasm_bin.js","pose_solution_simd_wasm_bin.wasm","pose_solution_wasm_bin.js","pose_solution_wasm_bin.wasm","pose_web.binarypb"]
+}

@@ -1,0 +1,27 @@
+{
+  "name": "@mediapipe/objectron",
+  "version": "0.4.1636596145",
+  "description": "Mediapipe Objectron Solution",
+  "main": "objectron.js",
+  "module": "objectron.js",
+  "jsdelivr": "objectron.js",
+  "unpkg": "objectron.js",
+  "types": "index.d.ts",
+  "author": "mhays@google.com",
+  "license": "Apache-2.0",
+  "homepage": "https://google.github.io/mediapipe/solutions/objectron",
+  "keywords": [ "AR", "ML", "Augmented" ],
+  "devDependencies": {
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+  },
+  "browser": {
+    "node-fetch": false,
+    "util": false,
+    "crypto": false
+  },
+  "sideEffects" : []
+}
