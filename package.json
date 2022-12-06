@@ -30,7 +30,7 @@
     "eslint-config-airbnb-es5": "^1.2.0",
     "eslint-plugin-import": "^2.8.0",
     "eslint-plugin-react": "^7.6.1",
-    "http-server": "^0.11.1",
+    "http-server": "^0.11.2",
     "opentok-test-scripts": "^3.6.1",
     "travis-multirunner": "^4.5.0",
     "wdio-chromedriver-service": "^0.1.2",
