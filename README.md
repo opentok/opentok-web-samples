@@ -2,7 +2,8 @@
 
 Sample applications for using the [OpenTok.js](https://tokbox.com/developer/sdks/js/) library with vanilla JavaScript.
 
-For framework examples (Angular, React, Vue etc.) please see the [Web Component example applications](https://github.com/opentok/web-components/tree/main/examples)
+For framework examples (Angular, React, Vue etc.) please see the [Web Component example applications](https://github.com/opentok/web-components/tree/main/examples).
+For the electron app samples, these have been moved to [Vonage Community](https://github.com/Vonage-Community/sample-video-electron-app)
 
 The code for this sample is found the following subdirectories:
 
@@ -18,10 +19,6 @@ The code for this sample is found the following subdirectories:
   subscribe to a stream.
 
 * Basic-Video-Zoom ([source](https://github.com/opentok/opentok-web-samples/tree/master/Basic-Video-Zoom)) -- This sample shows you how to use a video transformer to zoom and center a publisher.
-
-* Electron-Basic-Screen-Sharing ([source](https://github.com/opentok/opentok-web-samples/tree/main/Electron-Basic-Screen-Sharing)) -- This sample shows you how to connect to an OpenTok session, publish a screen-share stream, and subscribe to a stream in an [Electron](https://electronjs.org/) application.
-
-* Electron-Basic-Video-Chat ([source](https://github.com/opentok/opentok-web-samples/tree/main/Electron-Basic-Video-Chat)) -- This sample shows you how to connect to an OpenTok session, publish a stream, and subscribe to a stream in an [Electron](https://electronjs.org/) application.
 
 * Publish-Canvas ([source](https://github.com/opentok/opentok-web-samples/tree/main/Publish-Canvas)) -- In this sample application we show you how to publish a custom stream from a Canvas tag.
 
