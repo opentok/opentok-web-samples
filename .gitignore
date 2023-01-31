@@ -6,3 +6,4 @@ errorShots/
 geckodriver
 selenium-server-standalone-*.jar
 imgur.sh
+.idea/
