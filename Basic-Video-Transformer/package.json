@@ -16,6 +16,6 @@
   }],
   "license": "ISC",
   "dependencies": {
-    "@vonage/ml-transformers": "^3.2.0"
+    "@vonage/ml-transformers": "^4.3.4"
   }
 }
