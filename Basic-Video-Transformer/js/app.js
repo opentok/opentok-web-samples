@@ -7,7 +7,7 @@ let apiKey;
 let sessionId;
 let token;
 
-const transformStream = async (publisher) => {
+const transformStream = (publisher) => {
   const mediaProcessor = new WorkerMediaProcessor();
   const mediaProcessorConnector = new MediaProcessorConnector(mediaProcessor);
 
@@ -22,13 +22,13 @@ const transformStream = async (publisher) => {
   }
 };
 
-const handleError = async (error) => {
+const handleError = (error) => {
   if (error) {
     console.error(error);
   }
 };
 
-const initializeSession = async () => {
+const initializeSession = () => {
   const session = OT.initSession(apiKey, sessionId);
 
   // Subscribe to a newly created stream
@@ -38,12 +38,7 @@ const initializeSession = async () => {
       width: '100%',
       height: '100%'
     };
-    session.subscribe(
-      event.stream,
-      'subscriber',
-      subscriberOptions,
-      handleError
-    );
+    session.subscribe(event.stream, 'subscriber', subscriberOptions, handleError);
   });
 
   // initialize the publisher
@@ -52,20 +47,12 @@ const initializeSession = async () => {
     width: '100%',
     height: '100%'
   };
-  const publisher = await OT.initPublisher(
-    'publisher',
-    publisherOptions,
-    (error) => {
-      if (error) {
-        console.warn(error);
-      }
-    }
-  );
+  const publisher = OT.initPublisher('publisher', publisherOptions, handleError);
 
   // Connect to the session
-  session.connect(token, async (error) => {
+  session.connect(token, (error) => {
     if (error) {
-      await handleError(error);
+      handleError(error);
     } else {
       // If the connection is successful, publish the publisher to the session
       // and transform stream
@@ -81,21 +68,17 @@ if (API_KEY && TOKEN && SESSION_ID) {
   token = TOKEN;
   initializeSession();
 } else if (SAMPLE_SERVER_BASE_URL) {
-  // Make an Ajax request to get the OpenTok API key, session ID, and token from the server
+  // Make a GET request to get the OpenTok API key, session ID, and token from the server
   fetch(SAMPLE_SERVER_BASE_URL + '/session')
-    .then(function fetch(res) {
-      return res.json();
-    })
-    .then(function fetchJson(json) {
-      apiKey = json.apiKey;
-      sessionId = json.sessionId;
-      token = json.token;
-    })
-    .then(() => {
-      initializeSession();
-    })
-    .catch(function catchErr(error) {
-      handleError(error);
-      alert('Failed to get opentok sessionId and token. Make sure you have updated the config.js file.');
-    });
+  .then((response) => response.json())
+  .then((json) => {
+    apiKey = json.apiKey;
+    sessionId = json.sessionId;
+    token = json.token;
+    // Initialize an OpenTok Session object
+    initializeSession();
+  }).catch((error) => {
+    handleError(error);
+    alert('Failed to get opentok sessionId and token. Make sure you have updated the config.js file.');
+  });
 }
