@@ -28,42 +28,40 @@ the app does not work on a file: URL. (On macOS, you can serve the app by runnin
 
 After connecting to the session, and publishing the audio-video stream, transform the video stream.
 ```javascript
-  const transformStream = async (publisher) => {
+const transformStream = (publisher) => {
     if (OT.hasMediaProcessorSupport()) {
-      const mediaProcessor = new WorkerMediaProcessor();
-      const mediaProcessorConnector = new MediaProcessorConnector(
-        mediaProcessor
-      );
-
-      publisher
+        const mediaProcessor = new WorkerMediaProcessor();
+        const mediaProcessorConnector = new MediaProcessorConnector( mediaProcessor );
+    
+        publisher
         .setVideoMediaProcessorConnector(mediaProcessorConnector)
         .catch((e) => {
           throw e;
         });
     }
-  }
+}
 ```
 
 Send video image to mediaPipeHelper periodically to get the detected face dimension.
 ```javascript
-   if (timestamp - this.faceDetectionlastTimestamp >= FACE_DETECTION_TIME_GAP){
-      this.faceDetectionlastTimestamp = timestamp;
-      postMessage(image)
-    }
+if (timestamp - this.faceDetectionlastTimestamp >= FACE_DETECTION_TIME_GAP){
+    this.faceDetectionlastTimestamp = timestamp;
+    postMessage(image)
+}
 ```
 
 Resize videoFrame with the face dimension result reported by the mediaPipeHelper .
 ```javascript
-      const resizeFrame = new VideoFrame(image, {
-        visibleRect: {
-            x: this.visibleRectDimensionState.visibleRectX,
-            y: this.visibleRectDimensionState.visibleRectY,
-            width: this.visibleRectDimensionState.visibleRectWidth,
-            height: this.visibleRectDimensionState.visibleRectHeight
-        },
-        timestamp,
-        alpha: 'discard'
-      })
-      controller.enqueue(resizeFrame)
+const resizeFrame = new VideoFrame(image, {
+    visibleRect: {
+        x: this.visibleRectDimensionState.visibleRectX,
+        y: this.visibleRectDimensionState.visibleRectY,
+        width: this.visibleRectDimensionState.visibleRectWidth,
+        height: this.visibleRectDimensionState.visibleRectHeight
+    },
+    timestamp,
+    alpha: 'discard'
+})
+controller.enqueue(resizeFrame)
 ```
 
