@@ -12,7 +12,7 @@
   "author": "Iu Jie",
   "license": "ISC",
   "dependencies": {
-    "@opentok/client": "^2.23.7",
-    "@vonage/ml-transformers": "^3.2.0"
+    "@opentok/client": "^2.24.6",
+    "@vonage/ml-transformers": "^4.3.4"
   }
 }
