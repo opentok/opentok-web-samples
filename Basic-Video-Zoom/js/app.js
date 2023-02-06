@@ -40,7 +40,7 @@ const initializeSession = () => {
   });
 
   session.on('streamPropertyChanged', (e) => {
-    if (!e.changedProperty === 'videoDimensions') return;
+    if (e.changedProperty !== 'videoDimensions') return;
     if (e.stream.connection.id === session.connection.id) {
       // change publisher container size
       const publisher = publisherContainer.getElementsByClassName('OT_publisher')[0];
