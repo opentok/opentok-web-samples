@@ -70,7 +70,9 @@ session.on('signal:msg', (event) => {
 This method checks to see if the signal was sent by the local web client or by the other client
 connected to the session:
 
-    event.from.connectionId === session.connection.connectionId ? 'mine' : 'theirs';
+```javascript
+event.from.connectionId === session.connection.connectionId ? 'mine' : 'theirs';
+```
 
 The Session object represents your OpenTok session. It has a `connection` property, which has a
 `connectionId` property. The event object represents the event associated with this signal. It has
