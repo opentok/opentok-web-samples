@@ -34,7 +34,6 @@ form button {
 }
 
 #publisher {
-  margin: 10px;
+  margin: 10px auto;
   padding: 0px;
-  left: calc(250px - 192px);
 }
