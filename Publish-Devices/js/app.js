@@ -62,7 +62,7 @@
     audioSelector.disabled = false;
 
     // When the audio selector changes we update the audio source
-    audioSelector.addEventListener('change', () => {
+    audioSelector.addEventListener('change', (event) => {
       audioSelector.disabled = true;
       publisher.setAudioSource(event.target.value).then(() => {
         audioSelector.disabled = false;
@@ -99,7 +99,7 @@
       }
 
       // 1.5 scaling to map the -30 - 0 dBm range to [0,1]
-      var logLevel = (Math.log(movingAvg) / Math.LN10) / 1.5 + 1;
+      let logLevel = (Math.log(movingAvg) / Math.LN10) / 1.5 + 1;
       logLevel = Math.min(Math.max(logLevel, 0), 1);
       meter.value = logLevel;
     });
