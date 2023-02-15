@@ -32,23 +32,24 @@ dispatched by the session object.
 In our application, when the user enters text in the input text field, the following code is
 executed:
 
-    form.addEventListener('submit', function(event) {
-      event.preventDefault();
+```javascript
+form.addEventListener('submit', (event) => {
+    event.preventDefault();
 
-      session.signal({
-          type: 'msg',
-          data: msgTxt.value
-        }, function(error) {
-          if (error) {
-            console.log('Error sending signal:', error.name, error.message);
-          } else {
+    session.signal({
+        type: 'msg',
+        data: msgTxt.value
+    }, (error) => {
+        if (error) {
+            handleError(error);
+        } else {
             msgTxt.value = '';
-          }
-        });
-      });
+        }
     });
+});
+```
 
-This method calls the `signal()` method of the Session object, which sends a signal to all clients
+This calls the `signal()` method of the Session object, which sends a signal to all clients
 connected to the OpenTok session. Each signal is defined by a `type` property identifying the type
 of message (in this case `"msg"`) and a `data` property containing the message. The text entered is
 sent in the data property of the signal method.
@@ -56,18 +57,22 @@ sent in the data property of the signal method.
 When another client connected to the session (in this app, there is only one) sends a message, the
 session's `signal` event handler is invoked:
 
-    session.on('signal:msg', function(event) {
-      var msg = document.createElement('p');
-      msg.innerText = event.data;
-      msg.className = event.from.connectionId === session.connection.connectionId ? 'mine' : 'theirs';
-      msgHistory.appendChild(msg);
-      msg.scrollIntoView();
-    });
+```javascript
+session.on('signal:msg', (event) => {
+    const msg = document.createElement('p');
+    msg.textContent = event.data;
+    msg.className = event.from.connectionId === session.connection.connectionId ? 'mine' : 'theirs';
+    msgHistory.appendChild(msg);
+    msg.scrollIntoView();
+});
+```
 
 This method checks to see if the signal was sent by the local web client or by the other client
 connected to the session:
 
-    event.from.connectionId === session.connection.connectionId ? 'mine' : 'theirs';
+```javascript
+event.from.connectionId === session.connection.connectionId ? 'mine' : 'theirs';
+```
 
 The Session object represents your OpenTok session. It has a `connection` property, which has a
 `connectionId` property. The event object represents the event associated with this signal. It has
