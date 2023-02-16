@@ -35,6 +35,10 @@ body, html {
     left: 380px;
     z-index: 100;
 }
+#publishButton, #unpublishButton, #panControls {
+    display: none;
+}
+
 #error {
   position: absolute;
   top: 10px;
