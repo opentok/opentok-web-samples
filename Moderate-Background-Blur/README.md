@@ -1,4 +1,4 @@
-OpenTok.js Basic Background Blur
+OpenTok.js Moderate Background Blur
 =======================
 
 This sample application shows how to add background blur with the Vonage
