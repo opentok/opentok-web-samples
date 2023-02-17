@@ -2,7 +2,7 @@ OpenTok.js Basic Audio Transformer
 =======================
 
 This sample application shows how to use a basic transformer with the Vonage
-video APIs. It is very similar to the [Basic Video Chat](../Basic%20Video%20Chat/) example but it adds [transformer.js](./js/transformer.js), [worker-media-processor.js](./js/worker-media-processor.js), and [worker.js](./js/worker.js) files which create an audio transformer, a web worker, and a separate thread for the web worker publishing a transformed audio stream that publishes the audio below the cutoff value of 100Hz. 
+Video APIs. It is very similar to the [Basic Video Chat](../Basic%20Video%20Chat/) example but it adds [transformer.js](./js/transformer.js), [worker-media-processor.js](./js/worker-media-processor.js), and [worker.js](./js/worker.js) files which create an audio transformer, a web worker, and a separate thread for the web worker publishing a transformed audio stream that publishes the audio below the cutoff value of 100Hz. 
 
 ## Demo
 

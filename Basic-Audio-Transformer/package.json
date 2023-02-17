@@ -1,5 +1,5 @@
 {
-  "name": "basic-transformer",
+  "name": "basic-audio-transformer",
   "version": "1.0.0",
   "description": "This sample application shows how to use a basic audio transformer",
   "main": "index.js",
@@ -12,6 +12,6 @@
   "author": "Misha Behei, Christian Pettet",
   "license": "ISC",
   "dependencies": {
-    "@vonage/ml-transformers": "^3.2.0"
+    "@vonage/ml-transformers": "^4.3.6"
   }
 }
