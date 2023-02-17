@@ -56,7 +56,7 @@ const initializeSession = () => {
   const publisher = OT.initPublisher('publisher', publisherOptions, handleError);
 
   // Connect to the session
-  session.connect(token, async (error) => {
+  session.connect(token, (error) => {
     if (error) {
       handleError(error);
     } else {
