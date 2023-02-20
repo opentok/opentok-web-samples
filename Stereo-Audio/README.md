@@ -13,11 +13,14 @@ You can see a demo of this sample running at [opentok.github.io/opentok-web-samp
 
 ## Running the App
 
-## Running the App
+*Important:* Read the following sections of the main README file for the repository to set up
+and test the application:
 
-Follow the instructions at [Basic Video Chat](../Basic%20Video%20Chat/)
+* [Setting up the test web service](../README.md#setting-up-the-test-web-service)
+* [Configuring the application](../README.md#configuring-the-application)
+* [Testing the application](../README.md#testing-the-application)
 
-Open the sample in two tabs or windows and click `Publish` from one of them.
+Open the sample in two tabs or windows and click the `Publish` button in one of them.
 
 Use the slider to pan the music between left and right stereo channels.
 
