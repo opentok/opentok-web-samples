@@ -4,7 +4,6 @@ let apiKey;
 let sessionId;
 let token;
 let archive;
-let archiveID;
 
 const archiveStartBtn = document.querySelector('#start');
 const archiveStopBtn = document.querySelector('#stop');
