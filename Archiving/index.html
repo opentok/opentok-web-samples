@@ -4,22 +4,19 @@
 <head>
     <title> OpenTok Archiving Sample </title>
     <link href="css/app.css" rel="stylesheet" type="text/css">
-
     <script src="https://static.opentok.com/v2/js/opentok.min.js"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 </head>
 
 <body>
-
     <div id="videos">
         <div id="subscriber"></div>
         <div id="publisher"></div>
     </div>
-    <div id="buttonholder">
+    <div id="buttonHolder">
        <div id="buttons">
-            <button type="button" id="start" onClick="javascript:startArchive()" class="btn btn-danger">Start Archive</button>
-            <button type="button" id="stop" onClick="javascript:stopArchive()" class="btn btn-danger">Stop Archive</button>
-            <button type="button" id="view" onClick="javascript:viewArchive()" class="btn btn-danger" disabled>View Archive</button>
+           <button type="button" id="start">Start Archive</button>
+           <button type="button" id="stop">Stop Archive</button>
+           <span id="archiveLink"></span>
        </div>
     </div>
     <!-- Credit to Tim Holman for the Github corners http://tholman.com/github-corners/ -->

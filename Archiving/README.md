@@ -31,47 +31,67 @@ and test the application:
   Azure or Amazon S3 enabled, since archives stored on the OpenTok cloud are only available
   for 72 hours.
 
-For this application, click the Start Archive button (in the bottom-lefthand corner of the page)
+For this application, click the Start Archive button (in the bottom-left hand corner of the page)
 to start recording the OpenTok session. Then click the Stop Archive button to stop recording the
-session. Then click the View Archive to view the archive.
+session. Clicking View Archive will open a link in a new Window/Tab to view the archive.
 
 ## Recording the session to an archive
 
-The OpenTok archiving API lets you record a session's audio-video streams to MP4 files. You use
+The OpenTok Archiving API lets you record a session's audio-video streams to MP4 files. You use
 server-side code to start and stop archive recordings. In the `config.js` file, you set the
 `SAMPLE_SERVER_BASE_URL` variable to the base URL of the web service the app calls to start archive
 recording, stop recording, and play back the recorded video.
 
 To start recording the video stream, the user clicks the Start Archive button which invokes the
-`startArchive()` method in app.js. This method in turn sends an XHR (or Ajax) request to server.
+`startArchiving()` method in app.js. This method in turn sends a POST request to server.
 The session ID of the session that needs to be recorded is passed as a URL parameter to the server.
-As soon as the `startArchive()` method is called, the Start Recording button is hidden and the Stop
-Recording button is displayed.
+Once the `'archiveStarted'` event is fired, the Start Archive button is hidden and the Stop Archive button is displayed.
 
-    function startArchive() {
-      $.post(SAMPLE_SERVER_BASE_URL + '/archive/start', {'sessionId': sessionId}, null, 'json');
-      $('#start').hide();
-      $('#stop').show();
+```javascript
+async function startArchiving(){
+  console.log('start archiving');
+  try {
+    archive = await postData(SAMPLE_SERVER_BASE_URL +'/archive/start',{sessionId});
+    console.log('archive started: ', archive);
+    if (archive.status !== 'started'){
+      handleError(archive.error);
+    } else {
+      console.log('successfully started archiving: ',archive);
     }
+  }
+  catch(error){
+    handleError(error);
+  }
+}
+```
 
-To stop the recording, the user clicks the Stop Archive button, which invokes the `stopArchive()`
-method. This method is similar to the `startArchive()` method in that it sends an Ajax request to
+To stop the recording, the user clicks the Stop Archive button, which invokes the `stopArchiving()`
+method. This method is similar to the `startArchiving()` method in that it sends a POST request to
 the server to stop the archive. The only difference is that this method passes the archive ID of
-the archive that needs to be stopped as a URL parameter instead of the sessionId. The Stop
-Recording button is hidden and the View Archive button is enabled.
+the archive that needs to be stopped as a URL parameter instead of the sessionId. When the `archiveStopped` event is fired, 
+the Stop Archive button is hidden while the Start Archive button and View Archive link are shown.
 
-    function stopArchive() {
-      $.post(SAMPLE_SERVER_BASE_URL + '/archive/' + archiveID + '/stop');
-      $('#stop').hide();
-      $('#view').prop('disabled', false);
-      $('#stop').show();
+```javascript
+async function stopArchiving(){
+  console.log('stop archiving');
+  try {
+    archive = await postData(`${SAMPLE_SERVER_BASE_URL}/archive/${archive.id}/stop`,{});
+    console.log('archive stopped: ', archive);
+    if (archive.status !== 'stopped'){
+      handleError(archive.error);
+    } else {
+      console.log('successfully stopped archiving: ',archive);
     }
+  }
+  catch(error){
+    handleError(error);
+  }
+}
+```
 
-To view the archive that has just been recorded, the user clicks View Archive button which
-invokes the `viewArchive()` method. This method is similar to the `startArchive()` and
-`stopArchive()` methods in that it sends an Ajax request to the server. The server code has the
-logic to check if the archive is available or not. If it is available, the application
-is redirected to the archive page. If not, a new page is loaded which continuously checks whether
+To view the archive that has just been recorded, the user clicks View Archive link which
+opens in a new Window/Tab. The server code has the logic to check if the archive is available or not. If it is available,
+the application is redirected to the archive page. If not, a new page is loaded which continuously checks whether
 the archive is available or not, and it displays the archive when it is available.
 
 *Notes:*
