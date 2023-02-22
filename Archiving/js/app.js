@@ -7,7 +7,7 @@ let archive;
 
 const archiveStartBtn = document.querySelector('#start');
 const archiveStopBtn = document.querySelector('#stop');
-const archiveLinkDiv = document.querySelector('#archiveLink');
+const archiveLinkSpan = document.querySelector('#archiveLink');
 
 archiveStopBtn.style.display = "none";
 
@@ -35,7 +35,7 @@ function initializeSession() {
     console.log('Archive started ' + archive.id);
     archiveStartBtn.style.display = 'none';
     archiveStopBtn.style.display = 'inline';
-    archiveLinkDiv.innerHTML = '';
+    archiveLinkSpan.innerHTML = '';
   });
 
   session.on('archiveStopped', (event) => {
@@ -43,7 +43,7 @@ function initializeSession() {
     console.log('Archive stopped ' + archive.id);
     archiveStartBtn.style.display = 'inline';
     archiveStopBtn.style.display = 'none';
-    archiveLinkDiv.innerHTML = `<a href="${SAMPLE_SERVER_BASE_URL}/archive/${archive.id}/view" target="_blank">View Archive</a>`;
+    archiveLinkSpan.innerHTML = `<a href="${SAMPLE_SERVER_BASE_URL}/archive/${archive.id}/view" target="_blank">View Archive</a>`;
   });
 
   session.on('sessionDisconnected', (event) => {
