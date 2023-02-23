@@ -1,128 +1,141 @@
-/* global $ OT SAMPLE_SERVER_BASE_URL */
+/* global OT SAMPLE_SERVER_BASE_URL */
 
-var apiKey;
-var sessionId;
-var token;
-var archiveID;
+let apiKey;
+let sessionId;
+let token;
+let archive;
 
-$(document).ready(function ready() {
-  $('#stop').hide();
-  archiveID = null;
+const archiveStartBtn = document.querySelector('#start');
+const archiveStopBtn = document.querySelector('#stop');
+const archiveLinkSpan = document.querySelector('#archiveLink');
 
-  // Make an Ajax request to get the OpenTok API key, session ID, and token from the server
-  $.get(SAMPLE_SERVER_BASE_URL + '/session', function get(res) {
-    apiKey = res.apiKey;
-    sessionId = res.sessionId;
-    token = res.token;
+archiveStopBtn.style.display = "none";
 
-    initializeSession();
-  });
-});
+function handleError(error) {
+  if (error) {
+    console.error(error);
+  }
+}
 
 function initializeSession() {
-  var session = OT.initSession(apiKey, sessionId);
+  const session = OT.initSession(apiKey, sessionId);
 
   // Subscribe to a newly created stream
-  session.on('streamCreated', function streamCreated(event) {
-    var subscriberOptions = {
+  session.on('streamCreated', (event) => {
+    const subscriberOptions = {
       insertMode: 'append',
       width: '100%',
       height: '100%'
     };
-    session.subscribe(event.stream, 'subscriber', subscriberOptions, function callback(error) {
-      if (error) {
-        console.log('There was an error publishing: ', error.name, error.message);
-      }
-    });
+    session.subscribe(event.stream, 'subscriber', subscriberOptions, handleError);
   });
 
-  session.on('archiveStarted', function archiveStarted(event) {
-    archiveID = event.id;
-    console.log('Archive started ' + archiveID);
-    $('#stop').show();
-    $('#start').hide();
+  session.on('archiveStarted', (event) => {
+    archive = event;
+    console.log('Archive started ' + archive.id);
+    archiveStartBtn.style.display = 'none';
+    archiveStopBtn.style.display = 'inline';
+    archiveLinkSpan.innerHTML = '';
   });
 
-  session.on('archiveStopped', function archiveStopped(event) {
-    archiveID = event.id;
-    console.log('Archive stopped ' + archiveID);
-    $('#start').hide();
-    $('#stop').hide();
-    $('#view').show();
+  session.on('archiveStopped', (event) => {
+    archive = event;
+    console.log('Archive stopped ' + archive.id);
+    archiveStartBtn.style.display = 'inline';
+    archiveStopBtn.style.display = 'none';
+    archiveLinkSpan.innerHTML = `<a href="${SAMPLE_SERVER_BASE_URL}/archive/${archive.id}/view" target="_blank">View Archive</a>`;
   });
 
-  session.on('sessionDisconnected', function sessionDisconnected(event) {
+  session.on('sessionDisconnected', (event) => {
     console.log('You were disconnected from the session.', event.reason);
   });
 
+  // initialize the publisher
+  const publisherOptions = {
+    insertMode: 'append',
+    width: '100%',
+    height: '100%'
+  };
+  const publisher = OT.initPublisher('publisher', publisherOptions, handleError);
+
   // Connect to the session
-  session.connect(token, function connectCallback(error) {
-    // If the connection is successful, initialize a publisher and publish to the session
-    if (!error) {
-      var publisherOptions = {
-        insertMode: 'append',
-        width: '100%',
-        height: '100%'
-      };
-      var publisher = OT.initPublisher('publisher', publisherOptions, function initCallback(err) {
-        if (err) {
-          console.log('There was an error initializing the publisher: ', err.name, err.message);
-          return;
-        }
-        session.publish(publisher, function publishCallback(pubErr) {
-          if (pubErr) {
-            console.log('There was an error publishing: ', pubErr.name, pubErr.message);
-          }
-        });
-      });
+  session.connect(token, (error) => {
+    if (error) {
+      handleError(error);
     } else {
-      console.log('There was an error connecting to the session: ', error.name, error.message);
+      // If the connection is successful, publish the publisher to the session
+      session.publish(publisher, handleError);
     }
   });
 }
 
-// Start recording
-function startArchive() { // eslint-disable-line no-unused-vars
-  $.ajax({
-    url: SAMPLE_SERVER_BASE_URL + '/archive/start',
-    type: 'POST',
-    contentType: 'application/json', // send as JSON
-    data: JSON.stringify({'sessionId': sessionId}),
-
-    complete: function complete() {
-      // called when complete
-      console.log('startArchive() complete');
-    },
-
-    success: function success() {
-      // called when successful
-      console.log('successfully called startArchive()');
-    },
-
-    error: function error() {
-      // called when there is an error
-      console.log('error calling startArchive()');
+async function postData(url='', data={}){
+  try {
+    const response = await fetch(url, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(data)
+    });
+    if (!response.ok){
+      throw new Error('error getting data!');
     }
+    return response.json();
+  }
+  catch (error){
+    handleError(error);
+  }
+}
+
+async function startArchiving(){
+  console.log('start archiving');
+  try {
+    archive = await postData(SAMPLE_SERVER_BASE_URL +'/archive/start',{sessionId});
+    console.log('archive started: ', archive);
+    if (archive.status !== 'started'){
+      handleError(archive.error);
+    } else {
+      console.log('successfully started archiving: ',archive);
+    }
+  }
+  catch(error){
+    handleError(error);
+  }
+}
+
+async function stopArchiving(){
+  console.log('stop archiving');
+  try {
+    archive = await postData(`${SAMPLE_SERVER_BASE_URL}/archive/${archive.id}/stop`,{});
+    console.log('archive stopped: ', archive);
+    if (archive.status !== 'stopped'){
+      handleError(archive.error);
+    } else {
+      console.log('successfully stopped archiving: ',archive);
+    }
+  }
+  catch(error){
+    handleError(error);
+  }
+}
+
+archiveStartBtn.addEventListener('click', startArchiving, false);
+archiveStopBtn.addEventListener('click', stopArchiving, false);
+
+// See the config.js file.
+if (SAMPLE_SERVER_BASE_URL) {
+  // Make a GET request to get the OpenTok API key, session ID, and token from the server
+  fetch(SAMPLE_SERVER_BASE_URL + '/session')
+  .then((response) => response.json())
+  .then((json) => {
+    apiKey = json.apiKey;
+    sessionId = json.sessionId;
+    token = json.token;
+    // Initialize an OpenTok Session object
+    initializeSession();
+  }).catch((error) => {
+    handleError(error);
+    alert('Failed to get opentok sessionId and token. Make sure you have updated the config.js file.');
   });
-
-  $('#start').hide();
-  $('#stop').show();
 }
-
-// Stop recording
-function stopArchive() { // eslint-disable-line no-unused-vars
-  $.post(SAMPLE_SERVER_BASE_URL + '/archive/' + archiveID + '/stop');
-  $('#stop').hide();
-  $('#view').prop('disabled', false);
-  $('#stop').show();
-}
-
-// Get the archive status. If it is  "available", download it. Otherwise, keep checking
-// every 5 secs until it is "available"
-function viewArchive() { // eslint-disable-line no-unused-vars
-  $('#view').prop('disabled', true);
-  window.location = SAMPLE_SERVER_BASE_URL + /archive/ + archiveID + '/view';
-}
-
-$('#start').show();
-$('#view').hide();
