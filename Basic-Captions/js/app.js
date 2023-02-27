@@ -26,7 +26,7 @@ function initializeSession() {
 
   // Subscribe to a newly created stream
   session.on('streamCreated', async function streamCreated(event) {
-    var subscriberOptions = {
+    const subscriberOptions = {
       insertMode: 'append',
       width: '100%',
       height: '100%'
