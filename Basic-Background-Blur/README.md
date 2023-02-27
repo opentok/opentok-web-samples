@@ -2,7 +2,8 @@ OpenTok.js Basic Background Blur
 =======================
 
 This sample application shows how to add background blur with the Vonage
-video APIs. It is very similar to the [Basic Video Chat](../Basic%20Video%20Chat/) example but it adds a background blur to the publisher. See [Vonage ML Transformers](https://vonage.github.io/ml-transformers-docs/) library for more information.
+Video APIs. It is very similar to the [Basic Video Chat](../Basic%20Video%20Chat/) example, but it adds a background blur to the publisher in browsers that support media processors. 
+See the [OpenTok documentation](https://tokbox.com/developer/sdks/js/reference/OT.html#hasMediaProcessorSupport) and this [blog post](https://developer.vonage.com/en/blog/blurring-for-clarity-avoid-awkward-conversations-about-your-home) for more information.
 
 ## Demo
 
@@ -21,9 +22,14 @@ and test the application:
 
 ## Blurring the Video Stream
 
-After connecting to the session, and publishing the audio-video stream, adds background blur.
+When initializing the publisher, set the `videoFilter` object of the publisher's options only if media processors are supported.
 ```javascript
-session.publish(publisher, () => transformStream(publisher));
+if (OT.hasMediaProcessorSupport()) {
+    publisherOptions.videoFilter = {
+        type: 'backgroundBlur',
+        blurStrength: 'high'
+    };
+}
 ```
 
 ## Known Limitations
