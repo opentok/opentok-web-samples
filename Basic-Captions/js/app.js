@@ -54,7 +54,7 @@ function initializeSession() {
   session.connect(token, function connectCallback(error) {
     // If the connection is successful, initialize a publisher and publish to the session
     if (!error) {
-      var publisherOptions = {
+      const publisherOptions = {
         insertMode: 'append',
         width: '100%',
         height: '100%',
