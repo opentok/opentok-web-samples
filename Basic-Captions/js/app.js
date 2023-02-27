@@ -1,11 +1,11 @@
 /* global $ OT SAMPLE_SERVER_BASE_URL */
 
-var apiKey;
-var sessionId;
-var token;
-var captionsId;
-var publisher;
-var subscriber;
+let apiKey;
+let sessionId;
+let token;
+let captionsId;
+let publisher;
+let subscriber;
 
 $(document).ready(function ready() {
   $('#stop').hide();

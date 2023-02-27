@@ -4,7 +4,7 @@ OpenTok.js Basic Captions
 This sample application shows how to connect to an OpenTok session, publish a stream,
 subscribe to a stream, and publish captions to a session.
 
-> **Note** The demo requires a backend that is running an is able to handle OpenTok captions.
+> **Note** The demo requires a backend that is running and is able to handle OpenTok captions.
 
 ## Demo
 
