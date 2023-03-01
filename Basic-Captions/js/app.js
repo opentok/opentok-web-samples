@@ -3,14 +3,14 @@
 let apiKey;
 let sessionId;
 let token;
-let captionsId;
+let captionId;
 let publisher;
 let subscriber;
 
-$(document).ready(function ready() {
-  $('#stop').hide();
-  captionsId = null;
+// clears after a set amount of time
+let captionsRemovalTimer;
 
+$(document).ready(function ready() {
   // Make an Ajax request to get the OpenTok API key, session ID, and token from the server
   $.get(SAMPLE_SERVER_BASE_URL + '/session', function get(res) {
     apiKey = res.apiKey;
@@ -21,15 +21,45 @@ $(document).ready(function ready() {
   });
 });
 
-function initializeSession() {
-  const session = OT.initSession(apiKey, sessionId);
+function enableTranscription(session) {
+  const { sessionId, token } = session;
+  const url = `${SAMPLE_SERVER_BASE_URL}/captions/start`;
+
+  let captionRes;
+  try {
+    captionRes = $.post(url, {
+      sessionId,
+      token,
+    }).done(function response() {
+      captionId = captionRes.responseText;
+    });
+  } catch (e) {
+    console.warn(e);
+  }
+}
+
+async function disableTranscription() {
+  const url = `${SAMPLE_SERVER_BASE_URL}/captions/stop`;
+  try {
+    $.post(url, {
+      captionId,
+    });
+  } catch (e) {
+    console.warn(e);
+  }
+}
+
+
+async function initializeSession() {
+  let session = OT.initSession(apiKey, sessionId);
 
   // Subscribe to a newly created stream
   session.on('streamCreated', async function streamCreated(event) {
     const subscriberOptions = {
       insertMode: 'append',
       width: '100%',
-      height: '100%'
+      height: '100%',
+      testNetwork: true,
     };
     subscriber = session.subscribe(event.stream, 'subscriber', subscriberOptions, function callback(error) {
       if (error) {
@@ -39,11 +69,33 @@ function initializeSession() {
 
     // add captions to the subscriber object
     try {
-      if (!subscriber.isSubscribedToCaptions()) 
-        await subscriber.subscribeToCaptions(true);
+      await subscriber.subscribeToCaptions(true);
     } catch (err) {
       console.warn(err);
     }
+
+    subscriber.on('captionReceived', function(event){
+      const captionText = event.caption;
+      const subscriberContainer = OT.subscribers.find().element;
+      const [subscriberWidget] = subscriberContainer.getElementsByClassName('OT_widget-container');
+    
+      const oldCaptionBox = subscriberWidget.querySelector('.caption-box');
+      if (oldCaptionBox) oldCaptionBox.remove();
+    
+      const captionBox = document.createElement('div');
+      captionBox.classList.add('caption-box');
+      captionBox.textContent = captionText;
+    
+      // remove the captions after 5 seconds
+      const removalTimerDuration = 5 * 1000;
+      clearTimeout(captionsRemovalTimer);
+      captionsRemovalTimer = setTimeout(() => {
+        captionBox.textContent = '';
+      }, removalTimerDuration);
+    
+      subscriberWidget.appendChild(captionBox);
+    });
+    $('#stop').show();
   });
 
   session.on('sessionDisconnected', function sessionDisconnected(event) {
@@ -51,7 +103,7 @@ function initializeSession() {
   });
 
   // Connect to the session
-  session.connect(token, function connectCallback(error) {
+  session.connect(token, async function connectCallback(error) {
     // If the connection is successful, initialize a publisher and publish to the session
     if (!error) {
       const publisherOptions = {
@@ -71,51 +123,12 @@ function initializeSession() {
           }
         });
       });
+
+      enableTranscription(session);
     } else {
       console.log('There was an error connecting to the session: ', error.name, error.message);
     }
   });
-}
-
-async function startCaptions() {
-  publisher.publishCaptions(true);
-
-  try {
-    subscriber = OT.subscribers.find();
-    // only subscribe if not already doing so
-    if (subscriber && !subscriber.isSubscribedToCaptions()) {
-      await subscriber.subscribeToCaptions(true);
-    }
-
-    subscriber.on('captionReceived', function captionReceived(event) {
-      const captionText = event.caption;
-      const subscriberContainer = subscriberContainers[stream.streamId];
-      const [subscriberWidget] = subscriberContainer.getElementsByClassName('OT_widget-container');
-    
-      const oldCaptionBox = subscriberWidget.querySelector('.caption-box');
-      if (oldCaptionBox) oldCaptionBox.remove();
-    
-      const captionBox = document.createElement('div');
-      captionBox.classList.add('caption-box');
-      captionBox.textContent = captionText;
-    
-      // remove the captions after 5 seconds
-      const removalTimerDuration = 5 * 1000;
-      clearTimeout(captionsRemovalTimer);
-      captionsRemovalTimer = setTimeout(() => {
-        captionBox.textContent = '';
-      }, removalTimerDuration);
-    
-      subscriberWidget.appendChild(captionBox);
-
-      $('#start').hide();
-      $('#stop').show();
-    });
-
-  } catch (err) {
-    alert('need a subscriber to start captions');
-    console.warn(err);
-  }
 }
 
 async function stopCaptions() {
@@ -129,13 +142,7 @@ async function stopCaptions() {
   } catch (err) {
     console.warn(err);
   }
-
-  $('#stop').hide();
-  $('#start').show();
 }
-
-$('#start').show();
-$('#stop').hide();
 
 
 
