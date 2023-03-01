@@ -131,18 +131,5 @@ async function initializeSession() {
   });
 }
 
-async function stopCaptions() {
-  publisher.publishCaptions(false);
-
-  try {
-    subscriber = OT.subscribers.find();
-    // only stop captions if already subscribed
-    if (subscriber && subscriber.isSubscribedToCaptions())
-      await subscriber.subscribeToCaptions(false);
-  } catch (err) {
-    console.warn(err);
-  }
-}
-
 
 
