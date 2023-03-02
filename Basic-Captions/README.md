@@ -4,7 +4,7 @@ OpenTok.js Basic Captions
 This sample application shows how to connect to an OpenTok session, publish a stream,
 subscribe to a stream, and publish captions to a session.
 
-> **Note** The demo requires a backend that is running and is able to handle OpenTok captions.
+> **Note** The demo requires a server that is running and is able to handle OpenTok captions. This server should also be able to generate sessions and tokens. 
 
 ## Demo
 
@@ -50,24 +50,14 @@ Upon starting up, the application executes the following code in the app.js file
 
 ```javascript
 // See the config.js file.
-if (API_KEY && TOKEN && SESSION_ID) {
-  apiKey = API_KEY;
-  sessionId = SESSION_ID;
-  token = TOKEN;
-  initializeSession();
-} else if (SAMPLE_SERVER_BASE_URL) {
-  // Make a GET request to get the OpenTok API key, session ID, and token from the server
-  fetch(SAMPLE_SERVER_BASE_URL + '/session')
-  .then((response) => response.json())
-  .then((json) => {
-    apiKey = json.apiKey;
-    sessionId = json.sessionId;
-    token = json.token;
-    // Initialize an OpenTok Session object
+$(document).ready(function ready() {
+  // Make an Ajax request to get the OpenTok API key, session ID, and token from the server
+  $.get(SAMPLE_SERVER_BASE_URL + '/session', function get(res) {
+    apiKey = res.apiKey;
+    sessionId = res.sessionId;
+    token = res.token;
+
     initializeSession();
-  }).catch((error) => {
-    handleError(error);
-    alert('Failed to get opentok sessionId and token. Make sure you have updated the config.js file.');
   });
-}
+});
 ```

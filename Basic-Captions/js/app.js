@@ -130,6 +130,3 @@ async function initializeSession() {
     }
   });
 }
-
-
-

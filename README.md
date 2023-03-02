@@ -11,6 +11,8 @@ The code for this sample is found the following subdirectories:
 
 * Basic-Audio-Transformer ([source](https://github.com/opentok/opentok-web-samples/tree/main/Basic-Audio-Transformer)) -- This sample application shows how to use a basic audio transformer with the Vonage Video APIs. It is very similar to the Basic Video Chat example but it adds a low-pass filter to the published audio.
 
+* Basic-Captions ([source](https://github.com/opentok/opentok-web-samples/tree/main/Basic-Captions)) -- This sample application shows how to use captions transcribing with the Vonage Video APIs. It is very similar to the Archiving example but it makes requests to start/stop captions instead of archives. 
+
 * Basic-Background-Blur ([source](https://github.com/opentok/opentok-web-samples/tree/main/Basic-Background-Blur)) -- This sample application shows how to add background blur with the Vonage Video APIs and Vonage ML Transformers library.
 
 * Basic-Video-Transformer ([source](https://github.com/opentok/opentok-web-samples/tree/main/Basic-Video-Transformer)) -- This sample application shows how to use a basic video transformer with the Vonage Video APIs. It is very similar to the Basic Video Chat example but it adds a threshold processor to the published video.
