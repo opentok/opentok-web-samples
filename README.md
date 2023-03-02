@@ -18,7 +18,7 @@ The code for this sample is found the following subdirectories:
 * Basic Video Chat ([source](https://github.com/opentok/opentok-web-samples/tree/main/Basic%20Video%20Chat)) -- This sample shows you how to connect to an OpenTok session, publish a stream, and
   subscribe to a stream.
 
-* Basic-Video-Zoom ([source](https://github.com/opentok/opentok-web-samples/tree/master/Basic-Video-Zoom)) -- This sample shows you how to use a video transformer to zoom and center a publisher.
+* Basic-Video-Zoom ([source](https://github.com/opentok/opentok-web-samples/tree/main/Basic-Video-Zoom)) -- This sample shows you how to use a video transformer to zoom and center a publisher.
 
 * Moderate-Background-Blur ([source](https://github.com/opentok/opentok-web-samples/tree/main/Moderate-Background-Blur)) -- This sample application shows how to add background blur with the Vonage Video APIs and Vonage ML Transformers library.
 
