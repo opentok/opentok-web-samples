@@ -91,9 +91,9 @@ setting up a web service.
 
         var SAMPLE_SERVER_BASE_URL = 'http://localhost:8080';
 
-   * If you deployed this to Heroku, set this to the following:
+   * If you deployed this online, set this to the following:
 
-        var SAMPLE_SERVER_BASE_URL = 'https://YOUR-HEROKU-APP-URL';
+        var SAMPLE_SERVER_BASE_URL = 'https://YOUR-SERVER-URL';
 
    ***Do not add the trailing slash of the URL.***
 
