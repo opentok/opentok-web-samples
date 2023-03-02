@@ -87,7 +87,7 @@ setting up a web service.
 2. After getting this web service running, edit the config.js file and set the value for
    `SAMPLE_SERVER_BASE_URL` to the URL for the web service:
 
-   * If you deployed a the test web service to a local PHP server, set this to the following:
+   * If you deployed the test web service to a local PHP server, set this to the following:
 
         var SAMPLE_SERVER_BASE_URL = 'http://localhost:8080';
 
