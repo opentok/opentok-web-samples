@@ -3,7 +3,6 @@
 let apiKey;
 let sessionId;
 let token;
-let captionId;
 let publisher;
 let subscriber;
 
@@ -32,7 +31,7 @@ async function enableTranscription(session) {
       sessionId,
       token,
     }).done(function response() {
-      captionId = captionRes.responseText;
+      console.log('captions started with ID' + captionRes.responseText);
     });
   } catch (e) {
     console.warn(e);
@@ -40,13 +39,10 @@ async function enableTranscription(session) {
 }
 
 async function disableTranscription() {
-  const url = `${SAMPLE_SERVER_BASE_URL}/captions/${captionId}/stop`;
+  const url = `${SAMPLE_SERVER_BASE_URL}/captions/stop`;
 
-  console.log(captionId);
   try {
-    $.post(url, {
-      captionId,
-    }).done(function response() {
+    $.post(url, {}).done(function response() {
       console.log('successfully stopped captions');
     });
   } catch (e) {
