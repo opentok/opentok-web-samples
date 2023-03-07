@@ -1,6 +1,6 @@
 /* global browser describe it beforeAll $ */
 
-var assert = require('assert');
+const assert = require('assert');
 
 describe('Publish Canvas Test', () => {
   beforeAll(() => {

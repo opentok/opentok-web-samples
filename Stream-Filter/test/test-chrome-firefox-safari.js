@@ -36,7 +36,7 @@ describe('Stream Filter Test', () => {
     });
 
     it('The subscriber should load if you open a new window', () => {
-      var subscriber = $('div.OT_subscriber:not(.OT_loading) .OT_video-element');
+      const subscriber = $('div.OT_subscriber:not(.OT_loading) .OT_video-element');
       subscriber.waitForExist(10000);
       browser.switchTab(firstTabId);
       const subscriber2 = $('div.OT_subscriber:not(.OT_loading) .OT_video-element');
