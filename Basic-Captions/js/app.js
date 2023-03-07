@@ -21,11 +21,12 @@ $(document).ready(function ready() {
   });
 });
 
-function enableTranscription(session) {
+async function enableTranscription(session) {
   const { sessionId, token } = session;
   const url = `${SAMPLE_SERVER_BASE_URL}/captions/start`;
 
   let captionRes;
+
   try {
     captionRes = $.post(url, {
       sessionId,
@@ -39,10 +40,14 @@ function enableTranscription(session) {
 }
 
 async function disableTranscription() {
-  const url = `${SAMPLE_SERVER_BASE_URL}/captions/stop`;
+  const url = `${SAMPLE_SERVER_BASE_URL}/captions/${captionId}/stop`;
+
+  console.log(captionId);
   try {
     $.post(url, {
       captionId,
+    }).done(function response() {
+      console.log('successfully stopped captions');
     });
   } catch (e) {
     console.warn(e);
