@@ -11,14 +11,14 @@ The code for this sample is found the following subdirectories:
 
 * Basic-Audio-Transformer ([source](https://github.com/opentok/opentok-web-samples/tree/main/Basic-Audio-Transformer)) -- This sample application shows how to use a basic audio transformer with the Vonage Video APIs. It is very similar to the Basic Video Chat example but it adds a low-pass filter to the published audio.
 
-* Basic-Background-Blur ([source](https://github.com/opentok/opentok-web-samples/tree/main/Basic-Background-Blur)) -- This sample application shows how to add background blur with the Vonage Video APIs and Vonage ML Transformers library.
+* Basic-Background-Blur ([source](https://github.com/opentok/opentok-web-samples/tree/main/Basic-Background-Blur)) -- This sample application shows how to add background blur with the Vonage Video APIs.
 
 * Basic-Video-Transformer ([source](https://github.com/opentok/opentok-web-samples/tree/main/Basic-Video-Transformer)) -- This sample application shows how to use a basic video transformer with the Vonage Video APIs. It is very similar to the Basic Video Chat example but it adds a threshold processor to the published video.
 
 * Basic Video Chat ([source](https://github.com/opentok/opentok-web-samples/tree/main/Basic%20Video%20Chat)) -- This sample shows you how to connect to an OpenTok session, publish a stream, and
   subscribe to a stream.
 
-* Basic-Video-Zoom ([source](https://github.com/opentok/opentok-web-samples/tree/master/Basic-Video-Zoom)) -- This sample shows you how to use a video transformer to zoom and center a publisher.
+* Basic-Video-Zoom ([source](https://github.com/opentok/opentok-web-samples/tree/main/Basic-Video-Zoom)) -- This sample shows you how to use a video transformer to zoom and center a publisher.
 
 * Moderate-Background-Blur ([source](https://github.com/opentok/opentok-web-samples/tree/main/Moderate-Background-Blur)) -- This sample application shows how to add background blur with the Vonage Video APIs and Vonage ML Transformers library.
 
@@ -87,13 +87,13 @@ setting up a web service.
 2. After getting this web service running, edit the config.js file and set the value for
    `SAMPLE_SERVER_BASE_URL` to the URL for the web service:
 
-   * If you deployed a the test web service to a local PHP server, set this to the following:
+   * If you deployed the test web service to a local PHP server, set this to the following:
 
         var SAMPLE_SERVER_BASE_URL = 'http://localhost:8080';
 
-   * If you deployed this to Heroku, set this to the following:
+   * If you deployed this online, set this to the following:
 
-        var SAMPLE_SERVER_BASE_URL = 'https://YOUR-HEROKU-APP-URL';
+        var SAMPLE_SERVER_BASE_URL = 'https://YOUR-SERVER-URL';
 
    ***Do not add the trailing slash of the URL.***
 
