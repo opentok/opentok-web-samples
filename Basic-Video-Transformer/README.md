@@ -6,7 +6,7 @@ Video APIs. It is very similar to the [Basic Video Chat](../Basic%20Video%20Chat
 
 ## Demo
 
-[![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/fork/github/opentok/opentok-web-samples/tree/main/Basic-Audio-Transformer)
+[![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/fork/github/opentok/opentok-web-samples/tree/main/Basic-Video-Transformer)
 
 Enter your credentials in `config.js` and the application will work.
 
