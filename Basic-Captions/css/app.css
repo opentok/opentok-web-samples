@@ -39,6 +39,11 @@ body, html {
 .caption-box {
     position: absolute;
     top: 90%;
-    width: 100%;
+    /*width: 100%;*/
+    max-width: 300px;
+    margin: auto;
     text-align: center;
+    background-color: black;
+    color: white;
+    font-weight: bold;
 }
