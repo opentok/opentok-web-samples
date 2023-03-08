@@ -7,11 +7,15 @@
     "test": "test"
   },
   "scripts": {
-    "test": "test"
+    "test": "test",
+    "start": "sirv --dev"
   },
   "author": "Misha Behei, Christian Pettet",
   "license": "ISC",
   "dependencies": {
     "@vonage/ml-transformers": "^4.3.6"
+  },
+  "devDependencies": {
+    "sirv-cli": "^2.0.2"
   }
 }

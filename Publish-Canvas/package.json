@@ -1,0 +1,8 @@
+{
+  "scripts": {
+    "start": "sirv --dev"
+  },
+  "devDependencies": {
+    "sirv-cli": "^2.0.2"
+  }
+}
