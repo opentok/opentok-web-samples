@@ -42,7 +42,8 @@ connect others in another session (another meeting room).
 issued a unique token when they connect to the session. Since the user publishes an audio-video
 stream to the session, the token generated must include the publish role (the default). For more
 information about tokens, see the OpenTok [Token creation
-overview](https://tokbox.com/opentok/tutorials/create-token/).
+overview](https://tokbox.com/opentok/tutorials/create-token/). Moderator token role is required for
+captions API to work. 
 
 **API key** -- The API key identifies your OpenTok developer account.
 

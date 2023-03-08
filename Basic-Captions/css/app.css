@@ -21,7 +21,7 @@ body, html {
     position: absolute;
     width: 360px;
     height: 240px;
-    bottom: 10px;
+    top: 10px;
     left: 10px;
     z-index: 100;
     border: 3px solid white;

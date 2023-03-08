@@ -3,6 +3,7 @@
 let apiKey;
 let sessionId;
 let token;
+let captionsId;
 let publisher;
 let subscriber;
 
@@ -81,7 +82,9 @@ async function initializeSession() {
       const [subscriberWidget] = subscriberContainer.getElementsByClassName('OT_widget-container');
     
       const oldCaptionBox = subscriberWidget.querySelector('.caption-box');
-      if (oldCaptionBox) oldCaptionBox.remove();
+      if (oldCaptionBox) {
+        oldCaptionBox.remove();
+      }
     
       const captionBox = document.createElement('div');
       captionBox.classList.add('caption-box');
