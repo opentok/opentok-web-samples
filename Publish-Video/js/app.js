@@ -42,7 +42,7 @@ function initializeSession() {
       width: 320,
       height: 240
     };
-    if (!publisher && videoTracks.length > 0 && audioTracks.length > 0) {
+    if (!publisher && videoTracks.length > 0 && audioTracks.length >= 0) {
       stream.removeEventListener('addtrack', publish);
       publisher = OT.initPublisher('publisher', publisherOptions, (err) => {
         if (err) {
