@@ -5,7 +5,9 @@ In this sample application we show you how to choose an initial microphone and c
 
 ## Demo
 
-You can see a demo of this app running at [opentok.github.io/opentok-web-samples/Publish-Devices](https://opentok.github.io/opentok-web-samples/Publish-Devices)
+[![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/fork/github/opentok/opentok-web-samples/tree/main/Publish-Devices)
+
+> Note: There is a devDependency `sirv-cli` in the project that is only necessary to run the demo on StackBlitz.
 
 ## Running the App
 

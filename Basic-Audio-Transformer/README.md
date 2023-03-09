@@ -6,9 +6,11 @@ Video APIs. It is very similar to the [Basic Video Chat](../Basic%20Video%20Chat
 
 ## Demo
 
-You can see a demo of this sample running at [opentok.github.io/opentok-web-samples/Basic-Audio-Transformer/](https://opentok.github.io/opentok-web-samples/Basic-Audio-Transformer/)
+[![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/fork/github/opentok/opentok-web-samples/tree/main/Basic-Audio-Transformer)
 
-> **Note** The demo is setup so that a new room is generated based on your public IP address. So will only work if you are connecting from 2 browsers on the same network.
+Enter your credentials in `config.js` and the application will work.
+
+> Note: There is a devDependency `sirv-cli` in the project that is only necessary to run the demo on StackBlitz.
 
 ## Running the App
 

@@ -7,7 +7,8 @@
     "test": "test"
   },
   "scripts": {
-    "test": "test"
+    "test": "test",
+    "start": "sirv --dev"
   },
   "contributors": [{
     "name": "Misha Behei"
@@ -17,5 +18,8 @@
   "license": "ISC",
   "dependencies": {
     "@vonage/ml-transformers": "^4.3.4"
+  },
+  "devDependencies": {
+    "sirv-cli": "^2.0.2"
   }
 }

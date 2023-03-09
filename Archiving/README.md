@@ -5,9 +5,11 @@ This sample application shows how to record an OpenTok session.
 
 ## Demo
 
-You can see a demo of this sample running at [opentok.github.io/opentok-web-samples/Archiving/](https://opentok.github.io/opentok-web-samples/Archiving/)
+[![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/fork/github/opentok/opentok-web-samples/tree/main/Archiving)
 
-> **Note** The demo is setup so that a new room is generated based on your public IP address. So will only work if you are connecting from 2 browsers on the same network.
+Enter your credentials in `config.js` and the application will work. 
+
+> Note: There is a devDependency `sirv-cli` in the project that is only necessary to run the demo on StackBlitz.
 
 ## Running the App
 
