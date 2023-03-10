@@ -27,30 +27,26 @@ async function enableTranscription(session) {
 
   let captionRes;
 
-  try {
-    captionRes = $.post(url, {
-      sessionId,
-      token,
-    }).done(function response() {
-      console.log('captions started with ID' + captionRes.responseText);
-    });
-  } catch (e) {
-    console.warn(e);
-  }
+  captionRes = $.post(url, {
+    sessionId,
+    token,
+  }).done(function response() {
+    console.log(captionRes.responseText);
+  });
 }
 
 async function disableTranscription() {
   const url = `${SAMPLE_SERVER_BASE_URL}/captions/stop`;
+  let captionRes;
 
-  try {
-    $.post(url, {}).done(function response() {
-      console.log('successfully stopped captions');
+  captionRes = $.post(url, { sessionId })
+    .done(function response() {
+      console.log(`successfully stopped captions for session ID: ${sessionId}`);
+    })
+    .fail(function response() {
+      console.log(captionRes.responseText);
     });
-  } catch (e) {
-    console.warn(e);
-  }
-}
-
+} 
 
 async function initializeSession() {
   let session = OT.initSession(apiKey, sessionId);
