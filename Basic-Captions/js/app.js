@@ -31,7 +31,7 @@ async function enableTranscription(session) {
     sessionId,
     token,
   }).done(function response() {
-    console.log(captionRes.responseText);
+    console.log(`captions started with ID: ${captionRes.responseText})`);
   });
 }
 
