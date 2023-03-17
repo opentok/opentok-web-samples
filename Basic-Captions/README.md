@@ -52,14 +52,19 @@ Upon starting up, the application executes the following code in the app.js file
 
 ```javascript
 // See the config.js file.
-$(document).ready(function ready() {
-  // Make an Ajax request to get the OpenTok API key, session ID, and token from the server
-  $.get(SAMPLE_SERVER_BASE_URL + '/session', function get(res) {
-    apiKey = res.apiKey;
-    sessionId = res.sessionId;
-    token = res.token;
-
-    initializeSession();
-  });
-});
+if (SAMPLE_SERVER_BASE_URL) {
+    // Make a GET request to get the OpenTok API key, session ID, and token from the server
+    fetch(SAMPLE_SERVER_BASE_URL + '/session')
+    .then((response) => response.json())
+    .then((json) => {
+        apiKey = json.apiKey;
+        sessionId = json.sessionId;
+        token = json.token;
+        // Initialize an OpenTok Session object
+        initializeSession();
+    }).catch((error) => {
+        handleError(error);
+        alert('Failed to get opentok sessionId and token. Make sure you have updated the config.js file.');
+    });
+}
 ```
