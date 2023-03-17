@@ -8,9 +8,11 @@ subscribe to a stream, and publish captions to a session.
 
 ## Demo
 
-You can see a demo of this sample running at [opentok.github.io/opentok-web-samples/Basic%20Captions/](https://opentok.github.io/opentok-web-samples/Basic%20Captions/)
+[![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/fork/github/opentok/opentok-web-samples/tree/opentok-51006-refactor/Basic-Captions)
 
-> **Note** The demo is setup so that a new room is generated based on your public IP address. So will only work if you are connecting from 2 browsers on the same network.
+Enter your credentials in `config.js` and the application will work.
+
+> Note: There is a devDependency `sirv-cli` in the project that is only necessary to run the demo on StackBlitz.
 
 ## Running the App
 

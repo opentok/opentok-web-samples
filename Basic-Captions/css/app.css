@@ -38,12 +38,20 @@ body, html {
 }
 .caption-box {
     position: absolute;
-    top: 90%;
+    top: 80%;
     /*width: 100%;*/
-    max-width: 300px;
+    max-width: 500px;
+    left: 60%;
+    transform: translate(-60%, 0);
+    z-index: 500;
     margin: auto;
     text-align: center;
     background-color: black;
     color: white;
     font-weight: bold;
+    font-size: larger !important;
+}
+
+#stop {
+    display: none;
 }

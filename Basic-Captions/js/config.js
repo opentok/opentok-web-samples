@@ -4,5 +4,4 @@
 // Set this to the base URL of your sample server, such as 'https://your-app-name.herokuapp.com'.
 // Do not include the trailing slash. See the README for more information:
 
-// const SAMPLE_SERVER_BASE_URL = 'http://localhost:8080';
-const SAMPLE_SERVER_BASE_URL = 'https://web-production-e15d.up.railway.app';
+const SAMPLE_SERVER_BASE_URL = 'http://localhost:8080';
