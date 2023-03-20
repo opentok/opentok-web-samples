@@ -1,69 +1,36 @@
-/* global $ OT SAMPLE_SERVER_BASE_URL */
+/* global OT SAMPLE_SERVER_BASE_URL */
 
 let apiKey;
 let sessionId;
 let token;
-let captionsId;
 let publisher;
 let subscriber;
+let captions;
 
 // clears after a set amount of time
 let captionsRemovalTimer;
 
-$(document).ready(function ready() {
-  // Make an Ajax request to get the OpenTok API key, session ID, and token from the server
-  $.get(SAMPLE_SERVER_BASE_URL + '/session', function get(res) {
-    apiKey = res.apiKey;
-    sessionId = res.sessionId;
-    token = res.token;
+const captionsStartBtn = document.querySelector('#start');
+const captionsStopBtn = document.querySelector('#stop');
 
-    initializeSession();
-  });
-});
-
-async function enableTranscription(session) {
-  const { sessionId, token } = session;
-  const url = `${SAMPLE_SERVER_BASE_URL}/captions/start`;
-
-  let captionRes;
-
-  captionRes = $.post(url, {
-    sessionId,
-    token,
-  }).done(function response() {
-    console.log(`captions started with ID: ${captionRes.responseText})`);
-  });
+function handleError(error) {
+  if (error) {
+    console.error(error);
+  }
 }
-
-async function disableTranscription() {
-  const url = `${SAMPLE_SERVER_BASE_URL}/captions/stop`;
-  let captionRes;
-
-  captionRes = $.post(url, { sessionId })
-    .done(function response() {
-      console.log(`successfully stopped captions for session ID: ${sessionId}`);
-    })
-    .fail(function response() {
-      console.log(captionRes.responseText);
-    });
-} 
 
 async function initializeSession() {
   let session = OT.initSession(apiKey, sessionId);
 
   // Subscribe to a newly created stream
-  session.on('streamCreated', async function streamCreated(event) {
+  session.on('streamCreated', async (event) => {
     const subscriberOptions = {
       insertMode: 'append',
       width: '100%',
       height: '100%',
       testNetwork: true,
     };
-    subscriber = session.subscribe(event.stream, 'subscriber', subscriberOptions, function callback(error) {
-      if (error) {
-        console.log('There was an error publishing: ', error.name, error.message);
-      }
-    });
+    subscriber = session.subscribe(event.stream, 'subscriber', subscriberOptions, handleError);
 
     // add captions to the subscriber object
     try {
@@ -72,15 +39,18 @@ async function initializeSession() {
       console.warn(err);
     }
 
-    subscriber.on('captionReceived', function(event){
+    subscriber.on('captionReceived', (event) => {
+      if (!captions){
+        // Client didn't initiate the captions. Remove controls.
+        captionsStartBtn.style.display = 'none';
+        captionsStopBtn.style.display = 'none';
+      }
       const captionText = event.caption;
       const subscriberContainer = OT.subscribers.find().element;
       const [subscriberWidget] = subscriberContainer.getElementsByClassName('OT_widget-container');
     
       const oldCaptionBox = subscriberWidget.querySelector('.caption-box');
-      if (oldCaptionBox) {
-        oldCaptionBox.remove();
-      }
+      if (oldCaptionBox) oldCaptionBox.remove();
     
       const captionBox = document.createElement('div');
       captionBox.classList.add('caption-box');
@@ -95,38 +65,96 @@ async function initializeSession() {
     
       subscriberWidget.appendChild(captionBox);
     });
-    $('#stop').show();
   });
 
-  session.on('sessionDisconnected', function sessionDisconnected(event) {
+  session.on('sessionDisconnected', (event) => {
     console.log('You were disconnected from the session.', event.reason);
   });
 
   // Connect to the session
-  session.connect(token, async function connectCallback(error) {
-    // If the connection is successful, initialize a publisher and publish to the session
-    if (!error) {
+  session.connect(token, (error) => {
+    if (error) {
+      handleError(error);
+    } else {
+      // If the connection is successful, initialize a publisher and publish to the session
       const publisherOptions = {
         insertMode: 'append',
         width: '100%',
         height: '100%',
         publishCaptions: true,
       };
-      publisher = OT.initPublisher('publisher', publisherOptions, function initCallback(err) {
+      publisher = OT.initPublisher('publisher', publisherOptions, (err) => {
         if (err) {
-          console.log('There was an error initializing the publisher: ', err.name, err.message);
-          return;
+          handleError(err);
+        } else {
+          session.publish(publisher, handleError);
         }
-        session.publish(publisher, function publishCallback(pubErr) {
-          if (pubErr) {
-            console.log('There was an error publishing: ', pubErr.name, pubErr.message);
-          }
-        });
       });
-
-      enableTranscription(session);
-    } else {
-      console.log('There was an error connecting to the session: ', error.name, error.message);
     }
+  });
+}
+
+async function postData(url='', data={}){
+  try {
+    const response = await fetch(url, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(data)
+    });
+    if (!response.ok){
+      throw new Error('error getting data!');
+    }
+    return response.json();
+  }
+  catch (error){
+    handleError(error);
+  }
+}
+
+async function startCaptions(){
+  console.log('start captions');
+  try {
+    captions = await postData(SAMPLE_SERVER_BASE_URL +'/captions/start',{sessionId, token});
+    captionsStartBtn.style.display = 'none';
+    captionsStopBtn.style.display = 'inline';
+  }
+  catch(error){
+    handleError(error);
+  }
+}
+
+async function stopCaptions(){
+  console.log('stop captions');
+  try {
+    captions = await postData(`${SAMPLE_SERVER_BASE_URL}/captions/${captions.id}/stop`,{});
+    captionsStartBtn.style.display = 'none';
+    captionsStopBtn.style.display = 'inline';
+  }
+  catch(error){
+    captionsStartBtn.style.display = 'inline';
+    captionsStopBtn.style.display = 'none';
+    handleError(error);
+  }
+}
+
+captionsStartBtn.addEventListener('click', startCaptions, false);
+captionsStopBtn.addEventListener('click', stopCaptions, false);
+
+// See the config.js file.
+if (SAMPLE_SERVER_BASE_URL) {
+  // Make a GET request to get the OpenTok API key, session ID, and token from the server
+  fetch(SAMPLE_SERVER_BASE_URL + '/session')
+  .then((response) => response.json())
+  .then((json) => {
+    apiKey = json.apiKey;
+    sessionId = json.sessionId;
+    token = json.token;
+    // Initialize an OpenTok Session object
+    initializeSession();
+  }).catch((error) => {
+    handleError(error);
+    alert('Failed to get opentok sessionId and token. Make sure you have updated the config.js file.');
   });
 }

@@ -8,9 +8,12 @@ subscribe to a stream, and publish captions to a session.
 
 ## Demo
 
-You can see a demo of this sample running at [opentok.github.io/opentok-web-samples/Basic%20Captions/](https://opentok.github.io/opentok-web-samples/Basic%20Captions/)
+[![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/fork/github/opentok/opentok-web-samples/tree/opentok-51006/Basic-Captions)
 
-> **Note** The demo is setup so that a new room is generated based on your public IP address. So will only work if you are connecting from 2 browsers on the same network.
+Enter your credentials in `config.js` and the application will work.
+
+> Note: There is a devDependency `sirv-cli` in the project that is only necessary to run the demo on StackBlitz.
+
 
 ## Running the App
 
@@ -62,3 +65,103 @@ $(document).ready(function ready() {
   });
 });
 ```
+
+The captions need to be enabled by making a request to your server. Please see [the following
+sample](https://github.com/opentok/learning-opentok-node) on how to set up a NodeJS server.
+
+The following method will enable the captions in your session: 
+
+```javascript
+async function startCaptions() {
+  console.log('start captions');
+  try {
+    captions = await postData(SAMPLE_SERVER_BASE_URL +'/captions/start',{sessionId, token});
+    captionsStartBtn.style.display = 'none';
+    captionsStopBtn.style.display = 'inline';
+  }
+  catch(error){
+    handleError(error);
+  }
+}
+```
+
+The following method will stop the captions in your session:
+
+```javascript
+async function stopCaptions() {
+  console.log('stop captions');
+  try {
+    captions = await postData(`${SAMPLE_SERVER_BASE_URL}/captions/${captions.id}/stop`,{});
+    captionsStartBtn.style.display = 'none';
+    captionsStopBtn.style.display = 'inline';
+  }
+  catch(error){
+    captionsStartBtn.style.display = 'inline';
+    captionsStopBtn.style.display = 'none';
+    handleError(error);
+  }
+}
+```
+
+The `postData` method is used by both `startCaptions` and `stopCaptions` methods and is defined as following:
+```javascript
+async function postData(url='', data={}) {
+  try {
+    const response = await fetch(url, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(data)
+    });
+    if (!response.ok){
+      throw new Error('error getting data!');
+    }
+    return response.json();
+  }
+  catch (error){
+    handleError(error);
+  }
+}
+```
+
+When initializing a Publisher that you would like to have the captions enabled for, pass the `publishCaptions` property set to `true`:
+
+```javascript
+      const publisherOptions = {
+        insertMode: 'append',
+        width: '100%',
+        height: '100%',
+        publishCaptions: true,
+      };
+```
+
+The Subscriber object has an event, `captionReceived`, that you can listen for in order to make the changes to the UI:
+
+```javascript
+subscriber.on('captionReceived', function(event){
+      const captionText = event.caption;
+      const subscriberContainer = OT.subscribers.find().element;
+      const [subscriberWidget] = subscriberContainer.getElementsByClassName('OT_widget-container');
+    
+      const oldCaptionBox = subscriberWidget.querySelector('.caption-box');
+      if (oldCaptionBox) {
+        oldCaptionBox.remove();
+      }
+    
+      const captionBox = document.createElement('div');
+      captionBox.classList.add('caption-box');
+      captionBox.textContent = captionText;
+    
+      // remove the captions after 5 seconds
+      const removalTimerDuration = 5 * 1000;
+      clearTimeout(captionsRemovalTimer);
+      captionsRemovalTimer = setTimeout(() => {
+        captionBox.textContent = '';
+      }, removalTimerDuration);
+    
+      subscriberWidget.appendChild(captionBox);
+    });
+```
+
+To learn more about OpenTok Captions API, please visit the [Captions API Developer Documentation page](https://www.tokbox.com/developer/guides/live-captions/).
