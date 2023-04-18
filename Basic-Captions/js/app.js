@@ -12,13 +12,13 @@ let captionsRemovalTimer;
 
 const captionsStartBtn = document.querySelector('#start');
 const captionsStopBtn = document.querySelector('#stop');
+// const captionsSelfSubscribeBtn = document.querySelector('#selfSub');
 
 function handleError(error) {
   if (error) {
     console.error(error);
   }
 }
-
 async function initializeSession() {
   let session = OT.initSession(apiKey, sessionId);
 
@@ -87,11 +87,17 @@ async function initializeSession() {
         if (err) {
           handleError(err);
         } else {
-          session.publish(publisher, handleError);
+          // session.publish(publisher, handleError);
+          session.publish(publisher, () => {
+            selfSubscribe(session)
+          });
+          // selfSubscribe(session)
         }
       });
+      
     }
   });
+
 }
 
 async function postData(url='', data={}){
@@ -111,6 +117,35 @@ async function postData(url='', data={}){
   catch (error){
     handleError(error);
   }
+}
+
+const selfSubscribe = (session) => {
+  const captionSub = session.subscribe(publisher.stream, document.createElement('div'),
+   {testNetwork: true})
+  captionSub.setAudioVolume(0)
+  console.log(captionSub)
+  captionSub.on('captionReceived', (event) => {
+    console.log(event.caption)
+    const captionText = event.caption;
+      const publisherContainer = OT.publishers.find().element;
+      const [publisherWidget] = publisherContainer.getElementsByClassName('OT_widget-container');
+    
+      const oldCaptionBox = publisherWidget.querySelector('.caption-box');
+      if (oldCaptionBox) oldCaptionBox.remove();
+    
+      const captionBox = document.createElement('div');
+      captionBox.classList.add('caption-box');
+      captionBox.textContent = captionText;
+    
+      // remove the captions after 5 seconds
+      const removalTimerDuration = 5 * 1000;
+      clearTimeout(captionsRemovalTimer);
+      captionsRemovalTimer = setTimeout(() => {
+        captionBox.textContent = '';
+      }, removalTimerDuration);
+    
+      publisherWidget.appendChild(captionBox);
+})
 }
 
 async function startCaptions(){
