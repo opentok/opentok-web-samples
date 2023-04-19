@@ -12,13 +12,13 @@ let captionsRemovalTimer;
 
 const captionsStartBtn = document.querySelector('#start');
 const captionsStopBtn = document.querySelector('#stop');
-// const captionsSelfSubscribeBtn = document.querySelector('#selfSub');
 
 function handleError(error) {
   if (error) {
     console.error(error);
   }
 }
+
 async function initializeSession() {
   let session = OT.initSession(apiKey, sessionId);
 
@@ -87,17 +87,13 @@ async function initializeSession() {
         if (err) {
           handleError(err);
         } else {
-          // session.publish(publisher, handleError);
           session.publish(publisher, () => {
             selfSubscribe(session)
           });
-          // selfSubscribe(session)
         }
       });
-      
     }
   });
-
 }
 
 async function postData(url='', data={}){
@@ -122,8 +118,9 @@ async function postData(url='', data={}){
 const selfSubscribe = (session) => {
   const captionSub = session.subscribe(publisher.stream, document.createElement('div'),
    {testNetwork: true})
+   // Note that testNetwork will be fixed in 2.25.1
   captionSub.setAudioVolume(0)
-  console.log(captionSub)
+
   captionSub.on('captionReceived', (event) => {
     console.log(event.caption)
     const captionText = event.caption;
