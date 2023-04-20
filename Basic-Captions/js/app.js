@@ -19,6 +19,36 @@ function handleError(error) {
   }
 }
 
+function displayCaption(captionText, widgetType) {
+  console.log(`Caption text: ${captionText}`);
+  let container;
+  if (widgetType === 'subscriber'){
+    container = OT.subscribers.find().element;
+  } else if (widgetType === 'publisher'){
+    container = OT.publishers.find().element;
+  } else {
+    console.warn('Invalid Widget Type');
+    return
+  }
+  const [widget] = container.getElementsByClassName('OT_widget-container');
+
+  const oldCaptionBox = widget.querySelector('.caption-box');
+  if (oldCaptionBox) oldCaptionBox.remove();
+
+  const captionBox = document.createElement('div');
+  captionBox.classList.add('caption-box');
+  captionBox.textContent = captionText;
+
+  // remove the captions after 5 seconds
+  const removalTimerDuration = 5 * 1000;
+  clearTimeout(captionsRemovalTimer);
+  captionsRemovalTimer = setTimeout(() => {
+    captionBox.textContent = '';
+  }, removalTimerDuration);
+
+  widget.appendChild(captionBox);
+}
+
 async function initializeSession() {
   let session = OT.initSession(apiKey, sessionId);
 
@@ -45,25 +75,7 @@ async function initializeSession() {
         captionsStartBtn.style.display = 'none';
         captionsStopBtn.style.display = 'none';
       }
-      const captionText = event.caption;
-      const subscriberContainer = OT.subscribers.find().element;
-      const [subscriberWidget] = subscriberContainer.getElementsByClassName('OT_widget-container');
-    
-      const oldCaptionBox = subscriberWidget.querySelector('.caption-box');
-      if (oldCaptionBox) oldCaptionBox.remove();
-    
-      const captionBox = document.createElement('div');
-      captionBox.classList.add('caption-box');
-      captionBox.textContent = captionText;
-    
-      // remove the captions after 5 seconds
-      const removalTimerDuration = 5 * 1000;
-      clearTimeout(captionsRemovalTimer);
-      captionsRemovalTimer = setTimeout(() => {
-        captionBox.textContent = '';
-      }, removalTimerDuration);
-    
-      subscriberWidget.appendChild(captionBox);
+      displayCaption(event.caption, 'subscriber')
     });
   });
 
@@ -122,26 +134,7 @@ const selfSubscribe = (session) => {
   captionSub.setAudioVolume(0)
 
   captionSub.on('captionReceived', (event) => {
-    console.log(event.caption)
-    const captionText = event.caption;
-      const publisherContainer = OT.publishers.find().element;
-      const [publisherWidget] = publisherContainer.getElementsByClassName('OT_widget-container');
-    
-      const oldCaptionBox = publisherWidget.querySelector('.caption-box');
-      if (oldCaptionBox) oldCaptionBox.remove();
-    
-      const captionBox = document.createElement('div');
-      captionBox.classList.add('caption-box');
-      captionBox.textContent = captionText;
-    
-      // remove the captions after 5 seconds
-      const removalTimerDuration = 5 * 1000;
-      clearTimeout(captionsRemovalTimer);
-      captionsRemovalTimer = setTimeout(() => {
-        captionBox.textContent = '';
-      }, removalTimerDuration);
-    
-      publisherWidget.appendChild(captionBox);
+    displayCaption(event.caption, 'publisher')
 })
 }
 
