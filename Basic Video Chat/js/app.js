@@ -35,6 +35,16 @@ function initializeSession() {
   };
   const publisher = OT.initPublisher('publisher', publisherOptions, handleError);
 
+  // Subscribe to self
+  publisher.on('streamCreated', (event) => {
+    const subscriberOptions = {
+      insertMode: 'append',
+      width: '100%',
+      height: '100%'
+    };
+    session.subscribe(event.stream, 'subscriber', subscriberOptions, handleError);
+  });
+
   // Connect to the session
   session.connect(token, (error) => {
     if (error) {
