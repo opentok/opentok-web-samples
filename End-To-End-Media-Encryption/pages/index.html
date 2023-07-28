@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="./style.css" />
+    <script src="https://static.opentok.com/v2/js/opentok.min.js"></script>
+
+    <title>End-to-End Media Encryption demo</title>
+  </head>
+  <body>
+    <div id="login">
+      <h1>End-to-End Media Encryption</h1>
+      Name: <input id="name" placeholder="your name"></input>
+      <br/>
+      Encryption Key: <input id="encrypt-key" minLength="8" maxLength="256" placeholder='8-256 characters'></input>
+      <br/>
+      <button id="enter-button">Enter</button>
+    </div>
+
+    <div id="videos">
+      <div id="subscriber"></div>
+      <div id="publisher-container">
+        <div id="publisher"></div>
+        New encyption key: <input id="new-encrypt-key" minLength="8" maxLength="256" placeholder='8-256 characters'></input>
+        <button id="change-button">Change</button><button id="leave-button">Leave</button>
+      </div>
+    </div>
+
+    <script type="text/javascript" src="app.js"></script>
+  </body>
+</html>

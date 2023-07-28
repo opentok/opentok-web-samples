@@ -1,0 +1,13 @@
+{
+  "name": "end-to-end-media-encryption",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "start": "node index.js"
+  },
+  "dependencies": {
+    "express": "^4.17.1",
+    "dotenv": "^16.0.1",
+    "opentok": "2.15.1"
+  }
+}
