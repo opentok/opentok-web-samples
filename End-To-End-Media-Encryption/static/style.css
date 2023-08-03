@@ -1,0 +1,61 @@
+h1 {
+  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+}
+body,
+html {
+  background-color: gray;
+  margin: 0;
+  /* height: 100%; */
+  color: white;
+}
+#login {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  justify-content: center;
+  align-items: center;
+}
+
+#videos {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  margin-left: auto;
+  margin-right: auto;
+}
+#subscriber {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 10;
+}
+#publisher-container {
+  position: absolute;
+  bottom: 10px;
+  left: 10px;
+  z-index: 100;
+  border: 3px solid white;
+  border-radius: 3px;
+  background-color: black;
+}
+#publisher {
+  width: 360px;
+  height: 240px;
+}
+#videos {
+  display: none;
+}
+#encrypt-key:placeholder-shown,
+#new-encrypt-key:placeholder-shown {
+  background-color: white;
+}
+#encrypt-key:valid:not(:placeholder-shown),
+#new-encrypt-key:valid:not(:placeholder-shown) {
+  background-color: palegreen;
+}
+#encrypt-key:invalid,
+#new-encrypt-key:invalid {
+  background-color: pink;
+}
