@@ -1,7 +1,7 @@
 {
   "name": "moderate-background-img-replacement",
   "version": "1.0.0",
-  "description": "This sample application shows how to add image as background",
+  "description": "This sample application shows how to add an image as background",
   "main": "index.js",
   "directories": {
     "test": "test"
