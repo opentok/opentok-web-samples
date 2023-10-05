@@ -1,12 +1,13 @@
 import {
   createVonageMediaProcessor
-} from '@vonage/ml-transformers/dist/ml-transformers.es.js';
+} from '../node_modules/@vonage/ml-transformers/dist/ml-transformers.es.js';
 
 /* global OT API_KEY TOKEN SESSION_ID SAMPLE_SERVER_BASE_URL */
 /* global MediaProcessorConnector */
 
 const bgUrl1 = "https://neru-b617e2b2-basic-dev.euw1.runtime.vonage.cloud/bg-1.png";
 const bgUrl2 = "https://neru-b617e2b2-basic-dev.euw1.runtime.vonage.cloud/bg-2.png";
+const applyButtonsContainer = document.getElementById("buttons");
 
 let apiKey;
 let sessionId;
@@ -19,8 +20,13 @@ const config = {
 
 const processor = await createVonageMediaProcessor(config);
 
-const transformStream = (publisher) => {
+const handleError = (error) => {
+  if (error) {
+    console.error(error);
+  }
+};
 
+const transformStream = (publisher) => {
   if (OT.hasMediaProcessorSupport()) {
     publisher
       .setVideoMediaProcessorConnector(processor.getConnector())
@@ -37,21 +43,14 @@ const applyBackground = (assetUri) => {
   processor.setBackgroundOptions(config);
 };
 
-const applyButtonsContainer = document.getElementById("buttons");
 
 applyButtonsContainer.addEventListener("click", (event) => {
-  if (event.target.id === "applyImg-1") {
-    applyBackground(bgUrl2);
-  } else if (event.target.id === "applyImg-2") {
+  if (event.target.id === "apply-img-1") {
     applyBackground(bgUrl1);
+  } else if (event.target.id === "apply-img-2") {
+    applyBackground(bgUrl2);
   }
 });
-
-const handleError = (error) => {
-  if (error) {
-    console.error(error);
-  }
-};
 
 const initializeSession = () => {
   const session = OT.initSession(apiKey, sessionId);
