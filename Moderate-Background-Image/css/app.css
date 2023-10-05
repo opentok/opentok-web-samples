@@ -1,71 +1,44 @@
-.button {
-    background-color: #7FFFD4;
-    /* Green */
-    border: none;
-    color: grey;
-    padding: 5px 5px;
-    text-align: center;
-    text-decoration: none;
-    display: inline-block;
-    font-size: 16px;
-    transition-duration: 0.4s;
-}
-
-.button:hover {
-    background-color: #808080;
-    color: white;
-}
-
-body, html {
-    background-color: gray;
-    height: 100%;
+body,
+html {
+  background-color: gray;
+  height: 100%;
+  margin: 0;
 }
 
 #videos {
-    position: relative;
-    width: 100%;
-    height: 100%;
-    margin-left: auto;
-    margin-right: auto;
+  position: relative;
+  width: 100%;
+  height: 100%;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 #subscriber {
-    position: absolute;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    z-index: 10;
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 10;
+}
+
+#publisher-container {
+  position: absolute;
+  bottom: 10px;
+  left: 10px;
+  z-index: 100;
+  border: 3px solid white;
+  border-radius: 3px;
+  background-color: black;
 }
 
 #publisher {
-    position: absolute;
-    width: 360px;
-    height: 240px;
-    bottom: 50px;
-    left: 10px;
-    z-index: 100;
-    border: 3px solid white;
-    border-radius: 3px;
+  width: 360px;
+  height: 240px;
 }
 
 #buttons {
-    position: absolute;
-    width: 360px;
-    height: 285px;
-    bottom: 50px;
-    left: 35px;
-    z-index: 100;
-}
-
-#buttonholder {
-    position: absolute;
-    /* width: 70%; */
-    margin-left: auto;
-    margin-right: auto;
-    bottom: 2px;
-    left: 20px;
-    z-index: 200;
-    border: 3px solid white;
-    border-radius: 3px;
+  background-color: white;
+  padding: 5px;
+  text-align: center;
 }
