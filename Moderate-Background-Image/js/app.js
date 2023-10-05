@@ -43,7 +43,6 @@ const applyBackground = (assetUri) => {
   processor.setBackgroundOptions(config);
 };
 
-
 applyButtonsContainer.addEventListener("click", (event) => {
   if (event.target.id === "apply-img-1") {
     applyBackground(bgUrl1);
@@ -103,6 +102,8 @@ if (API_KEY && TOKEN && SESSION_ID) {
     initializeSession();
   }).catch((error) => {
     handleError(error);
-    alert('Failed to get opentok sessionId and token. Make sure you have updated the config.js file.');
+    alert('Failed to get OpenTok sessionId and token. Make sure you have updated the config.js file.');
   });
+} else {
+  alert('Failed to get OpenTok sessionId and token. Make sure you have updated the config.js file.');
 }
