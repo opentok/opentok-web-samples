@@ -1,0 +1,44 @@
+body,
+html {
+  background-color: gray;
+  height: 100%;
+  margin: 0;
+}
+
+#videos {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+#subscriber {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 10;
+}
+
+#publisher-container {
+  position: absolute;
+  bottom: 10px;
+  left: 10px;
+  z-index: 100;
+  border: 3px solid white;
+  border-radius: 3px;
+  background-color: black;
+}
+
+#publisher {
+  width: 360px;
+  height: 240px;
+}
+
+#buttons {
+  background-color: white;
+  padding: 5px;
+  text-align: center;
+}
