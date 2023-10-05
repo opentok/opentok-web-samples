@@ -1,4 +1,4 @@
-OpenTok.js Moderate Background Replacement
+OpenTok.js Moderate Background Image Replacement
 =======================
 
 This sample application shows how to add image background replacement with the Vonage
@@ -6,7 +6,7 @@ Video APIs. It is very similar to the [Basic Video Chat](../Basic%20Video%20Chat
 
 ## Demo
 
-[![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/fork/github/opentok/opentok-web-samples/tree/main/Moderate-Background-Blur)
+[![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/fork/github/opentok/opentok-web-samples/tree/main/Moderate-Background-Image)
 
 Enter your credentials in `config.js` and the application will work.
 
