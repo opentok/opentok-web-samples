@@ -1,7 +1,7 @@
 OpenTok.js Moderate Background Image Replacement
 =======================
 
-This sample application shows how to add image background replacement with the Vonage
+This sample application shows how to add background image replacement with the Vonage
 Video APIs. It is very similar to the [Basic Video Chat](../Basic%20Video%20Chat/) example, but it adds a background image to the publisher. See [Vonage ML Transformers](https://vonage.github.io/ml-transformers-docs/) library for more information.
 
 ## Demo
