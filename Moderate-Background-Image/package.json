@@ -20,7 +20,7 @@
   ],
   "license": "ISC",
   "dependencies": {
-    "@vonage/ml-transformers": "^5.1.0"
+    "@vonage/ml-transformers": "^5.1.2"
   },
   "devDependencies": {
     "sirv-cli": "^2.0.2"

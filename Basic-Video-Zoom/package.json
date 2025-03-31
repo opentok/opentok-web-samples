@@ -14,7 +14,7 @@
   "license": "ISC",
   "dependencies": {
     "@opentok/client": "^2.24.6",
-    "@vonage/ml-transformers": "^4.3.4"
+    "@vonage/ml-transformers": "^5.0.0"
   },
   "devDependencies": {
     "sirv-cli": "^2.0.2"
