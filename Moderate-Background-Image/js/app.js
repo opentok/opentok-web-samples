@@ -14,6 +14,8 @@ let sessionId;
 let token;
 
 const config = {
+  modelAssetUriPath: 'https://static.opentok.com/ml-transformers/v6.0.0/float16/vonage_selfie_segmenter.tflite',
+  mediapipeBaseAssetsUri: 'https://static.opentok.com/ml-transformers/v6.0.0/mediapipe/0.10.20',
   transformerType: "VirtualBackground",
   backgroundAssetUri: bgUrl1
 };
