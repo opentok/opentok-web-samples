@@ -7,6 +7,7 @@ import {
 
 const bgUrl1 = "https://neru-b617e2b2-basic-dev.euw1.runtime.vonage.cloud/bg-1.png";
 const bgUrl2 = "https://neru-b617e2b2-basic-dev.euw1.runtime.vonage.cloud/bg-2.png";
+
 const applyButtonsContainer = document.getElementById("buttons");
 
 let apiKey;
@@ -14,10 +15,15 @@ let sessionId;
 let token;
 
 const config = {
-  modelAssetUriPath: 'https://static.opentok.com/ml-transformers/v6.0.0/float16/vonage_selfie_segmenter.tflite',
-  mediapipeBaseAssetsUri: 'https://static.opentok.com/ml-transformers/v6.0.0/mediapipe/0.10.20',
   transformerType: "VirtualBackground",
-  backgroundAssetUri: bgUrl1
+  backgroundAssetUri: bgUrl1,
+  // These two following properties added below are an example about how to provide
+  // the ML assets used by the library. If a copy of those is needed for any other
+  // custom hosting, please contact Vonage.
+  // For more information see https://vonage.github.io/ml-transformers-docs/docs/api/interfaces/MediaProcessorBaseConfig#modelasseturipath.
+  modelAssetUriPath: 'https://static.opentok.com/ml-transformers/v6.0.0/float16/vonage_selfie_segmenter.tflite',
+  // For more information see https://vonage.github.io/ml-transformers-docs/docs/api/interfaces/MediaProcessorBaseConfig#mediapipebaseassetsuri.
+  mediapipeBaseAssetsUri: 'https://static.opentok.com/ml-transformers/v6.0.0/mediapipe/0.10.20'
 };
 
 const processor = await createVonageMediaProcessor(config);
