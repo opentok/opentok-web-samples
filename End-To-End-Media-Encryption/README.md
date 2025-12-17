@@ -92,4 +92,4 @@ To change the encryption key's value while connected to a session, call `setEncr
 session.setEncryptionSecret(newEncryptKeyInput.value);
 ```
 
-To learn more, please read the accompanying [blog post]() and visit the [End-to-End Media Encryption Developer Documentation page](https://tokbox.com/developer/guides/end-to-end-encryption/).
+To learn more, please read the accompanying [blog post](https://developer.vonage.com/en/blog/adding-end-to-end-media-encryption-to-your-video-calls) and visit the [End-to-End Media Encryption Developer Documentation page](https://tokbox.com/developer/guides/end-to-end-encryption/).
