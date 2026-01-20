@@ -50,22 +50,67 @@ function initializeSession() {
     console.log('You were disconnected from the session.', event.reason);
   });
 
-  // initialize the publisher
-  const publisherOptions = {
-    insertMode: 'append',
-    width: '100%',
-    height: '100%'
+  const randomColour = () => {
+    return Math.round(Math.random() * 255);
   };
-  const publisher = OT.initPublisher('publisher', publisherOptions, handleError);
 
-  // Connect to the session
-  session.connect(token, (error) => {
-    if (error) {
-      handleError(error);
-    } else {
-      // If the connection is successful, publish the publisher to the session
-      session.publish(publisher, handleError);
-    }
+  // Canvas
+  navigator.mediaDevices.getUserMedia({
+    audio: true,
+    video: { height: 480, width: 640}
+  }).then((stream) => {
+    const canvas = document.createElement('canvas');
+    canvas.width = 640;
+    canvas.height = 480;
+    const ctx = canvas.getContext('2d');
+
+    const video = document.createElement('video');
+    video.height = 480;
+    video.width = 640;
+    video.autoplay = true;
+    video.setAttribute('playsinline', 'true');
+    video.srcObject = stream;
+    document.querySelector('#videos').appendChild(video);
+  
+    // Draw a random colour in the Canvas every 3 seconds
+    const interval = setInterval(() => {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      ctx.fillStyle = `rgb(${randomColour()}, ${randomColour()}, ${randomColour()})`;
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+      ctx.drawImage(video, 0, 0, video.width, video.height, 0, 0, canvas.width, canvas.height)
+    }, 33);
+  
+    // initialize the publisher
+    const publisherOptions = {
+      insertMode: 'append',
+      width: '100%',
+      height: '100%',
+      scalableVideo: false,
+      videoSource: canvas.captureStream(30).getVideoTracks()[0], // Use canvas.captureStream at 3 fps and pass the video track to the Publisher
+      audioSource: stream.getAudioTracks()[0]
+    };
+  
+    const publisher = OT.initPublisher('publisher', publisherOptions, (error) => {
+      if (error) {
+        clearInterval(interval);
+        handleError(error);
+        alert(error.message);
+      }
+    });
+  
+    publisher.on('destroyed', () => {
+      clearInterval(interval);
+    });
+  
+    // Connect to the session
+    session.connect(token, (error) => {
+      if (error) {
+        handleError(error);
+      } else {
+        // If the connection is successful, publish the publisher to the session
+        session.publish(publisher, handleError);
+      }
+    });
   });
 }
 
@@ -132,6 +177,7 @@ if (SAMPLE_SERVER_BASE_URL) {
     apiKey = json.apiKey;
     sessionId = json.sessionId;
     token = json.token;
+    console.log(json);
     // Initialize an OpenTok Session object
     initializeSession();
   }).catch((error) => {
