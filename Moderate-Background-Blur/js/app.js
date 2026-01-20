@@ -11,7 +11,14 @@ let token;
 
 const config = {
   transformerType: 'BackgroundBlur',
-  radius: BlurRadius.High
+  radius: BlurRadius.High,
+  // These two following properties added below are an example about how to provide
+  // the ML assets used by the library. If a copy of those is needed for any other
+  // custom hosting, please contact Vonage.
+  // For more information see https://vonage.github.io/ml-transformers-docs/docs/api/interfaces/MediaProcessorBaseConfig#modelasseturipath.
+  modelAssetUriPath: 'https://static.opentok.com/ml-transformers/v6.0.0/float16/vonage_selfie_segmenter.tflite',
+  // For more information see https://vonage.github.io/ml-transformers-docs/docs/api/interfaces/MediaProcessorBaseConfig#mediapipebaseassetsuri.
+  mediapipeBaseAssetsUri: 'https://static.opentok.com/ml-transformers/v6.0.0/mediapipe/0.10.20'
 };
 
 const transformStream = async (publisher) => {
