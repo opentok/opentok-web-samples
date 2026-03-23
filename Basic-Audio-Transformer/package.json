@@ -13,7 +13,7 @@
   "author": "Misha Behei, Christian Pettet",
   "license": "ISC",
   "dependencies": {
-    "@vonage/ml-transformers": "^4.3.6"
+    "@vonage/ml-transformers": "^5.0.0"
   },
   "devDependencies": {
     "sirv-cli": "^2.0.2"
