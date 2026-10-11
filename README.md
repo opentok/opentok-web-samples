@@ -1,3 +1,5 @@
+⚠️ **This repository has been deprecated in favour of the [Vonage Video API Web Samples](https://github.com/Vonage/vonage-video-api-web-samples)** ⚠️
+
 # OpenTok Web Samples
 
 Sample applications for using the [OpenTok.js](https://tokbox.com/developer/sdks/js/) library with vanilla JavaScript.
